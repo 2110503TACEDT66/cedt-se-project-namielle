@@ -1,7 +1,5 @@
 name: 'New PR Notification'
-on:
-  pull_request: 
-    types: [opened, reopened]
+on: [push, pull_request, issues]
 
 jobs:
   notify:
@@ -10,7 +8,7 @@ jobs:
       - name: Send Discord notification
         uses: stegzilla/discord-notify@v2
         with:
-          webhook_url: https://discord.com/api/webhooks/...
+          webhook_url: https://discord.com/api/webhooks/1224263692187602965/wz7YTPc3Qz1ZJ0OtEGhZCjURfz_Ajn4uCImxdITNTpveACpxnY6Ix9Dr6rDoNEuxaEQW/github
           title: New PR opened
           message: "**${{ github.event.pull_request.title }}**\n**Creator:** ${{ github.event.pull_request.user.login }}\n${{ github.event.pull_request.html_url }}"
           include_image: true
