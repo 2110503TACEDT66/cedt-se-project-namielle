@@ -9,7 +9,7 @@ jobs:
         uses: th0th/notify-discord@v0.4.1
         if: ${{ always() }}
         env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_WEBHOOK_URL: https://discord.com/api/webhooks/1224263692187602965/wz7YTPc3Qz1ZJ0OtEGhZCjURfz_Ajn4uCImxdITNTpveACpxnY6Ix9Dr6rDoNEuxaEQW/github
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_JOB_NAME: "Build and deploy"
           GITHUB_JOB_STATUS: ${{ job.status }}
