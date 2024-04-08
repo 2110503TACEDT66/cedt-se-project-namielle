@@ -1,5 +1,5 @@
-const Hotel = require('../models/Hotel');
-const fs = require('fs');
+const Hotel = require("../models/Hotel");
+const fs = require("fs");
 
 //@desc Get all hotels
 //@route GET /api/v1/hotels
@@ -9,28 +9,31 @@ exports.getHotels = async (req, res, next) => {
     //Copy req.query
     const reqQuery = { ...req.query };
     //Fields to exclude
-    const removeFields = ['select', 'sort', 'page', 'limit'];
+    const removeFields = ["select", "sort", "page", "limit"];
     //Loop over removeFields and delete them from reqQuery
-    removeFields.forEach(param => delete reqQuery[param]);
+    removeFields.forEach((param) => delete reqQuery[param]);
     console.log(reqQuery);
     //Create query string
-    let queryStr = JSON.stringify(reqQuery); 
-    queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
+    let queryStr = JSON.stringify(reqQuery);
+    queryStr = queryStr.replace(
+        /\b(gt|gte|lt|lte|in)\b/g,
+        (match) => `$${match}`
+    );
 
-    query = Hotel.find(JSON.parse(queryStr)).populate('booking');  
-    query = Hotel.find(JSON.parse(queryStr)).populate('review');
+    query = Hotel.find(JSON.parse(queryStr)).populate("booking");
+    query = Hotel.find(JSON.parse(queryStr)).populate("review");
     //Select fields
     if (req.query.select) {
-        const fields = req.query.select.split(',').join(' ');
+        const fields = req.query.select.split(",").join(" ");
         query = query.select(fields);
     }
-    
+
     //Sort
-    if(req.query.sort){
-        const sortBy = req.query.sort.split(',').join(' ');
+    if (req.query.sort) {
+        const sortBy = req.query.sort.split(",").join(" ");
         query = query.sort(sortBy);
     } else {
-        query = query.sort('name');
+        query = query.sort("name");
     }
 
     //Pagination
@@ -45,24 +48,27 @@ exports.getHotels = async (req, res, next) => {
         const hotels = await query;
         //Pagination result
         const pagination = {};
-        if(endIndex < total){
+        if (endIndex < total) {
             pagination.next = {
-                page:page+1,
-                limit
-            }
+                page: page + 1,
+                limit,
+            };
         }
-        if(startIndex > 0){
+        if (startIndex > 0) {
             pagination.prev = {
-                page:page-1,
-                limit
-            }
+                page: page - 1,
+                limit,
+            };
         }
 
         console.log(req.query);
 
-        res.status(200).json({ success: true, count: hotels.length, data: hotels });
-    }
-    catch (err) {
+        res.status(200).json({
+            success: true,
+            count: hotels.length,
+            data: hotels,
+        });
+    } catch (err) {
         res.status(400).json({ success: false });
     }
 };
@@ -77,8 +83,7 @@ exports.getHotel = async (req, res, next) => {
             return res.status(400).json({ success: false });
         }
         res.status(200).json({ success: true, data: hotel });
-    }
-    catch (err) {
+    } catch (err) {
         res.status(400).json({ success: false });
     }
 };
@@ -88,17 +93,19 @@ exports.getHotel = async (req, res, next) => {
 //@access Private
 exports.createHotel = async (req, res, next) => {
     //console.log("a");
-    var data = req.body
+    var data = req.body;
     if (req.file && req.file.filename) {
         data.file = req.file.filename;
     } else {
         // Handle the error condition here
-        return res.status(400).json({ error: "Please add a picture to the hotel" });
+        return res
+            .status(400)
+            .json({ error: "Please add a picture to the hotel" });
     }
     const hotel = await Hotel.create(data);
     res.status(201).json({
         success: true,
-        data: hotel
+        data: hotel,
     });
 };
 
@@ -109,7 +116,7 @@ exports.updateHotel = async (req, res, next) => {
     try {
         const hotel = await Hotel.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
-            runValidators: true
+            runValidators: true,
         });
         if (!hotel) {
             return res.status(400).json({ success: false });
@@ -118,31 +125,31 @@ exports.updateHotel = async (req, res, next) => {
     } catch (err) {
         res.status(400).json({ success: false });
     }
-
 };
 
 //@desc Delete hotels
 //@route Delete /api/v1/hotels/:id
 //@access Private
 exports.deleteHotel = async (req, res, next) => {
-    try{
+    try {
         const hotel = await Hotel.findById(req.params.id);
         if (!hotel) {
-            return res.status(404).json({ 
-                success: false, message: `Bootcamp not found with id of ${req.params.id}`
+            return res.status(404).json({
+                success: false,
+                message: `Bootcamp not found with id of ${req.params.id}`,
             });
         }
         await hotel.deleteOne();
-        if(hotel?.file){
-            await fs.unlink('./uploads/'+hotel.file,(err) => {
-            if(err){
-                res.status(400).json({success:false})
+        if (hotel?.file) {
+            await fs.unlink("./uploads/" + hotel.file, (err) => {
+                if (err) {
+                    res.status(400).json({ success: false });
                 }
-            })
+            });
         }
-        
+
         res.status(200).json({ success: true, data: {} });
-    }catch(err){
+    } catch (err) {
         res.status(400).json({ success: false });
     }
 };

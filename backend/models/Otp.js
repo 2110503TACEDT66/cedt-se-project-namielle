@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const mailSender = require('../utils/mailSender');
+const mongoose = require("mongoose");
+const mailSender = require("../utils/mailSender");
 
-const otpSchema = new mongoose.Schema ({
+const otpSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
@@ -13,12 +13,12 @@ const otpSchema = new mongoose.Schema ({
     createdAt: {
         type: Date,
         default: Date.now,
-        expires: 60 * 5 //document deleted after 5 mins
-    }
+        expires: 60 * 5, //document deleted after 5 mins
+    },
 });
 
 //Define sending mail function
-async function sendVerificationEmail (email, otp) {
+async function sendVerificationEmail(email, otp) {
     try {
         const mailResponse = await mailSender(
             email,
@@ -33,11 +33,11 @@ async function sendVerificationEmail (email, otp) {
     }
 }
 
-otpSchema.pre('save', async function (next){
-    if (this.isNew){
+otpSchema.pre("save", async function (next) {
+    if (this.isNew) {
         await sendVerificationEmail(this.email, this.otp);
     }
     next();
-}) ;
+});
 
-module.exports = mongoose.model('Otp', otpSchema)
+module.exports = mongoose.model("Otp", otpSchema);

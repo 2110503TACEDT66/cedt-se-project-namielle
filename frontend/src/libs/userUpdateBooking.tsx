@@ -1,4 +1,4 @@
-export default async function userUpdateBooking(token: string, bid: string, checkInDate: string, checkOutDate: string){
+export default async function userUpdateBooking(token: string, bid: string, checkInDate: string, checkOutDate: string) {
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/bookings/${bid}`, {
         method: "PUT",
         mode: "cors",

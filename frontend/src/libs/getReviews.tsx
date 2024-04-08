@@ -1,4 +1,4 @@
-export default async function getReviewsByHotel(hotel:string) {
+export default async function getReviewsByHotel(hotel: string) {
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/hotels/${hotel}/reviews`, {
         method: "GET",
         mode: "cors",

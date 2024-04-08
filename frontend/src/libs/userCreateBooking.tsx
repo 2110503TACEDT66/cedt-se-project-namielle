@@ -1,4 +1,4 @@
-export default async function userCreateBooking(token: string, hid: string, uid: string, checkInDate: string, checkOutDate: string, file: string){
+export default async function userCreateBooking(token: string, hid: string, uid: string, checkInDate: string, checkOutDate: string, file: string) {
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/hotels/${hid}/bookings`, {
         method: "POST",
         mode: "cors",

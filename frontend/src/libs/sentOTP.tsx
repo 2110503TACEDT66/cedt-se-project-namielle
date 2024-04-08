@@ -1,7 +1,7 @@
 export default async function sentOTP(userEmail: string) {
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/otp/sent-otp`, {
         method: "POST",
-        mode:"cors",
+        mode: "cors",
         headers: {
             "Content-Type": "application/json",
         },

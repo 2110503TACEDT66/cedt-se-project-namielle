@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 export default function CartPanel() {
     const cartItems = useAppSelector((state) => state.cartSlice.CartBookingItems);
     const dispatch = useDispatch<AppDispatch>()
-    const {data:session} = useSession()
+    const { data: session } = useSession()
 
     let totalPrice = 0
     cartItems.map((item) => {
@@ -23,7 +23,7 @@ export default function CartPanel() {
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                if(!session) return;
+                if (!session) return;
                 const result = await getBookings(session.user.token);
                 setBookings(result);
 
@@ -43,7 +43,7 @@ export default function CartPanel() {
             //     return; // Exit the function early if the booking limit is exceeded
             // }
             try {
-                if(!session) return;
+                if (!session) return;
                 await userCreateBooking(session?.user.token, item.hid, session?.user._id, item.checkInDate, item.checkOutDate, item.picture);
             } catch (error) {
                 alert("You can only book 3 rooms at a time");

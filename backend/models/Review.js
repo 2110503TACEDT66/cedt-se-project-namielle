@@ -1,33 +1,31 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const ReviewSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
-        ref: 'User',
-        required: true
+        ref: "User",
+        required: true,
     },
     hotel: {
         type: mongoose.Schema.ObjectId,
-        ref: 'Hotel',
-        required: true
+        ref: "Hotel",
+        required: true,
     },
     stars: {
         type: Number,
-        min: [1, 'Lowest possible rating is 1'],
-        max: [5, 'Highest possible rating is 5'],
-        required: [true, 'please give a rating']
-
+        min: [1, "Lowest possible rating is 1"],
+        max: [5, "Highest possible rating is 5"],
+        required: [true, "please give a rating"],
     },
     description: {
         type: String,
         default: "No description given.",
-        required: true
+        required: true,
     },
     createAt: {
         type: Date,
-        default: Date.now
-    }
+        default: Date.now,
+    },
 });
 
-
-module.exports = mongoose.model('Review', ReviewSchema);
+module.exports = mongoose.model("Review", ReviewSchema);

@@ -9,7 +9,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
     const [hotelData, setHotelData] = useState<any>();
     const [search, setSearch] = useState('');
 
-    useEffect( ()=> {
+    useEffect(() => {
         const fetchUserData = async () => {
             try {
                 const result = await getHotels()
@@ -20,7 +20,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
         };
 
         fetchUserData();
-    },[])
+    }, [])
 
     console.log(search);
     console.log(hotelData);
@@ -38,8 +38,8 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                         className="input input-bordered w-[70%] text-l p-2 mr-[2%]"
                     />
                 </div>
-                {hotelData?.data.filter((hotelItem:any)=>{
-                    return search.toLowerCase() === ''? hotelItem: hotelItem.name.toLowerCase().includes(search)
+                {hotelData?.data.filter((hotelItem: any) => {
+                    return search.toLowerCase() === '' ? hotelItem : hotelItem.name.toLowerCase().includes(search)
                 }).map((hotelItem: any) => (
                     <Link key={hotelItem.name} href={`/hotel/${hotelItem.id}`}>
                         <HotelCard

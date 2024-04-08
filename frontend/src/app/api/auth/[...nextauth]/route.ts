@@ -3,7 +3,7 @@ import NextAuth from "next-auth";
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions:AuthOptions = {
+export const authOptions: AuthOptions = {
     providers: [
         CredentialsProvider({
             // The name to display on the sign in form (e.g. "Sign in with...")
@@ -13,43 +13,43 @@ export const authOptions:AuthOptions = {
             // e.g. domain, username, password, 2FA token, etc.
             // You can pass any HTML attribute to the <input> tag through the object.
             credentials: {
-              email: { label: "Email", type: "email", placeholder: "email" },
-              password: { label: "Password", type: "password" }
+                email: { label: "Email", type: "email", placeholder: "email" },
+                password: { label: "Password", type: "password" }
             },
             async authorize(credentials, req) {
-              // Add logic here to look up the user from the credentials supplied
-              if (!credentials) return null;
-              
-              const user = await userLogIn(credentials.email, credentials.password)
-        
-              if (user) {
-                // Any object returned will be saved in `user` property of the JWT
-                return user
-              } else {
-                // If you return null then an error will be displayed advising the user to check their details.
-                return null
-        
-                // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-              }
+                // Add logic here to look up the user from the credentials supplied
+                if (!credentials) return null;
+
+                const user = await userLogIn(credentials.email, credentials.password)
+
+                if (user) {
+                    // Any object returned will be saved in `user` property of the JWT
+                    return user
+                } else {
+                    // If you return null then an error will be displayed advising the user to check their details.
+                    return null
+
+                    // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
+                }
             }
-          })
+        })
 
     ],
-    session: { strategy: "jwt"},
+    session: { strategy: "jwt" },
     pages: {
         signIn: '/signin',
         error: '/signin'
     },
     callbacks: {
-      async jwt({token, user}) {
-        return {...token, ...user}
-      },
-      async session({session, token, user}) {
-        session.user = token as any
-        return session
-      }
+        async jwt({ token, user }) {
+            return { ...token, ...user }
+        },
+        async session({ session, token, user }) {
+            session.user = token as any
+            return session
+        }
     }
 }
 
 const handler = NextAuth(authOptions);
-export {handler as GET, handler as POST};
+export { handler as GET, handler as POST };

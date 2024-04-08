@@ -1,4 +1,4 @@
-export default async function PostReview(hotel:string, token:string, stars:number, description:string) {
+export default async function PostReview(hotel: string, token: string, stars: number, description: string) {
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/hotels/${hotel}/reviews`, {
         method: "POST",
         mode: "cors",

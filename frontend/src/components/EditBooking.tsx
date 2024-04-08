@@ -5,8 +5,8 @@ import { BookingItem } from '../../interface';
 import userUpdateBooking from '@/libs/userUpdateBooking';
 import { useSession } from 'next-auth/react';
 
-const EditBooking = ({ booking, onCancel, onSave }: { booking: BookingItem, onCancel: () => void, onSave: ()=> void }) => {
-    const {data:session} = useSession();
+const EditBooking = ({ booking, onCancel, onSave }: { booking: BookingItem, onCancel: () => void, onSave: () => void }) => {
+    const { data: session } = useSession();
 
     const [checkInDate, setCheckInDate] = useState<Dayjs>(booking.checkInDate ? dayjs(booking.checkInDate) : dayjs());
     const [checkOutDate, setCheckOutDate] = useState<Dayjs>(booking.checkOutDate ? dayjs(booking.checkOutDate) : dayjs());
@@ -15,9 +15,9 @@ const EditBooking = ({ booking, onCancel, onSave }: { booking: BookingItem, onCa
 
     useEffect(() => {
         const fetchUpdateBookings = async () => {
-            
+
             try {
-                if(!session) return;
+                if (!session) return;
                 const result = await userUpdateBooking(session?.user.token, booking._id, checkInDate.format('YYYY-MM-DD'), checkOutDate.format('YYYY-MM-DD'));
                 setUpdateBooking(result);
             } catch (error) {
@@ -25,7 +25,7 @@ const EditBooking = ({ booking, onCancel, onSave }: { booking: BookingItem, onCa
             }
         }
         fetchUpdateBookings();
-    },[updateBooking, onSave]
+    }, [updateBooking, onSave]
     )
 
 
@@ -46,7 +46,7 @@ const EditBooking = ({ booking, onCancel, onSave }: { booking: BookingItem, onCa
                     </div>
                 </div>
                 <div className="flex justify-end mt-6">
-                    <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mr-4"  onClick={onSave}>Save</button>
+                    <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mr-4" onClick={onSave}>Save</button>
                     <button className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none focus:bg-gray-400" onClick={onCancel}>Cancel</button>
                 </div>
             </div>

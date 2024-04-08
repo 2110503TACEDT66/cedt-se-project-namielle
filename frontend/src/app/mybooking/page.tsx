@@ -11,7 +11,7 @@ import dayjs, { Dayjs } from "dayjs";
 import EditBooking from "@/components/EditBooking";
 
 export default function mybooking() {
-    const {data:session} = useSession();
+    const { data: session } = useSession();
     // console.log(session);
     if (!session) {
         return (
@@ -45,7 +45,7 @@ export default function mybooking() {
     useEffect(() => {
         const fetchDeleteBooking = async () => {
             try {
-                if(deleteBooking === null) return;
+                if (deleteBooking === null) return;
                 const result = await userDeleteBooking(session.user.token, deleteBooking);
                 setDeleteBooking(result);
             } catch (error) {

@@ -22,7 +22,7 @@ export default function reservation() {
     const [checkOutDate, setCheckOutDate] = useState<Dayjs>(dayjs().add(1, "day"))
 
     const MakeReservation = () => {
-        if(checkInDate !== null && checkOutDate !== null && hid !== null && price !== null) {
+        if (checkInDate !== null && checkOutDate !== null && hid !== null && price !== null) {
             const booking: CartItem = {
                 _id: dayjs().format("YYYYMMDDHHmmssSSS"),
                 checkInDate: dayjs(checkInDate).format("YYYY-MM-DD"),
@@ -35,7 +35,7 @@ export default function reservation() {
             dispatch(addToCart(booking))
         }
     }
-    
+
     let totalPrice = checkOutDate?.diff(checkInDate, "day") * parseInt(price)
     if (totalPrice === undefined) {
         totalPrice = 0
@@ -47,7 +47,7 @@ export default function reservation() {
                 <div className="flex justify-center items-center">
                     <Image src={`/img/${picture}`} width={400} height={200} alt={`{name}`} className="rounded-lg text-center m-1 pb-2" />
                 </div>
-                
+
                 <div className="text-center mb-6">
                     <h1 className="text-3xl font-bold text-gray-800 mb-2">{name}</h1>
                     <p className="text-gray-600">It's Happening...</p>
@@ -55,17 +55,17 @@ export default function reservation() {
                 <div className="flex justify-between items-center mb-8">
                     <div className="m-1">
                         <h2 className="text-lg font-semibold text-gray-800">Check In</h2>
-                        <DateBooker onDateChange={(value:Dayjs)=>{setCheckInDate(value)}}/>
+                        <DateBooker onDateChange={(value: Dayjs) => { setCheckInDate(value) }} />
                     </div>
                     <div className="m-1">
                         <h2 className="text-lg font-semibold text-gray-800">Check Out</h2>
-                        <DateBooker onDateChange={(value:Dayjs)=>{setCheckOutDate(value)}}/>
+                        <DateBooker onDateChange={(value: Dayjs) => { setCheckOutDate(value) }} />
                     </div>
                 </div>
                 <div className="text-center">
-                        
+
                     <h1 className={`text-4xl font-bold ${totalPrice >= 0 ? 'text-green-600' : 'text-red-600'} mb-4`}>{totalPrice >= 0 ? `฿ ${totalPrice}` : "Wrong"}</h1>
-                    
+
                     <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105" onClick={MakeReservation}>
                         Add to Cart
                     </button>

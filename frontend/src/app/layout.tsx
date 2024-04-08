@@ -12,32 +12,32 @@ import { authOptions } from "./api/auth/[...nextauth]/route";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "John Book",
-  description: "Hotel Booking Services",
-  icons: {
-    icon: '/icon.png'
-  }
+    title: "John Book",
+    description: "Hotel Booking Services",
+    icons: {
+        icon: '/icon.png'
+    }
 };
 
 export default async function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
 
-  const nextAuthSession = await getServerSession(authOptions);
+    const nextAuthSession = await getServerSession(authOptions);
 
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ReduxProvider>
-          <NextAuthProvider session={nextAuthSession}>
-            <TopMenu />
-            {children}
-            <BottomMenu />
-          </NextAuthProvider>
-        </ReduxProvider>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body className={inter.className}>
+                <ReduxProvider>
+                    <NextAuthProvider session={nextAuthSession}>
+                        <TopMenu />
+                        {children}
+                        <BottomMenu />
+                    </NextAuthProvider>
+                </ReduxProvider>
+            </body>
+        </html>
+    );
 }

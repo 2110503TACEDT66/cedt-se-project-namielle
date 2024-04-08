@@ -1,21 +1,21 @@
-  export interface BookingItem {
+export interface BookingItem {
     _id: string,
     checkOutDate: string,
     checkInDate: string,
     user: string,
     hotel: {
-      _id: string,
-      name: string,
-      address: string,
-      tel: string,
-      file: string,
-      id: string
+        _id: string,
+        name: string,
+        address: string,
+        tel: string,
+        file: string,
+        id: string
     },
     createdAt: string,
     __v: number,
-  }
+}
 
-  export interface CartItem {
+export interface CartItem {
     _id: string,
     checkInDate: string,
     checkOutDate: string,
@@ -23,22 +23,22 @@
     name: string,
     price: number,
     picture: string
-  }
+}
 
-  export interface BookItem {
+export interface BookItem {
     user: string,
     hotel: string,
     checkInDate: string,
     checkOutDate: string,
     file: string,
-  }
+}
 
-  export interface UserJson {
+export interface UserJson {
     success: boolean,
     data: UserData,
-  }
+}
 
-  export interface UserData {
+export interface UserData {
     _id: string,
     name: string,
     email: string,
@@ -46,4 +46,4 @@
     role: string,
     createdAt: string,
     __v: number
-  }
+}
