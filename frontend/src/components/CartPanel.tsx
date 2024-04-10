@@ -9,6 +9,7 @@ import Image from "next/image";
 import { use, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import CheckoutForm from "./StripeCheckout";
+import StripeCheckout from "./StripeCheckout";
 
 export default function CartPanel() {
     const cartItems = useAppSelector((state) => state.cartSlice.CartBookingItems);
@@ -139,7 +140,7 @@ export default function CartPanel() {
                                 </div>
                             </div>
                             <div className="flex flex-col items-center justify-center">
-                               <CheckoutForm/>
+                                <StripeCheckout/>
                             </div>
                         </div>
                     </div>

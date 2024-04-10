@@ -1,9 +1,8 @@
 const express = require('express');
-const { createCheckoutSession, getCheckoutSessionStatus } = require('../controllers/stripe');
+const { createCheckoutSession } = require('../controllers/stripe');
 
 const router = express.Router();
 
 router.route('/create-checkout-session').post(createCheckoutSession);
-router.route('/session-status/:id').get(getCheckoutSessionStatus);
 
 module.exports = router;

@@ -22,7 +22,7 @@ app.use("/api/v1/bookings", bookings);
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/review", reviews);
 app.use("/api/v1/otp", otp);
-app.use("api/v1/stripe", stripe);
+app.use("/api/v1/stripe", stripe);
 
 const PORT = process.env.PORT || 5000;
 const server = app.listen(
