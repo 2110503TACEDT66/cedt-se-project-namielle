@@ -5,24 +5,25 @@ const stripe = require("stripe")("sk_test_51P41CKD7m7MeQAMyg0JqOiUEZpktzf4MDrvUA
 //@route POST /api/v1/stripe/create-checkout-session
 //@access Private
 exports.createCheckoutSession = async (req, res) => {
-    const product = req.body; //supply with name, price , quantity
-    const lineItems = 
-        [{
-            price_data: {
+    const products = await req.body; //supply with name, price
+    const lineItems = products.cartItems.map((product)=>({
+        price_data: {
             currency: "thb",
             product_data: {
-                name: "item"
+                name: product.name
             },
-            unit_amount : 100*100
+            unit_amount : product.price*100
+        
         },
         quantity: 1
-    }];
+    }))
+    
 
     const session = await stripe.checkout.sessions.create({
         line_items: lineItems,
         mode: 'payment',
-        success_url: `${process.env.HOST}/3000/?success=true`,
-        cancel_url: `${process.env.HOST}/3000/?canceled=true`,
+        success_url: `${process.env.HOST}/3000?success=true`,
+        cancel_url: `${process.env.HOST}/3000?canceled=true`,
     });
     
     res.status(200).json({id:session.id})

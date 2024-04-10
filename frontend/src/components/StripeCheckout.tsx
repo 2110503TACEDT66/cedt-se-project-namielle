@@ -1,26 +1,14 @@
 "use client"
 import Image from "next/image";
 import { loadStripe } from "@stripe/stripe-js";
+import { CartItem } from "../../interface";
+import createStripeSession from "@/libs/createStripeSession";
 
-export default function StripeCheckout() {
+export default function StripeCheckout( {cartItems} : {cartItems: Array<CartItem>}) {
   const makePayment = async () => {
     const stripe = await loadStripe("pk_test_51P41CKD7m7MeQAMy74Cvm7Up3wkvuBE53QspEcz6Okq4NW1lRsOdiEiBixPwqCtAljB8Ih9m3A3NhUCZ3LpH6GEL000EFHGT8G");
 
-    const body = {
-      product: "hi"
-    }
-
-    const headers = {
-      "Content-Type": "application/json"
-    }
-
-    const response = await fetch("http://localhost:5000/api/v1/stripe/create-checkout-session", {
-      method: "POST",
-      headers: headers,
-      body : JSON.stringify(body)
-    })
-
-    const session = await response.json();
+    const session = await createStripeSession({cartItems})
 
     const result = stripe?.redirectToCheckout({
       sessionId: session.id

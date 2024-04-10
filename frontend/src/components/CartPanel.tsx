@@ -13,6 +13,7 @@ import StripeCheckout from "./StripeCheckout";
 
 export default function CartPanel() {
     const cartItems = useAppSelector((state) => state.cartSlice.CartBookingItems);
+    console.log(cartItems);
     const dispatch = useDispatch<AppDispatch>()
     const { data: session } = useSession()
 
@@ -140,7 +141,7 @@ export default function CartPanel() {
                                 </div>
                             </div>
                             <div className="flex flex-col items-center justify-center">
-                                <StripeCheckout/>
+                                <StripeCheckout cartItems={cartItems}/>
                             </div>
                         </div>
                     </div>
