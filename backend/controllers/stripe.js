@@ -1,4 +1,4 @@
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")("sk_test_51P41CKD7m7MeQAMyg0JqOiUEZpktzf4MDrvUArIVesJ0Vmb7WB44R0DXXQInjGruqPAAt82wGFbZzunSXFqZ77bI009w8SrxuN");
 
 
 //@desc create checkout session
@@ -13,7 +13,7 @@ exports.createCheckoutSession = async (req, res) => {
             product_data: {
                 name: "item"
             },
-            unit_amount : 100
+            unit_amount : 100*100
         },
         quantity: 1
     }];
