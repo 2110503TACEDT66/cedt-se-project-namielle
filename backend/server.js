@@ -8,6 +8,7 @@ const auth = require("./routes/auth");
 const reviews = require("./routes/reviews");
 const otp = require("./routes/otp");
 const cors = require("cors");
+const stripe = require("./routes/stripe");
 //Load env vars
 dotenv.config({ path: "./config/config.env" });
 connectDB();
@@ -21,6 +22,7 @@ app.use("/api/v1/bookings", bookings);
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/review", reviews);
 app.use("/api/v1/otp", otp);
+app.use("/api/v1/stripe", stripe);
 
 const PORT = process.env.PORT || 5000;
 const server = app.listen(

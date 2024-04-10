@@ -8,9 +8,12 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { use, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import CheckoutForm from "./StripeCheckout";
+import StripeCheckout from "./StripeCheckout";
 
 export default function CartPanel() {
     const cartItems = useAppSelector((state) => state.cartSlice.CartBookingItems);
+    console.log(cartItems);
     const dispatch = useDispatch<AppDispatch>()
     const { data: session } = useSession()
 
@@ -138,7 +141,7 @@ export default function CartPanel() {
                                 </div>
                             </div>
                             <div className="flex flex-col items-center justify-center">
-                                <button className="transition ease-in-out delay-100 bg-yellow-500 hover:-translate-y-1 hover:scale-110 hover:bg-yellow-500 duration-300 text-white rounded-lg p-1 m-1" onClick={() => createBooking()}>Checkout</button>
+                                <StripeCheckout cartItems={cartItems}/>
                             </div>
                         </div>
                     </div>
