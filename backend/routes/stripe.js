@@ -4,6 +4,6 @@ const { createCheckoutSession, getCheckoutSessionStatus } = require('../controll
 const router = express.Router();
 
 router.route('/create-checkout-session').post(createCheckoutSession);
-router.route('/session-status').get(getCheckoutSessionStatus);
+router.route('/session-status/:id').get(getCheckoutSessionStatus);
 
 module.exports = router;
