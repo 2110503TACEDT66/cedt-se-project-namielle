@@ -28,14 +28,21 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
     return (
         <div className="justify-center item-center">
             <div className="container mx-auto my-8 p-4 rounded-lg shadow-md block">
-                <div className="flex flex-row ml-[20%]">
+                <div className="block ml-[20%]">
                     <input
                         type="text"
                         id="search"
                         name="search"
-                        placeholder="Search..."
+                        placeholder="Enter Hotel Name"
                         onChange={(e) => setSearch(e.target.value)}
-                        className="input input-bordered w-[70%] text-l p-2 mr-[2%]"
+                        className="input input-bordered w-[70%] text-l p-2 m-[2%]"
+                    />
+                    <input
+                        type="text"
+                        id="search_city"
+                        name="search_city"
+                        placeholder="Enter Destination"
+                        className="input input-bordered w-[70%] text-l p-2 m-[2%]"
                     />
                 </div>
                 {hotelData?.data.filter((hotelItem: any) => {
