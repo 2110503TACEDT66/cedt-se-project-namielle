@@ -48,8 +48,14 @@ export default function CartPanel() {
             try {
                 if (!session) return;
                 await userCreateBooking(session?.user.token, item.hid, session?.user._id, item.checkInDate, item.checkOutDate, item.picture);
+                
             } catch (error) {
-                alert("You can only book 3 rooms at a time");
+                if ((error as Error).message === "Hotel reached booking limit") {
+                    alert("Hotel reached booking limit");
+                }
+                else{
+                    alert("You can only book 3 rooms at a time");
+                }
                 return; // Exit the function early if the booking creation fails
             }
 
@@ -139,6 +145,11 @@ export default function CartPanel() {
                                     <Image src="/img/mastercard.png" alt="mastercard" width={40} height={40} className="mr-2 transition ease-in-out hover:scale-110" />
                                     <Image src="/img/paypal.png" alt="paypal" width={40} height={40} className="mr-2 transition ease-in-out hover:scale-110" />
                                 </div>
+                            </div>
+                            <div className="flex flex-row justify-center mt-5">
+                                <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105" onClick={createBooking}>
+                                    Book Now
+                                </button>
                             </div>
                             <div className="flex flex-col items-center justify-center">
                                 <StripeCheckout cartItems={cartItems}/>

@@ -92,7 +92,7 @@ exports.addBooking = async (req, res, next) => {
         });
         const existedBookings = await Booking.find({ user: req.user.id });
         if (hotelExistedBookings.length >= hotelCapacity) {
-            return res.status(400).json({
+            return res.status(401).json({
                 success: false,
                 message: `The hotel with ID ${req.params.hotelId} has already reached its capacity`,
             });

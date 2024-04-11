@@ -14,7 +14,9 @@ export default async function userCreateBooking(token: string, hid: string, uid:
         })
     })
 
-    if (!response.ok) {
+    if (!response.ok && response.status === 401) {
+        throw new Error("Hotel reached booking limit");
+    } else if (!response.ok) {
         throw new Error("POST Failed");
     }
     return await response.json();

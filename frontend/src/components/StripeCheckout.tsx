@@ -20,7 +20,7 @@ export default function StripeCheckout( {cartItems} : {cartItems: Array<CartItem
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex h-auto flex-col items-center justify-between p-24">
       <button onClick={makePayment} >click</button>
     </main>
   );
