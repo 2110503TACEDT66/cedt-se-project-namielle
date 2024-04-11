@@ -1,4 +1,5 @@
 const Hotel = require("../models/Hotel");
+const booking = require("../models/Booking");
 const fs = require("fs");
 
 //@desc Get all hotels
@@ -19,9 +20,13 @@ exports.getHotels = async (req, res, next) => {
         /\b(gt|gte|lt|lte|in)\b/g,
         (match) => `$${match}`
     );
-
-    query = Hotel.find(JSON.parse(queryStr)).populate("booking");
-    query = Hotel.find(JSON.parse(queryStr)).populate("review");
+    query = Hotel.find(JSON.parse(queryStr)).populate({
+        path: "booking",
+        select: "_id",
+    }).populate({
+        path: "review"
+    });
+    
     //Select fields
     if (req.query.select) {
         const fields = req.query.select.split(",").join(" ");
@@ -78,7 +83,10 @@ exports.getHotels = async (req, res, next) => {
 //@access Public
 exports.getHotel = async (req, res, next) => {
     try {
-        const hotel = await Hotel.findById(req.params.id);
+        const hotel = await Hotel.findById(req.params.id).populate({
+            path: "booking",
+            select: "_id",
+        });
         if (!hotel) {
             return res.status(400).json({ success: false });
         }
