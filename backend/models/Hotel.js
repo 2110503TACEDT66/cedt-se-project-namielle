@@ -29,6 +29,7 @@ const HotelSchema = new mongoose.Schema(
     {
         toJSON: { virtuals: true },
         toObject: { virtuals: true },
+        toObject: { virtuals: true },
     }
 );
 
@@ -59,4 +60,11 @@ HotelSchema.virtual("review", {
     justOne: false,
 });
 
+//test
+HotelSchema.virtual("review2", {
+    ref: "Review2",
+    localField: "_id",
+    foreignField: "hotel",
+    justOne: false,
+});
 module.exports = mongoose.model("Hotel", HotelSchema);
