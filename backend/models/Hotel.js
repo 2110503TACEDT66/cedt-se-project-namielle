@@ -41,6 +41,7 @@ HotelSchema.pre(
         console.log(`Booking being removed from hotel ${this._id}`);
         await this.model("Booking").deleteMany({ hotel: this._id });
         await this.model("Review").deleteMany({ hotel: this._id });
+        await this.model("RoomType").deleteMany({ hotel: this._id });
         next();
     }
 );
@@ -60,11 +61,11 @@ HotelSchema.virtual("review", {
     justOne: false,
 });
 
-//test
-HotelSchema.virtual("review2", {
-    ref: "Review2",
+HotelSchema.virtual("roomType", {
+    ref: "RoomType",
     localField: "_id",
     foreignField: "hotel",
     justOne: false,
 });
+
 module.exports = mongoose.model("Hotel", HotelSchema);
