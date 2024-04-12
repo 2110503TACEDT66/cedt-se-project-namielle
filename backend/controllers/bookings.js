@@ -171,7 +171,6 @@ exports.updateBooking = async (req, res, next) => {
 //@route DELETE /api/v1/bookings/:id
 //@access Private
 exports.deleteBooking = async (req, res, next) => {
-    //Increase roomLimit
     
     try {
         const booking = await Booking.findById(req.params.id);
@@ -197,6 +196,7 @@ exports.deleteBooking = async (req, res, next) => {
         const roomType = await RoomType.findById(booking.roomType);
         let totalRoomLimit = roomType.roomLimit + 1;
         await RoomType.findByIdAndUpdate(booking.roomType, { roomLimit : totalRoomLimit});
+        
         await booking.deleteOne();
 
         res.status(200).json({
