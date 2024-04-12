@@ -40,6 +40,7 @@ HotelSchema.pre(
         console.log(`Booking being removed from hotel ${this._id}`);
         await this.model("Booking").deleteMany({ hotel: this._id });
         await this.model("Review").deleteMany({ hotel: this._id });
+        await this.model("RoomType").deleteMany({ hotel: this._id });
         next();
     }
 );
@@ -54,6 +55,13 @@ HotelSchema.virtual("booking", {
 
 HotelSchema.virtual("review", {
     ref: "Review",
+    localField: "_id",
+    foreignField: "hotel",
+    justOne: false,
+});
+
+HotelSchema.virtual("roomType", {
+    ref: "RoomType",
     localField: "_id",
     foreignField: "hotel",
     justOne: false,
