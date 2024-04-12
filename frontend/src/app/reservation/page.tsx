@@ -35,7 +35,7 @@ export default function reservation() {
                 picture: picture
             }
             dispatch(addToCart(booking))
-            router.push("/cart");
+            router.push("/hotel");
             
         }
     }

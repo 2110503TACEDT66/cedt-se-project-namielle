@@ -53,7 +53,9 @@ export default function TopMenu() {
 
                 <Link href={'/cart'} className="relative">
                     {cartItems.length > 0 ? 
-                    <div className='h-[10px] w-[10px] bg-red-600 rounded-[50%] absolute top-0 right-3'></div> 
+                    <div className='h-[16px] w-[16px] bg-red-600 rounded-[50%] absolute top-0 right-3'>
+                        <div className="m-auto font-bold h-full text-center w-full text-xs text-white">{cartItems.length}</div>
+                    </div> 
                     : ""}
                     
                     <Image src={'/img/shopping-cart.png'} alt='profile' width={0} height={0} sizes='3vh' className='h-[100%] w-auto mx-5' />
