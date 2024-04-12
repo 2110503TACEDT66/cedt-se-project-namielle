@@ -9,6 +9,7 @@ import dayjs, { Dayjs } from "dayjs"
 import Image from "next/image";
 import { CartItem } from "../../../interface"
 import { addToCart } from "../redux/features/cartSlice"
+import { useRouter } from "next/navigation"
 
 export default function reservation() {
     const urlParams = useSearchParams()
@@ -21,6 +22,7 @@ export default function reservation() {
     const [checkInDate, setCheckInDate] = useState<Dayjs>(dayjs())
     const [checkOutDate, setCheckOutDate] = useState<Dayjs>(dayjs().add(1, "day"))
 
+    const router = useRouter();
     const MakeReservation = () => {
         if (checkInDate !== null && checkOutDate !== null && hid !== null && price !== null) {
             const booking: CartItem = {
@@ -33,6 +35,8 @@ export default function reservation() {
                 picture: picture
             }
             dispatch(addToCart(booking))
+            router.push("/cart");
+            
         }
     }
 

@@ -8,6 +8,7 @@ import UserDropDown from './UserDropdown'
 import getUserProfile from '@/libs/getUserProfile'
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { useAppSelector } from '@/app/redux/store'
 
 export default function TopMenu() {
 
@@ -26,6 +27,8 @@ export default function TopMenu() {
 
         fetchData();
     }, []);
+
+    const cartItems = useAppSelector((state) => state.cartSlice.CartBookingItems);
 
     return (
         <div className="h-[70px] bg-paper fixed top-0 left-0 right-0 z-30 border-b border-t border-solid border-gray-400 flex flex-row">
@@ -48,7 +51,11 @@ export default function TopMenu() {
                         <TopMenuItem title='Sign-In' pageRef='/signin' />
                 }
 
-                <Link href={'/cart'}>
+                <Link href={'/cart'} className="relative">
+                    {cartItems.length > 0 ? 
+                    <div className='h-[10px] w-[10px] bg-red-600 rounded-[50%] absolute top-0 right-3'></div> 
+                    : ""}
+                    
                     <Image src={'/img/shopping-cart.png'} alt='profile' width={0} height={0} sizes='3vh' className='h-[100%] w-auto mx-5' />
                 </Link>
 
