@@ -7,7 +7,6 @@ export default function Hotels() {
     return (
         <main className="p-5">
             <RecommendBanner></RecommendBanner>
-            <h1 className="text-xl font-medium text-center item-center">Hotel</h1>
             <HotelCatalog hotelJson={hotels} />
         </main>
     )

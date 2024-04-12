@@ -9,6 +9,12 @@ const HotelSchema = new mongoose.Schema(
             trim: true,
             maxlength: [50, "Name can not be more than 50 characaters"],
         },
+        city: {
+            type: String,
+            required: [true, "Please add a city"],
+            trim: true,
+            maxlength: [50, "City can not be more than 50 characaters"],
+        },
         address: {
             type: String,
             required: [true, "Please add an address"],
@@ -24,6 +30,10 @@ const HotelSchema = new mongoose.Schema(
         file: {
             type: String,
             required: [true, "Please add a picture of the hotel"],
+        },
+        price: {
+            type: Number,
+            required: [true, "Please add a price"],
         },
     },
     {

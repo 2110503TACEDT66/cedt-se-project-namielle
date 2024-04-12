@@ -25,12 +25,11 @@ export default function RecommendBanner() {
     }, [])
 
     return (
-        <div className="flex flex-row p-1 h-[20vh] bg-stone-400">
+        <div className="flex flex-row p-1 h-[25vh] bg-stone-400">
             <div className="w-[20%] px-5">
                 <p className="font-semibold font-serif text-3xl text-orange-300 leading-loose">Recommended <span className="text-white bold">For you</span></p>
             </div>
-
-            <div className="w-[45%] h-[60%] relative">
+            {/* <div className="w-[45%] h-[60%] relative">
             {hotelData?.data.filter((hotelItem: any) => {
                     return 
                 }).map((hotelItem: any) => (
@@ -44,11 +43,18 @@ export default function RecommendBanner() {
                         />
                     </Link>
                 ))}
+            </div> */}
+            <div className="w-1/5 bg-white m-3 text-black">
+                Top Hotel 1
+            </div>
+            <div className="w-1/5 bg-white m-3 text-black">
+                Top Hotel 2
+            </div>
+            <div className="w-1/5 bg-white m-3 text-black">
+                Top Hotel 3
             </div>
             <div className="flex flex-row w-[20%] h-[30%] relative">
-                
             </div>
-
         </div>
     )
 }

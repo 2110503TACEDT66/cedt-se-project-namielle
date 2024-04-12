@@ -33,25 +33,21 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                         type="text"
                         id="search"
                         name="search"
-                        placeholder="Enter Hotel Name"
+                        placeholder="Enter name or city of the hotel..."
                         onChange={(e) => setSearch(e.target.value)}
                         className="input input-bordered w-[70%] text-l p-2 m-[2%]"
                     />
-                    <input
-                        type="text"
-                        id="search_city"
-                        name="search_city"
-                        placeholder="Enter Destination"
-                        className="input input-bordered w-[70%] text-l p-2 m-[2%]"
-                    />
+
                 </div>
                 {hotelData?.data.filter((hotelItem: any) => {
-                    return search.toLowerCase() === '' ? hotelItem : hotelItem.name.toLowerCase().includes(search)
+                    const searchTerm = search.toLowerCase();
+                    return searchTerm === '' ? true : hotelItem.name.toLowerCase().includes(searchTerm) || hotelItem.city.toLowerCase().includes(searchTerm);
                 }).map((hotelItem: any) => (
                     <Link key={hotelItem.name} href={`/hotel/${hotelItem.id}`}>
                         <HotelCard
                             hotelName={hotelItem.name}
                             imgSrc={`/img/${hotelItem.file}`}
+                            hotelCity={hotelItem.city}
                             hotelAddress={hotelItem.address}
                             hotelTel={hotelItem.tel}
                             hotelPrice={hotelItem.price}
