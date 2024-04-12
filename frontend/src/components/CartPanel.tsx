@@ -140,6 +140,11 @@ export default function CartPanel() {
                                     <Image src="/img/paypal.png" alt="paypal" width={40} height={40} className="mr-2 transition ease-in-out hover:scale-110" />
                                 </div>
                             </div>
+                            <div className="flex flex-row justify-center mt-5">
+                                <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105" onClick={createBooking}>
+                                    Book Now
+                                </button>
+                            </div>
                             <div className="flex flex-col items-center justify-center">
                                 <StripeCheckout cartItems={cartItems}/>
                             </div>

@@ -1,5 +1,6 @@
 const Hotel = require("../models/Hotel");
 const booking = require("../models/Booking");
+const RoomType = require("../models/RoomType");
 const fs = require("fs");
 
 //@desc Get all hotels
@@ -28,7 +29,6 @@ exports.getHotels = async (req, res, next) => {
     }).populate({
         path: "roomType"
     });
-        
     //Select fields
     if (req.query.select) {
         const fields = req.query.select.split(",").join(" ");
@@ -72,7 +72,7 @@ exports.getHotels = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            count: hotels.length,
+            capacity: total,
             data: hotels,
         });
     } catch (err) {
@@ -84,6 +84,18 @@ exports.getHotels = async (req, res, next) => {
 //@route GET /api/v1/hotels/:id
 //@access Public
 exports.getHotel = async (req, res, next) => {
+    // Get all hotels
+    const hotels = await Hotel.findById(req.params.id);
+
+    // Temporary
+    let totalCapacity = 0;
+    const roomTypes = await RoomType.find({ hotel: hotels._id });
+    for (let roomType of roomTypes) {
+        totalCapacity += roomType.roomLimit;
+    }
+    console.log(`Total capacity of all hotels: ${totalCapacity}`);
+    await Hotel.findByIdAndUpdate(req.params.id, { capacity: totalCapacity });
+    
     try {
         const hotel = await Hotel.findById(req.params.id).populate({
             path: "booking",
@@ -92,7 +104,7 @@ exports.getHotel = async (req, res, next) => {
         if (!hotel) {
             return res.status(400).json({ success: false });
         }
-        res.status(200).json({ success: true, data: hotel });
+        res.status(200).json({ success: true, data: hotel});
     } catch (err) {
         res.status(400).json({ success: false });
     }

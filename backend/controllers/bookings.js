@@ -1,5 +1,6 @@
 const Booking = require("../models/Booking");
 const Hotel = require("../models/Hotel");
+const RoomType = require("../models/RoomType");
 
 //@desc Get all bookings
 //@route GET /api/v1/bookings
