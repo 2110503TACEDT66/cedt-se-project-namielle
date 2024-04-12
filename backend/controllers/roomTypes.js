@@ -1,19 +1,19 @@
 const hotel = require("../models/Hotel");
-const roomType = require("../models/RoomType");
+const RoomType = require("../models/RoomType");
 
 //@desc Get all room types
 //@route GET /api/v1/roomTypes
 //@access Public
 exports.getRoomTypes = async (req, res, next) => {
     try {
-        const roomTypes = await roomType.find({user: req.user.id});
+        const roomTypes = await RoomType.find({user: req.user.id});
         res.status(200).json({
             success: true,
             count: roomTypes.length,
             data: roomTypes,
         });
     } catch (err) {
-        console.log(err);
+        console.log(err);   
         return res.status(404).json({
             success: false,
             message: "Cannot find room types",
@@ -26,7 +26,7 @@ exports.getRoomTypes = async (req, res, next) => {
 //@access Public
 exports.getRoomType = async (req, res, next) => {
     try {
-        const roomType = await roomType.findById(req.params.id);
+        const roomType = await RoomType.findById(req.params.id);
         if (!roomType) {
             return res.status(404).json({ success: false });
         }
@@ -41,7 +41,8 @@ exports.getRoomType = async (req, res, next) => {
 //@access Private
 exports.addRoomType = async (req, res, next) => {
     try {
-        const roomType = await roomType.create(req.body);
+        console.log(req.body);
+        const roomType = await RoomType.create(req.body);
         res.status(201).json({
             success: true,
             data: roomType,
@@ -56,7 +57,7 @@ exports.addRoomType = async (req, res, next) => {
 //@access Private
 exports.updateRoomType = async (req, res, next) => {
     try {
-        const roomType = await roomType.findByIdAndUpdate(req.params.id, req.body, {
+        const roomType = await RoomType.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true,
         });
@@ -75,7 +76,7 @@ exports.updateRoomType = async (req, res, next) => {
 //@access Private
 exports.deleteRoomType = async (req, res, next) => {
     try {
-        const roomType = await roomType.findById(req.params.id);
+        const roomType = await RoomType.findById(req.params.id);
         if (!roomType) {
             return res.status(404).json({
                 success: false,

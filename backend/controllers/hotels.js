@@ -25,6 +25,8 @@ exports.getHotels = async (req, res, next) => {
         select: "_id",
     }).populate({
         path: "review"
+    }).populate({
+        path: "roomType"
     });
     
     //Select fields
