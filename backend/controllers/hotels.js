@@ -1,5 +1,5 @@
 const Hotel = require("../models/Hotel");
-const booking = require("../models/Booking");
+const Booking = require("../models/Booking");
 const RoomType = require("../models/RoomType");
 const fs = require("fs");
 
@@ -90,6 +90,7 @@ exports.getHotel = async (req, res, next) => {
     // Temporary
     let totalCapacity = 0;
     const roomTypes = await RoomType.find({ hotel: hotels._id });
+   
     for (let roomType of roomTypes) {
         totalCapacity += roomType.roomLimit;
     }
@@ -100,6 +101,8 @@ exports.getHotel = async (req, res, next) => {
         const hotel = await Hotel.findById(req.params.id).populate({
             path: "booking",
             select: "_id",
+        }).populate({
+            path: "roomType"
         });
         if (!hotel) {
             return res.status(400).json({ success: false });
