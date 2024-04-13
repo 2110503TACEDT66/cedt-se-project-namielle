@@ -1,6 +1,7 @@
 const Hotel = require("../models/Hotel");
 const booking = require("../models/Booking");
 const fs = require("fs");
+const Booking = require("../models/Booking");
 
 //@desc Get all hotels
 //@route GET /api/v1/hotels
@@ -51,6 +52,19 @@ exports.getHotels = async (req, res, next) => {
         const total = await Hotel.countDocuments();
         query = query.skip(startIndex).limit(limit);
         const hotels = await query;
+
+        //Calculate BookCount
+        for (let hotel of hotels) {
+            let totalBook = 0;
+            const bookings = await Booking.find({ hotel: hotel._id });
+    
+             for (let booking of bookings) {
+                totalBook += 1;
+            }
+            //console.log(`Total booking of all hotels: ${totalBook}`);
+            await Hotel.findByIdAndUpdate(hotel._id.toString(), { bookCount : totalBook });
+        }
+
         //Pagination result
         const pagination = {};
         if (endIndex < total) {
@@ -82,6 +96,19 @@ exports.getHotels = async (req, res, next) => {
 //@route GET /api/v1/hotels/:id
 //@access Public
 exports.getHotel = async (req, res, next) => {
+    //Calculate BookCount
+    // Get all hotels
+    const hotels = await Hotel.findById(req.params.id);
+
+    let totalBook = 0;
+    const bookings = await Booking.find({ hotel: hotels._id });
+
+    for (let booking of bookings) {
+        totalBook += 1;
+    }
+    console.log(`Total booking of all hotels: ${totalBook}`);
+    await Hotel.findByIdAndUpdate(req.params.id, { bookCount : totalBook });
+
     try {
         const hotel = await Hotel.findById(req.params.id).populate({
             path: "booking",
