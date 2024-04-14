@@ -1,8 +1,9 @@
 const express = require('express');
-const { createCheckoutSession } = require('../controllers/stripe');
+const { createCheckoutSession, handleStripeWebhook } = require('../controllers/stripe');
 
 const router = express.Router();
 
 router.route('/create-checkout-session').post(createCheckoutSession);
+router.route('/webhook').post(handleStripeWebhook);
 
 module.exports = router;

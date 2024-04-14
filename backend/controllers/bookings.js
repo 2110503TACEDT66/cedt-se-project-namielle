@@ -13,7 +13,7 @@ exports.getBookings = async (req, res, next) => {
         });
     } else {
         if (req.params.hotelId) {
-            console.log(req.params.hotelId);
+            // console.log(req.params.hotelId);
             query = Booking.find({ hotel: req.params.hotelId }).populate({
                 path: "hotel",
                 select: "name address tel file",

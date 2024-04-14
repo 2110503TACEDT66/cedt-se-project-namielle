@@ -6,7 +6,7 @@ import createStripeSession from "@/libs/createStripeSession";
 
 export default function StripeCheckout( {cartItems} : {cartItems: Array<CartItem>}) {
   const makePayment = async () => {
-    const stripe = await loadStripe("pk_test_51P41CKD7m7MeQAMy74Cvm7Up3wkvuBE53QspEcz6Okq4NW1lRsOdiEiBixPwqCtAljB8Ih9m3A3NhUCZ3LpH6GEL000EFHGT8G");
+    const stripe = await loadStripe("pk_test_51P2sG5ISGle84u6wlpvUPjZTC5i5z2tXSVIUXFJEFxsV0uLWqvckp9qSoDTBSg2lwy1KktqRG86z95PYbkRAoJOa00wvzxXLiV");
 
     const session = await createStripeSession({cartItems})
 
