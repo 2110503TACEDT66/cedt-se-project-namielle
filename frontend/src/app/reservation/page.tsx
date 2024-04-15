@@ -16,6 +16,7 @@ export default function reservation() {
     const price = urlParams.get("price") || "0"
     const name = urlParams.get("name") || ""
     const picture = urlParams.get("file") || ""
+    const roomType = urlParams.get("roomType") || ""
 
     const dispatch = useDispatch<AppDispatch>()
     const [checkInDate, setCheckInDate] = useState<Dayjs>(dayjs())
@@ -30,7 +31,8 @@ export default function reservation() {
                 hid: hid,
                 price: checkOutDate.diff(checkInDate, "day") * parseInt(price),
                 name: name,
-                picture: picture
+                picture: picture,
+                roomType: roomType
             }
             dispatch(addToCart(booking))
         }

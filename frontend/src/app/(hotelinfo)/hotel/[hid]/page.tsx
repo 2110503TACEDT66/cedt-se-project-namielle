@@ -69,7 +69,7 @@ export default async function Detailpage({ params }: { params: { hid: string } }
                     <h1 className="block text-green-800 text-xl "> /day</h1>
                 </div>
                 <div className="leading-none mx-5 w-[50%] flex justify-center items-center">
-                    <Link href={`/reservation?price=${hotelDetail.data.price}&hid=${params.hid}&name=${hotelDetail.data.name}&file=${hotelDetail.data.file}`} className="flex justify-center items-center">
+                    <Link href={`/reservation?price=${hotelDetail.data.price}&hid=${params.hid}&name=${hotelDetail.data.name}&file=${hotelDetail.data.file}&roomType=${hotelDetail.data.roomType}`} className="flex justify-center items-center">
                         <button className="block p-1 text-2xl text-white font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-500 rounded-md">
                             RESERVE
                         </button>

@@ -47,7 +47,7 @@ export default function CartPanel() {
             // }
             try {
                 if (!session) return;
-                await userCreateBooking(session?.user.token, item.hid, session?.user._id, item.checkInDate, item.checkOutDate, item.picture);
+                await userCreateBooking(session?.user.token, item.hid, session?.user._id, item.checkInDate, item.checkOutDate, item.picture, item.roomType);
             } catch (error) {
                 alert("You can only book 3 rooms at a time");
                 return; // Exit the function early if the booking creation fails

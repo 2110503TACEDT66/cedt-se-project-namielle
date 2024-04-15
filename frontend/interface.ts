@@ -22,7 +22,8 @@ export interface CartItem {
     hid: string,
     name: string,
     price: number,
-    picture: string
+    picture: string,
+    roomType: string
 }
 
 export interface BookItem {
