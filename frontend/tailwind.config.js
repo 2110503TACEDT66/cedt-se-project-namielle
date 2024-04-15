@@ -7,7 +7,9 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                paper: "#F9F2ED",
+                "paper": "#F9F2ED",
+                "gray-slate-dark": "#304159", // tailwind: text-slate-800
+                "orange-sweet": "#FF7E67", // tailwind: text-orange-500
             },
         },
     },
