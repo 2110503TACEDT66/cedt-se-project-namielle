@@ -13,7 +13,6 @@ export default function RecommendBanner() {
 
     //Hotel Ranking
     let rank1 = 0, rank2 = 0, rank3 = 0;
-    let sortedArray : any
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -26,20 +25,19 @@ export default function RecommendBanner() {
         };
 
         fetchUserData();
-        //Calculate Rank
-        sortedArray = hotelData?.data.sort((n1: any ,n2: any) => {
-            if (n1.bookCount > n2.bookCount) {
-                return -1;
-            }
-    
-            if (n1.bookCount < n2.bookCount) {
-                return 1;
-            }
-    
-            return 0;
-        });
     }, [])
-
+    //Calculate Rank
+    let sortedArray: any[] = hotelData?.data.sort((n1: any ,n2: any) => {
+        if (n1.bookCount > n2.bookCount) {
+            return -1;
+        }
+    
+        if (n1.bookCount < n2.bookCount) {
+            return 1;
+        }
+    
+        return 0;
+    });
     console.log(sortedArray)
 
     return (
@@ -50,14 +48,18 @@ export default function RecommendBanner() {
             <div className="w-[1%] bg-white text-black">
                 T O P 1
             </div>
-            {<div className="px-10 w-[55%] h-[100%] relative">
-            <Link key={sortedArray[0].name} href={`/hotel/${sortedArray[0].id}`}>
+            <div className="px-10 w-[55%] h-[100%] relative">
+            {sortedArray?.filter((hotelItem: any) => {
+                    return 0 < hotelItem.bookCount;
+                }).map((hotelItem: any) => (
+                    <Link key={hotelItem.name} href={`/hotel/${hotelItem.id}`}>
                         <RecommendCard
-                            hotelName={sortedArray[0].name}
-                            imgSrc={`/img/${sortedArray[0].file}`}
+                            hotelName={hotelItem.name}
+                            imgSrc={`/img/${hotelItem.file}`}
                         />
-            </Link>
-            </div> }
+                    </Link>
+                ))}
+            </div> 
             <div className="w-1/5 bg-white m-3 text-black">
                 Top Hotel 2
             </div>
