@@ -13,7 +13,6 @@ import StripeCheckout from "./StripeCheckout";
 
 export default function CartPanel() {
     const cartItems = useAppSelector((state) => state.cartSlice.CartBookingItems);
-    console.log(cartItems);
     const dispatch = useDispatch<AppDispatch>()
     const { data: session } = useSession()
 
@@ -68,7 +67,8 @@ export default function CartPanel() {
                                 <div className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white">
                                     <Image src={`/img/${item.picture}`} alt={item.name} width={200} height={200} className="rounded-sm" />
                                     <div className="ml-2 text-black text-">
-                                        <h1 className="text-xl">{item.name}</h1>
+                                        <h1 className="text-2xl">{item.name}</h1>
+                                        <h2 className="text-xl">{item.roomName} room</h2>
                                         <h3 className="text-sm">Date: {item.checkInDate} {`->`} {item.checkOutDate}</h3>
                                         <h3 className="text-2xl pt-3 text-orange-500">{item.price}.- </h3>
                                     </div>
@@ -97,7 +97,7 @@ export default function CartPanel() {
                                                         <h3 className="text-md">{item.name}</h3>
                                                     </td>
                                                     <td className="border border-gray-400 px-4 py-2 text-right">
-                                                        ฿ {item.price}.-
+                                                        <h3 className="text-md">฿ {item.price.toFixed(2)}.-</h3>
                                                     </td>
                                                 </tr>
 
@@ -110,7 +110,7 @@ export default function CartPanel() {
                                             <h3 className="text-sm">Price: </h3>
                                         </td>
                                         <td className="border border-gray-400 px-4 py-2 text-right">
-                                            <h3 className="text-sm">฿ {totalPrice}.-</h3>
+                                            <h3 className="text-sm">฿ {totalPrice.toFixed(2)}.-</h3>
                                         </td>
                                     </tr>
                                     <tr>

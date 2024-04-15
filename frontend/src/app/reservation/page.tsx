@@ -17,6 +17,7 @@ export default function reservation() {
     const name = urlParams.get("name") || ""
     const picture = urlParams.get("file") || ""
     const roomType = urlParams.get("roomType") || ""
+    const roomName = urlParams.get("roomName") || ""
 
     const dispatch = useDispatch<AppDispatch>()
     const [checkInDate, setCheckInDate] = useState<Dayjs>(dayjs())
@@ -32,7 +33,8 @@ export default function reservation() {
                 price: checkOutDate.diff(checkInDate, "day") * parseInt(price),
                 name: name,
                 picture: picture,
-                roomType: roomType
+                roomType: roomType,
+                roomName: roomName
             }
             dispatch(addToCart(booking))
         }
@@ -52,6 +54,7 @@ export default function reservation() {
 
                 <div className="text-center mb-6">
                     <h1 className="text-3xl font-bold text-gray-800 mb-2">{name}</h1>
+                    <h1 className="text-2xl font-semibold text-gray-800">RoomType: {roomName}</h1>
                     <p className="text-gray-600">It's Happening...</p>
                 </div>
                 <div className="flex justify-between items-center mb-8">
