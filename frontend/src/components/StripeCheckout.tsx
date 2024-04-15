@@ -16,9 +16,7 @@ export default function StripeCheckout({
     const dispatch = useDispatch<AppDispatch>();
     const { data: session } = useSession();
     const makePayment = async () => {
-        const stripe = await loadStripe(
-            "pk_test_51P2sG5ISGle84u6wlpvUPjZTC5i5z2tXSVIUXFJEFxsV0uLWqvckp9qSoDTBSg2lwy1KktqRG86z95PYbkRAoJOa00wvzxXLiV"
-        );
+        const stripe = await loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`);
 
         if (cartItems.length > 3) {
             alert("You can only book 3 rooms at a time");

@@ -1,12 +1,12 @@
 const Transaction = require("../models/Transaction");
 const Booking = require("../models/Booking");
 const Hotel = require("../models/Hotel");
+const dotenv = require("dotenv");
 
-const stripe = require("stripe")(
-    "sk_test_51P2sG5ISGle84u6wJZUCQOVDpSnb264Ncchdis2WU2qscWQH92Q2NV4mD8fzbCpdKWNET9e1smgmFOacb9oWJrwv00VvflTupa"
-);
-const endpointSecret =
-    "whsec_536a6080d3ea400784e6301f45968c82aac410f64a16e3031726bfed4d031188";
+dotenv.config({ path: "./config/config.env" });
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 
 //@desc create checkout session
 //@route POST /api/v1/stripe/create-checkout-session
@@ -46,6 +46,8 @@ exports.createCheckoutSession = async (req, res) => {
                 });
             }
         });
+
+        // const booking = await Booking.create(req.body);
         
         //stripe
         const lineItems = products.cartItems.map((product) => ({
