@@ -8,43 +8,38 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { use, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import CheckoutForm from "./StripeCheckout";
 import StripeCheckout from "./StripeCheckout";
 
 export default function CartPanel() {
     const cartItems = useAppSelector((state) => state.cartSlice.CartBookingItems);
     console.log(cartItems);
-    const dispatch = useDispatch<AppDispatch>()
-    const { data: session } = useSession()
+    const dispatch = useDispatch<AppDispatch>();
+    const { data: session } = useSession();
 
     let totalPrice = 0
     cartItems.map((item) => {
         totalPrice += item.price
     })
 
-    const [bookings, setBookings] = useState();
-    useEffect(() => {
-        const fetchBookings = async () => {
-            try {
-                if (!session) return;
-                const result = await getBookings(session.user.token);
-                setBookings(result);
+    // const [bookings, setBookings] = useState();
+    // useEffect(() => {
+    //     const fetchBookings = async () => {
+    //         try {
+    //             if (!session) return;
+    //             const result = await getBookings(session.user.token);
+    //             setBookings(result);
 
-            } catch (error) {
-                console.error(error);
-            }
-        }
-        fetchBookings();
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     }
+    //     fetchBookings();
 
-    }, [cartItems])
+    // }, [cartItems])
 
     // const createBooking = async () => {
     //     for (const item of cartItems) {
-    //         // if (cartItems.length > 3) {
 
-    //         //     alert("You can only book 3 rooms at a time");
-    //         //     return; // Exit the function early if the booking limit is exceeded
-    //         // }
     //         try {
     //             if (!session) return;
     //             await userCreateBooking(session?.user.token, item.hid, session?.user._id, item.checkInDate, item.checkOutDate, item.picture);

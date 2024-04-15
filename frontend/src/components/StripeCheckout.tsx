@@ -1,27 +1,55 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { loadStripe } from "@stripe/stripe-js";
 import { CartItem } from "../../interface";
 import createStripeSession from "@/libs/createStripeSession";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/redux/store";
+import { removeFromCart } from "@/app/redux/features/cartSlice";
+import { useSession } from "next-auth/react";
 
-export default function StripeCheckout( {cartItems} : {cartItems: Array<CartItem>}) {
-  const makePayment = async () => {
-    const stripe = await loadStripe("pk_test_51P2sG5ISGle84u6wlpvUPjZTC5i5z2tXSVIUXFJEFxsV0uLWqvckp9qSoDTBSg2lwy1KktqRG86z95PYbkRAoJOa00wvzxXLiV");
+export default function StripeCheckout({
+    cartItems,
+}: {
+    cartItems: Array<CartItem>;
+}) {
+    const dispatch = useDispatch<AppDispatch>();
+    const { data: session } = useSession();
+    const makePayment = async () => {
+        const stripe = await loadStripe(
+            "pk_test_51P2sG5ISGle84u6wlpvUPjZTC5i5z2tXSVIUXFJEFxsV0uLWqvckp9qSoDTBSg2lwy1KktqRG86z95PYbkRAoJOa00wvzxXLiV"
+        );
 
-    const session = await createStripeSession({cartItems})
+        if (cartItems.length > 3) {
+            alert("You can only book 3 rooms at a time");
+            return; // Exit the function early if the booking limit is exceeded
+        }
 
-    const result = stripe?.redirectToCheckout({
-      sessionId: session.id
-    })
+        if(!session){
+            return;
+        }
 
-    if((await result)?.error){
-      console.log((await result)?.error);
-    }
-  }
+        const stripeSession = await createStripeSession(cartItems, session.user.token);
+        console.log(stripeSession);
 
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <button onClick={makePayment} >click</button>
-    </main>
-  );
+        // cartItems.map((item) => {
+        //     console.log("remove -> ", item);
+        //     dispatch(removeFromCart(item._id));
+        // });
+
+        const result = stripe?.redirectToCheckout({
+            sessionId: stripeSession.sessionId,
+        });
+
+        if ((await result)?.error) {
+            console.log((await result)?.error);
+        }
+
+    };
+
+    return (
+        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+            <button onClick={makePayment}>click</button>
+        </main>
+    );
 }

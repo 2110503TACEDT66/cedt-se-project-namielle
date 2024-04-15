@@ -74,6 +74,7 @@ exports.getBooking = async (req, res, next) => {
 //@access Private
 exports.addBooking = async (req, res, next) => {
     try {
+        console.log(req.user);
         req.body.hotel = req.params.hotelId;
 
         const hotel = await Hotel.findById(req.params.hotelId);
