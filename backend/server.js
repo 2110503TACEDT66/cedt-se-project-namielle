@@ -14,11 +14,10 @@ dotenv.config({ path: "./config/config.env" });
 connectDB();
 
 const app = express();
-const bodyParser = require('body-parser');
 app.use((req, res, next) => {
     if (req.originalUrl === "/api/v1/stripe/webhook") {
-        bodyParser.raw({ type: "application/json" })(req, res, next);
-        //   next(); // Do nothing with the body because I need it in a raw state.
+        next();
+        // Do nothing with the body because I need it in a raw state.
     } else {
         express.json()(req, res, next); // ONLY do express.json() if the received request is NOT a WebHook from Stripe.
     }

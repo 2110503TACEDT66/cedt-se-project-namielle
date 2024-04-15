@@ -26,7 +26,7 @@ const nextConfig = {
     env: {
         FRONTEND_URL: process.env.FRONTEND_URL,
         BACKEND_URL: process.env.BACKEND_URL,
-        NEXT_PUBLIC_STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
+        STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
     },
 };
 

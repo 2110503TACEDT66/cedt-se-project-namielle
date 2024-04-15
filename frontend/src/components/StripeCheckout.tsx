@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/app/redux/store";
 import { removeFromCart } from "@/app/redux/features/cartSlice";
 import { useSession } from "next-auth/react";
+import getUserProfile from "@/libs/getUserProfile";
 
 export default function StripeCheckout({
     cartItems,
@@ -17,6 +18,7 @@ export default function StripeCheckout({
     const { data: session } = useSession();
     const makePayment = async () => {
         const stripe = await loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`);
+        const userData =  await getUserProfile(session?.user.token as string);
 
         if (cartItems.length > 3) {
             alert("You can only book 3 rooms at a time");
@@ -27,8 +29,9 @@ export default function StripeCheckout({
             return;
         }
 
-        const stripeSession = await createStripeSession(cartItems, session.user.token);
-        console.log(stripeSession);
+        const stripeSession = await createStripeSession(cartItems, session.user.token, userData.data._id);
+        
+        // console.log(stripeSession);
 
         // cartItems.map((item) => {
         //     console.log("remove -> ", item);
@@ -47,7 +50,8 @@ export default function StripeCheckout({
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            <button onClick={makePayment}>click</button>
+            
+            <button onClick={makePayment}>Check Out</button>
         </main>
     );
 }

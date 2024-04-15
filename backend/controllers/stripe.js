@@ -12,11 +12,11 @@ const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 //@route POST /api/v1/stripe/create-checkout-session
 //@access Private
 exports.createCheckoutSession = async (req, res) => {
-    const products = await req.body; //supply with name, price
-    // console.log(products);
+    const payload = await req.body;
+    console.log(payload);
     //create booking data
     try{
-        products.cartItems.map(async (item) => {
+        payload.cartItems.map(async (item) => {
             const hotel = await Hotel.findById(item.hid);
             
             if (!hotel) {
@@ -26,13 +26,13 @@ exports.createCheckoutSession = async (req, res) => {
                 });
             }
 
-            req.body.user = req.user.id;
+            // req.body.user = req.user.id;
             const hotelCapacity = hotel.capacity;
             const hotelExistedBookings = await Booking.find({
                 hotel: item.hid,
             });
             const existedBookings = await Booking.find({ user: req.user.id });
-            console.log(item);
+            // console.log(item);
             if (hotelExistedBookings.length >= hotelCapacity) {
                 return res.status(400).json({
                     success: false,
@@ -50,7 +50,7 @@ exports.createCheckoutSession = async (req, res) => {
         // const booking = await Booking.create(req.body);
         
         //stripe
-        const lineItems = products.cartItems.map((product) => ({
+        const lineItems = payload.cartItems.map((product) => ({
             price_data: {
                 currency: "thb",
                 product_data: {
@@ -68,13 +68,13 @@ exports.createCheckoutSession = async (req, res) => {
             cancel_url: `${process.env.HOST}:3000/cart`,
         });
 
-        products.cartItems.map(async (product) => {
+        payload.cartItems.map(async (product) => {
             await Transaction.create({
                 session_id: session.id,
                 checkInDate: product.checkInDate,
                 checkOutDate: product.checkOutDate,
                 hotel: product.hid,
-                user: "6602da850657e3e7351b2f07",
+                user: payload.user,
                 stripe_id: "NULL",
             });
         });
@@ -106,6 +106,7 @@ exports.getCheckoutSessionStatus = async (req, res) => {
 
 
 exports.handleStripeWebhook = async (req, res) => {
+    console.log("successfully received webhook event");
     const sig = req.headers["stripe-signature"];
     let event;
     try {
@@ -118,7 +119,30 @@ exports.handleStripeWebhook = async (req, res) => {
     // console.log(event.type);
 
     if (event.type === "checkout.session.completed") {
-        console.log(event.data.object);
+        console.log("checkout session data: " + event.data.object);
+        const session = event.data.object
+        if (session.payment_status === "paid") {
+
+            const transaction = await Transaction.find({
+                session_id: event.data.object.id,
+            });
+            transaction.forEach(async (element) => {
+                element.stripe_id = event.data.object.payment_intent;
+                await Transaction.findByIdAndUpdate(element.id, element, {
+                    new: true,
+                    runValidators: true,
+                });
+       
+            });
+            transaction.forEach(async (element) => {
+                await fullfillOrder(element);
+            });
+        }   
+    }
+
+    else if (event.type === "checkout.session.async_payment_succeeded") {
+        
+       
         const transaction = await Transaction.find({
             session_id: event.data.object.id,
         });
@@ -128,8 +152,28 @@ exports.handleStripeWebhook = async (req, res) => {
                 new: true,
                 runValidators: true,
             });
+            await fullfillOrder(element);
         });
+
+    
     }
 
-    res.json({ received: true });
+
+
+    res.status(200).json({ received: true });
+};
+
+const fullfillOrder = async (transaction) => {
+    //add Booking for each transaction
+    const booking = {   
+        user: transaction.user,
+        hotel: transaction.hotel,
+        checkInDate: transaction.checkInDate,
+        checkOutDate: transaction.checkOutDate,
+        createdAt: Date.now(),
+
+
+    };
+    await Booking.create(booking);
+    console.log("booking created: " + booking);
 };

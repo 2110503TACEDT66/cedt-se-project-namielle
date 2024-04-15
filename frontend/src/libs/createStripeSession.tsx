@@ -1,10 +1,11 @@
+import { userAgent } from "next/server";
 import { CartItem } from "../../interface";
 
 export default async function createStripeSession(
     cartItems: Array<CartItem>,
-    token: String
+    token: String,
+    uid: String
 ) {
-    console.log(cartItems);
     const response = await fetch(
         "http://localhost:5000/api/v1/stripe/create-checkout-session",
         {
@@ -14,13 +15,17 @@ export default async function createStripeSession(
                 "Content-Type": "application/json",
                 authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({ cartItems }),
+            body: JSON.stringify({ 
+                cartItems:cartItems,
+                user: uid}),
         }
     );
 
     if (!response.ok) {
         throw new Error("POST Failed");
     }
-
-    return await response.json();
+    const responseJson = await response.json();
+    console.log(responseJson);
+    console.log(uid);
+    return responseJson;
 }

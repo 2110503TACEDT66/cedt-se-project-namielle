@@ -17,7 +17,6 @@ export interface BookingItem {
 
 export interface CartItem {
     _id: string,
-    user: string,
     checkInDate: string,
     checkOutDate: string,
     hid: string,

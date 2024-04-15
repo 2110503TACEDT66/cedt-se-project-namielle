@@ -5,6 +5,6 @@ const router = express.Router();
 const { protect, authorize } = require("../middleware/auth");
 
 router.route('/create-checkout-session').post(protect, authorize("admin", "user"), createCheckoutSession);
-router.route('/webhook').post(protect, authorize("admin", "user"), handleStripeWebhook);
+router.route('/webhook').post(express.raw({type: 'application/json'}), handleStripeWebhook);
 
 module.exports = router;
