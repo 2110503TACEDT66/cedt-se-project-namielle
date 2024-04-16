@@ -13,7 +13,6 @@ import StripeCheckout from "./StripeCheckout";
 
 export default function CartPanel() {
     const cartItems = useAppSelector((state) => state.cartSlice.CartBookingItems);
-    console.log(cartItems);
     const dispatch = useDispatch<AppDispatch>()
     const { data: session } = useSession()
 
@@ -47,7 +46,7 @@ export default function CartPanel() {
             // }
             try {
                 if (!session) return;
-                await userCreateBooking(session?.user.token, item.hid, session?.user._id, item.checkInDate, item.checkOutDate, item.picture);
+                await userCreateBooking(session?.user.token, item.hid, session?.user._id, item.checkInDate, item.checkOutDate, item.picture, item.roomType);
             } catch (error) {
                 alert("You can only book 3 rooms at a time");
                 return; // Exit the function early if the booking creation fails
@@ -68,7 +67,8 @@ export default function CartPanel() {
                                 <div className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white">
                                     <Image src={`/img/${item.picture}`} alt={item.name} width={200} height={200} className="rounded-sm" />
                                     <div className="ml-2 text-black text-">
-                                        <h1 className="text-xl">{item.name}</h1>
+                                        <h1 className="text-2xl">{item.name}</h1>
+                                        <h2 className="text-xl">{item.roomName} room</h2>
                                         <h3 className="text-sm">Date: {item.checkInDate} {`->`} {item.checkOutDate}</h3>
                                         <h3 className="text-2xl pt-3 text-orange-500">{item.price}.- </h3>
                                     </div>
@@ -97,7 +97,7 @@ export default function CartPanel() {
                                                         <h3 className="text-md">{item.name}</h3>
                                                     </td>
                                                     <td className="border border-gray-400 px-4 py-2 text-right">
-                                                        ฿ {item.price}.-
+                                                        <h3 className="text-md">฿ {item.price.toFixed(2)}.-</h3>
                                                     </td>
                                                 </tr>
 
@@ -110,7 +110,7 @@ export default function CartPanel() {
                                             <h3 className="text-sm">Price: </h3>
                                         </td>
                                         <td className="border border-gray-400 px-4 py-2 text-right">
-                                            <h3 className="text-sm">฿ {totalPrice}.-</h3>
+                                            <h3 className="text-sm">฿ {totalPrice.toFixed(2)}.-</h3>
                                         </td>
                                     </tr>
                                     <tr>
@@ -139,6 +139,11 @@ export default function CartPanel() {
                                     <Image src="/img/mastercard.png" alt="mastercard" width={40} height={40} className="mr-2 transition ease-in-out hover:scale-110" />
                                     <Image src="/img/paypal.png" alt="paypal" width={40} height={40} className="mr-2 transition ease-in-out hover:scale-110" />
                                 </div>
+                            </div>
+                            <div className="flex flex-row justify-center mt-5">
+                                <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105" onClick={createBooking}>
+                                    Book Now
+                                </button>
                             </div>
                             <div className="flex flex-col items-center justify-center">
                                 <StripeCheckout cartItems={cartItems}/>

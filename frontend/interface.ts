@@ -22,7 +22,9 @@ export interface CartItem {
     hid: string,
     name: string,
     price: number,
-    picture: string
+    picture: string,
+    roomType: string,
+    roomName: string,
 }
 
 export interface BookItem {
@@ -46,4 +48,44 @@ export interface UserData {
     role: string,
     createdAt: string,
     __v: number
+}
+
+export interface HotelJson {
+    data: {
+        _id: string;
+        name: string;
+        address: string;
+        tel: string;
+        capacity: number;
+        __v: number;
+        file: string;
+        price: number;
+        city: string;
+        bookCount: number;
+        booking: {
+            _id: string;
+            hotel: string;
+        }[];
+        roomType: {
+            _id: string;
+            hotel: string;
+            name: string;
+            personLimit: number;
+            price: number;
+            roomLimit: number;
+            __v: number;
+        }[];
+    };
+}
+
+export interface ReviewJson {
+    count: number,
+    data: {
+        _id: string,
+        user: string,
+        hotel: string,
+        stars: Number,
+        description: String,
+        createAt: Date,
+    }[],
 }

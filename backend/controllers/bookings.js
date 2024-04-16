@@ -1,5 +1,6 @@
 const Booking = require("../models/Booking");
 const Hotel = require("../models/Hotel");
+const RoomType = require("../models/RoomType");
 
 //@desc Get all bookings
 //@route GET /api/v1/bookings
@@ -73,6 +74,7 @@ exports.getBooking = async (req, res, next) => {
 //@route POST /api/v1/hotels/:hotelId/bookings/
 //@access Private
 exports.addBooking = async (req, res, next) => {
+
     try {
         req.body.hotel = req.params.hotelId;
 
@@ -105,6 +107,11 @@ exports.addBooking = async (req, res, next) => {
         }
 
         const booking = await Booking.create(req.body);
+
+        //Decreased roomLimit
+        const roomType = await RoomType.findById(booking.roomType);
+        let totalRoomLimit = roomType.roomLimit - 1;
+        await RoomType.findByIdAndUpdate(booking.roomType, { roomLimit : totalRoomLimit});
 
         res.status(200).json({
             success: true,
@@ -164,6 +171,7 @@ exports.updateBooking = async (req, res, next) => {
 //@route DELETE /api/v1/bookings/:id
 //@access Private
 exports.deleteBooking = async (req, res, next) => {
+    
     try {
         const booking = await Booking.findById(req.params.id);
 
@@ -184,7 +192,11 @@ exports.deleteBooking = async (req, res, next) => {
                 message: `User ${req.user.id} is not authorized to delete this booking`,
             });
         }
-
+        //Increased roomLimit
+        const roomType = await RoomType.findById(booking.roomType);
+        let totalRoomLimit = roomType.roomLimit + 1;
+        await RoomType.findByIdAndUpdate(booking.roomType, { roomLimit : totalRoomLimit});
+        
         await booking.deleteOne();
 
         res.status(200).json({
