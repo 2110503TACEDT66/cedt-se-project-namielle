@@ -32,10 +32,13 @@ export default function TopMenu() {
             <Link href={'/'}>
                 <Image src={'/img/logo.png'} className="h-full w-auto ml-3 my-1" alt='logo' width={0} height={0} sizes='100vh' />
             </Link>
+            
             <div className='flex flex-row absolute right-0 h-full mr-3 items-center'>
+                {
+                userData?.data.role === 'admin' ? <TopMenuItem title='Recommended Management' pageRef='/addrecommended' />
+                    : null
+                }
                 <TopMenuItem title='Browse Hotel' pageRef='/hotel' />
-
-
                 {
                     userData ?
                         <>
