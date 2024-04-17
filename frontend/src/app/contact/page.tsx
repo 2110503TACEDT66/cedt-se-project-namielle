@@ -3,21 +3,26 @@ import Image from "next/image"
 export default function contact() {
     return (
         <main className="text-center m-[3%] item-center justify-center">
-            <div className="text-bold text-3xl">Team</div>
+            <h1 className="text-bold text-3xl">Team</h1>
 
-            {/* To the next guy who wants to edit this: USE GRID*/}
-            <div className="flex flex-row justify-center wrap space-around">
-                <div className="flex flex-col mx-10 w-1/5 items-center">
-                    <Image src={'/img/yurill.jpg'} alt="rawit" width={400} height={400} className="rounded-full" />
-                    <div className="my-4 text-xl">Rawit Pholngam</div>
+            <div className="my-4 flex flex-wrap items-baseline justify-center gap-x-5">
+                <div className="my-4 flex w-3/4 flex-col sm:w-2/5 lg:w-1/4">
+                    <div className="relative h-[400px]">
+                        <Image src={'/img/yurill.jpg'} alt="rawit" fill={true} className="rounded-lg object-cover shadow-md absolute h-full" />
+                    </div>
+                    <p className="my-4 text-xl">Rawit Pholngam</p>
                 </div>
-                <div className="flex flex-col mx-10 w-1/5 items-center">
-                    <Image src={'/img/useless.png'} alt="nithi" width={400} height={400} className="rounded-full" />
-                    <div className="my-4 text-xl">Nithi Panutat</div>
+                <div className="my-4 flex w-3/4 flex-col sm:w-2/5 lg:w-1/4">
+                    <div className="relative h-[400px]">
+                        <Image src={'/img/useless.png'} alt="nithi" fill={true} className="rounded-lg object-cover shadow-md absolute h-full" />
+                    </div>
+                    <p className="my-4 text-xl">Nithi Panutat</p>
                 </div>
-                <div className="flex flex-col mx-10 w-1/5 items-center">
-                    <Image src={'/img/reo.png'} alt="thamvarut" width={400} height={400} className="rounded-full" />
-                    <div className="my-4 text-xl">Thamvarut Wannachetisara</div>
+                <div className="my-4 flex w-3/4 flex-col sm:w-2/5 lg:w-1/4">
+                    <div className="relative h-[400px]">
+                        <Image src={'/img/reo.png'} alt="thamvarut" fill={true} className="rounded-lg object-cover shadow-md absolute h-full" />
+                    </div>
+                    <p className="my-4 text-xl text-left">Thamvarut Wannachetisara</p>
                 </div>
             </div>
         </main>
