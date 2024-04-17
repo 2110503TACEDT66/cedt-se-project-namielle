@@ -10,6 +10,8 @@ import { use, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import CheckoutForm from "./StripeCheckout";
 import StripeCheckout from "./StripeCheckout";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation"
 
 export default function CartPanel() {
     const cartItems = useAppSelector((state) => state.cartSlice.CartBookingItems);
@@ -36,25 +38,40 @@ export default function CartPanel() {
         fetchBookings();
 
     }, [cartItems])
-
+    const router = useRouter();
     const createBooking = async () => {
         for (const item of cartItems) {
-            // if (cartItems.length > 3) {
+        // if (cartItems.length > 3) {
 
-            //     alert("You can only book 3 rooms at a time");
-            //     return; // Exit the function early if the booking limit is exceeded
-            // }
+        //     alert("You can only book 3 rooms at a time");
+        //     return; // Exit the function early if the booking limit is exceeded
+        // }
             try {
                 if (!session) return;
                 await userCreateBooking(session?.user.token, item.hid, session?.user._id, item.checkInDate, item.checkOutDate, item.picture, item.roomType);
+                
             } catch (error) {
-                alert("You can only book 3 rooms at a time");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Booking Failed',
+                    text: 'Your booking has failed',
+                    confirmButtonText: 'OK'
+                });
                 return; // Exit the function early if the booking creation fails
             }
-
+            
             dispatch(removeFromCart(item._id));
             // await new Promise((resolve) => setTimeout(resolve, 500)); // Wait for 1000 milliseconds before processing the next item
-        }
+        } 
+        
+        router.push("/hotel");
+        Swal.fire({
+            icon: 'success',
+            title: 'Booking Successful',
+            text: 'Your booking has been successfully created',
+            confirmButtonText: 'OK'
+        });
+        
     };
 
     return (
