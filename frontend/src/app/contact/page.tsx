@@ -3,7 +3,7 @@ import Image from "next/image"
 export default function contact() {
     return (
         <main className="text-center m-[3%] item-center justify-center">
-            <h1 className="text-bold text-3xl">Team</h1>
+            <h1 className="mb-8 text-bold text-5xl">Team</h1>
 
             <div className="my-4 flex flex-wrap items-baseline justify-center gap-x-5">
                 <div className="my-4 flex w-3/4 flex-col sm:w-2/5 lg:w-1/4">
