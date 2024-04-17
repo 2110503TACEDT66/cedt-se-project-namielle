@@ -10,6 +10,7 @@ const otp = require("./routes/otp");
 const cors = require("cors");
 const stripe = require("./routes/stripe");
 const roomTypeRoutes = require('./routes/roomTypes');
+const discounts = require("./routes/discounts");
 
 
 //Load env vars
@@ -20,6 +21,7 @@ const app = express();
 app.use(express.json()); // add body parser
 app.use(cookieParser()); // add cookie parser
 app.use(cors());
+app.use("/api/v1/discounts", discounts);
 app.use("/api/v1/hotels", hotels); // add routes path files
 app.use("/api/v1/bookings", bookings);
 app.use("/api/v1/auth", auth);

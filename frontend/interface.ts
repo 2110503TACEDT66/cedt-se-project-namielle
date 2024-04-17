@@ -89,3 +89,14 @@ export interface ReviewJson {
         createAt: Date,
     }[],
 }
+
+export interface discountJson {
+    data:{
+        name: string,
+        info: string,
+        code: string,
+        percentage: number,
+        _id: string,
+        __v: number,
+    };
+}

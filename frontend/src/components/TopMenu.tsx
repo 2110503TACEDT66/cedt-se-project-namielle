@@ -43,6 +43,14 @@ export default function TopMenu() {
                     userData ?
                         <>
                             {
+                                userData?.data.role === 'admin' ? <TopMenuItem title='Create Discount' pageRef='/editdiscount' />
+                                    : null
+                            }
+                            {
+                                userData?.data.role === 'user' || "admin" ? <TopMenuItem title='Discount Code' pageRef='/discount' /> 
+                                    : null
+                            }
+                            {
                                 userData?.data.role === 'admin' ? <TopMenuItem title='All Booking' pageRef='/mybooking' />
                                     : <TopMenuItem title='My Booking' pageRef='/mybooking' />
                             }
