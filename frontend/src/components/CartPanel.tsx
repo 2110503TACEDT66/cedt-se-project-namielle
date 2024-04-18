@@ -17,19 +17,19 @@ export default function CartPanel() {
     const cartItems = useAppSelector((state) => state.cartSlice.CartBookingItems);
     const dispatch = useDispatch<AppDispatch>()
     const { data: session } = useSession()
-    const bookingCount = useRef(0)
+    const [bookingCount, setBookingCount] = useState<number>(0)
 
     useEffect(() => {
         const fetchBookings = async () => {
             try {
                 const bookings = await getBookings(session?.user.token as  string)
-                bookingCount.current = bookings.count
+                setBookingCount(bookings.count + cartItems.length)
             } catch (e) {
                 console.log(e)
             }
         }
         fetchBookings()
-    }, [])
+    })
     let totalPrice = 0
     cartItems.map((item) => {
         totalPrice += item.price
@@ -119,7 +119,7 @@ export default function CartPanel() {
                                 </div>
                             </div>
                             <div className="flex flex-row justify-center mt-5">
-                                { bookingCount.current >= 3 ? 
+                                { bookingCount > 3 ? 
                                     <button className="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105" onClick={()=> {
                                         Swal.fire({
                                             icon: 'error',
@@ -127,7 +127,7 @@ export default function CartPanel() {
                                             text: 'You can only book 3 rooms',
                                         })
                                     }}>
-                                        Nah I'd win
+                                        Nah
                                     </button> :
                                     <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
                                         <StripeCheckout cartItems={cartItems}/>
