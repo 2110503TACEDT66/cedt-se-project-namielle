@@ -1,8 +1,16 @@
 import Image from "next/image";
 import CardTemplate from "./CardTemplate";
 import { Checkbox } from "@mui/material";
+import { useState } from "react";
 
 export default function AddRecommendCard({ hotelName, imgSrc, hotelCity, hotelAddress, hotelTel }: { hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string}) {
+    const [checkData, setcheckData] = useState<boolean>();
+
+    // function changeCheckData(){
+    //     if(checkData){
+
+    //     }
+    // }
 
     // const randPrice = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
 
@@ -25,7 +33,7 @@ export default function AddRecommendCard({ hotelName, imgSrc, hotelCity, hotelAd
                     Tel. {hotelTel}
                 </div>
                 <label>
-                    <input type="checkbox" className="m-3" />
+                    <input type="checkbox" className="m-3" defaultChecked={checkData}/>
                     Make Recommended
                 </label>
             </div>

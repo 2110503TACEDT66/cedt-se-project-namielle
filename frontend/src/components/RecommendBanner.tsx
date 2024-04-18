@@ -60,8 +60,8 @@ export default function RecommendBanner() {
                 {sortedArray && sortedArray.length > 0 && (
                     <Link key={sortedArray[0].name} href={`/hotel/${sortedArray[0].id}`}>
                         <RecommendCard
-                            hotelName={hotelItem.name}
-                            imgSrc={`/img/${hotelItem.file}`}
+                            hotelName={sortedArray[0].name}
+                            imgSrc={`/img/${sortedArray[0].file}`}
                         />
                     </Link>
                 )}
