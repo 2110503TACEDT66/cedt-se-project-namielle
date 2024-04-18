@@ -1,6 +1,7 @@
 const Transaction = require("../models/Transaction");
 const Booking = require("../models/Booking");
 const Hotel = require("../models/Hotel");
+const RoomType = require("../models/RoomType");
 const dotenv = require("dotenv");
 
 dotenv.config({ path: "./config/config.env" });
@@ -176,8 +177,11 @@ const fullfillOrder = async (transaction) => {
 
 
     };
-    await Booking.create(booking);
-    console.log("booking created: " + booking);
+    try {await Booking.create(booking);}
+    catch(err) {
+        console.log("error: " + err.message);
+    }
+    
 
     //Decreased roomLimit
     const roomType = await RoomType.findById(booking.roomType);
