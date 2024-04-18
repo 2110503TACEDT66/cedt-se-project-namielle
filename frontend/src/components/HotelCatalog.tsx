@@ -4,8 +4,6 @@ import Link from "next/link";
 import HotelCard from "./HotelCard";
 import { useState, useEffect } from "react";
 import getHotels from "@/libs/getHotels";
-import DateBooker from "./DateBooker";
-import dayjs, { Dayjs } from "dayjs";
 
 export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
     const [hotelData, setHotelData] = useState<any>();
@@ -46,18 +44,26 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                         <input type="number" id="persons" name="persons" placeholder="Persons" className="input input-bordered text-l p-2 w-[100%] h-[65%] border-solid border border-gray-400 rounded-md" onChange={(e) => setPersons(Number(e.target.value)) }/>
                     </div>
                 </div>
-                <div className="items-center justify-center">
-                    <h1 className="">
-                        Your result {hotelData?.data.filter((hotelItem: any) => {
-                    return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search)
-                    }).filter((hotelItem: any) => {
-                        for(let i = 0; i < hotelItem.roomType.length; i++) {
-                            if(hotelItem.roomType[i].roomLimit >= persons) {
-                                return hotelItem;
+                <div className="text-center">
+                    <h1 className="text-lg pt-2 font-semibold text-center font-black ">
+                       {hotelData?.data.filter((hotelItem: any) => {
+                        return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search)
+                        }).filter((hotelItem: any) => {
+                            for(let i = 0; i < hotelItem.roomType.length; i++) {
+                                if(hotelItem.roomType[i].roomLimit >= persons) {
+                                    return hotelItem;
+                                }
                             }
-                        }
-                    }).length}
-                    </h1>
+                        }).length != 0 ? `You found ${hotelData?.data.filter((hotelItem: any) => {
+                            return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search)
+                            }).filter((hotelItem: any) => {
+                                for(let i = 0; i < hotelItem.roomType.length; i++) {
+                                    if(hotelItem.roomType[i].roomLimit >= persons) {
+                                        return hotelItem;
+                                    }
+                                }
+                            }).length} hotels.`: "No matching hotels found."}
+                    </h1> 
                 </div>
                 {hotelData?.data.filter((hotelItem: any) => {
                     return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search)
