@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
 import { removeFromCart } from "@/app/redux/features/cartSlice";
-import { AppDispatch, useAppSelector } from "@/app/redux/store"
+import { AppDispatch, RootState, useAppSelector } from "@/app/redux/store";
 import getBookings from "@/libs/getBookings";
 import userCreateBooking from "@/libs/userCreateBooking";
 import { useSession } from "next-auth/react";
@@ -9,31 +9,71 @@ import Image from "next/image";
 import { use, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import StripeCheckout from "./StripeCheckout";
-import { useRouter } from "next/navigation"
+import { useRouter } from "next/navigation";
 import { promises } from "dns";
 import Swal from "sweetalert2";
+import getDiscounts from "@/libs/getDiscounts";
 
 export default function CartPanel() {
     const cartItems = useAppSelector((state) => state.cartSlice.CartBookingItems);
-    const dispatch = useDispatch<AppDispatch>()
-    const { data: session } = useSession()
-    const [bookingCount, setBookingCount] = useState<number>(0)
+    const dispatch = useDispatch<AppDispatch>();
+    const { data: session } = useSession();
+    const [bookingCount, setBookingCount] = useState<number>(0);
+    const [discountCode, setDiscountCode] = useState([]);
+    const [inputCode, setInputCode] = useState<string>();
+    // const [totalPrice, setTotalPrice] = useState(0);
+    const [discountedPrice, setDiscountedPrice] = useState<number>(0);
 
     useEffect(() => {
         const fetchBookings = async () => {
             try {
-                const bookings = await getBookings(session?.user.token as  string)
-                setBookingCount(bookings.count + cartItems.length)
+                const bookings = await getBookings(
+                    session?.user.token as string
+                );
+                setBookingCount(bookings.count + cartItems.length);
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
-        }
-        fetchBookings()
-    })
-    let totalPrice = 0
+        };
+        fetchBookings();
+    });
+
+    useEffect(() => {
+        const fetchDiscount = async () => {
+            try {
+                const result = await getDiscounts();
+                setDiscountCode(result.data);
+                console.log(result);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        fetchDiscount();
+    }, []);    
+    let totalPrice = 0;
     cartItems.map((item) => {
-        totalPrice += item.price
-    })
+        totalPrice += item.price;
+        // setTotalPrice(totalPrice + item.price);
+    });
+
+    const checkValidDiscount = async () => {
+        try {
+            const discounts = await getDiscounts();
+            let newDiscountedPrice = totalPrice; // ตั้งค่าเริ่มต้นให้เท่ากับราคาทั้งหมด
+            for (const discount of discounts.data) {
+                if (discount.code === inputCode) {
+                    // ปรับราคาหลังจากที่ใช้ส่วนลด
+                    newDiscountedPrice =
+                        (totalPrice * discount.percentage) / 100;
+                    setDiscountedPrice(newDiscountedPrice); // อัพเดทค่าของส่วนลดที่ถูกปรับแล้ว
+                    return;
+                }
+            }
+            console.log("Invalid discount code");
+        } catch (error) {
+            console.error("Error fetching discount", error);
+        }
+    };
 
     return (
         cartItems.length > 0 ?
@@ -100,15 +140,45 @@ export default function CartPanel() {
                                         </td>
                                     </tr>
                                     <tr>
+                                    <td className="border border-gray-400 px-4 py-2">
+                                        <h3 className="text-sm">Discount: </h3>
+                                    </td>
+                                    <td className="border border-gray-400 px-4 py-2 text-right">
+                                        <h3 className="text-sm">
+                                           - ฿ {discountedPrice.toFixed(2)}.-
+                                        </h3>
+                                    </td>
+                                </tr>
+                                    <tr>
                                         <td className="border border-gray-400 px-4 py-2">
                                             <h3 className="text-md font-bold">Total Price: </h3>
                                         </td>
                                         <td className="border border-gray-400 px-4 py-2 text-right">
-                                            <h3 className="text-sm">฿ {(totalPrice * 1.3).toFixed(2)}.-</h3>
+                                        <h3 className="text-sm">
+                                            ฿ {((totalPrice * 1.3)-discountedPrice).toFixed(2)}.-
+                                        </h3>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <div>
+                            <form className="mt-4">
+                                <input
+                                    type="text"
+                                    className="border border-gray-400 px-4 py-2 w-full"
+                                    placeholder="Discount Code"
+                                    value={inputCode}
+                                    onChange={(e) => setInputCode(e.target.value)}
+                                />
+                                <button
+                                    type="button"
+                                    className="bg-green-500 text-white font-semibold py-2 px-4 rounded-lg mt-2"
+                                    onClick={checkValidDiscount}
+                                >
+                                    Apply
+                                </button>
+                            </form>
+                        </div>
                             <div className="text-lg mt-4 font-bold">
                                 Choose Your Payment Method
                                 <div className="flex flex-row item-center">

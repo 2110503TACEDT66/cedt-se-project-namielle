@@ -98,3 +98,17 @@ export interface ReviewJson {
         isHidden: Boolean,
     }[],
 }
+<<<<<<< HEAD
+
+export interface discountJson {
+    data:{
+        name: string,
+        info: string,
+        code: string,
+        percentage: number,
+        _id: string,
+        __v: number,
+    };
+}
+=======
+>>>>>>> 6214c1ef3637b75ef5172f219b2c45690219f0f8
