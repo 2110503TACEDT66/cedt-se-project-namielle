@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import { removeAllFromCart } from "../redux/features/cartSlice";
 import getRoomType from "@/libs/getRoomType";
+import getUserProfile from "@/libs/getUserProfile";
 
 export default function mybooking() {
     const params = useSearchParams();
@@ -44,7 +45,21 @@ export default function mybooking() {
     const [deleteBooking, setDeleteBooking] = useState<string | null>(null);
     const [showEditForm, setShowEditForm] = useState(false);
     const [editingBooking, setEditingBooking] = useState<BookingItem | null>(null);
-    
+
+    const [userData, setUserData] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+            // console.log(session)
+            if (session) {
+                const userData = await getUserProfile(session?.user.token);
+                setUserData(userData);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     useEffect(() => {
         const fetchBookings = async () => {
@@ -104,6 +119,18 @@ export default function mybooking() {
     return (
         <div>
             <div className="flex justify-center items-center text-3xl pt-10">
+                {userData?.data.role === 'admin' ? 
+                <>
+                All Booking
+                <Image
+                    src="/img/hotel-logo.png"
+                    alt="hotel-logo"
+                    width={40}
+                    height={40}
+                    className="ml-2"
+                />
+                </> :
+                <>
                 My Booking
                 <Image
                     src="/img/hotel-logo.png"
@@ -112,6 +139,9 @@ export default function mybooking() {
                     height={40}
                     className="ml-2"
                 />
+                </>
+                }
+                
             </div>
 
             <div className="flex flex-row pl-20 pr-20 pt-10 h-auto bg-paper justify-center items-center">

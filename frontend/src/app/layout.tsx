@@ -12,10 +12,10 @@ import { authOptions } from "./api/auth/[...nextauth]/route";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "John Book",
+    title: "Namielle",
     description: "Hotel Booking Services",
     icons: {
-        icon: '/icon.png'
+        icon: '/Namielle.png'
     }
 };
 
