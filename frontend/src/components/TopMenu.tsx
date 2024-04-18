@@ -2,8 +2,6 @@
 import Image from 'next/image'
 import TopMenuItem from './MenuItem'
 import Link from 'next/link'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import UserDropDown from './UserDropdown'
 import getUserProfile from '@/libs/getUserProfile'
 import { useEffect, useState } from 'react'
@@ -43,8 +41,12 @@ export default function TopMenu() {
                     userData ?
                         <>
                             {
-                                userData?.data.role === 'admin' ? <TopMenuItem title='All Booking' pageRef='/mybooking' />
-                                    : <TopMenuItem title='My Booking' pageRef='/mybooking' />
+                                userData?.data.role === 'admin' ?
+                                <>
+                                <TopMenuItem title='All Booking' pageRef='/mybooking' />
+                                <TopMenuItem title='Add new hotel' pageRef='/hotel/addnewhotel' />
+                                </>
+                                : <TopMenuItem title='My Booking' pageRef='/mybooking' />
                             }
                             <UserDropDown />
                         </> :
