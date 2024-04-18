@@ -183,3 +183,38 @@ exports.deleteReview = async (req, res, next) => {
             .json({ success: false, message: "Cannot delete Review" });
     }
 };
+
+//@desc Hide review
+//@route PUT /api/v1/review/:id/hide
+//@access Private
+exports.hideReview = async (req, res, next) => {
+    try {
+        const review = await Review.findById(req.params.id);
+        if (!review) {
+            return res.status(404).json({
+                success: false,
+                message: `No review found with the id of ${req.params.id}`,
+            });
+        }
+
+        if (req.user.role !== "admin") {
+            return res.status(401).json({
+                success: false,
+                message: "User not authorized to hide this review",
+            });
+        }
+
+        review.isHidden = !review.isHidden;
+        await review.save();
+
+        res.status(200).json({
+            success: true,
+            data: review,
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Error hiding review",
+        });
+    }
+};
