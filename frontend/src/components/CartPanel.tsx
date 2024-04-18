@@ -8,9 +8,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { use, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import CheckoutForm from "./StripeCheckout";
 import StripeCheckout from "./StripeCheckout";
-import Swal from "sweetalert2";
 import { useRouter } from "next/navigation"
 
 export default function CartPanel() {
@@ -23,56 +21,41 @@ export default function CartPanel() {
         totalPrice += item.price
     })
 
-    const [bookings, setBookings] = useState();
-    useEffect(() => {
-        const fetchBookings = async () => {
-            try {
-                if (!session) return;
-                const result = await getBookings(session.user.token);
-                setBookings(result);
+    // const [bookings, setBookings] = useState();
+    // useEffect(() => {
+    //     const fetchBookings = async () => {
+    //         try {
+    //             if (!session) return;
+    //             const result = await getBookings(session.user.token);
+    //             setBookings(result);
 
-            } catch (error) {
-                console.error(error);
-            }
-        }
-        fetchBookings();
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     }
+    //     fetchBookings();
 
-    }, [cartItems])
-    const router = useRouter();
-    const createBooking = async () => {
-        for (const item of cartItems) {
-        // if (cartItems.length > 3) {
+    // }, [cartItems]})
 
-        //     alert("You can only book 3 rooms at a time");
-        //     return; // Exit the function early if the booking limit is exceeded
-        // }
-            try {
-                if (!session) return;
-                await userCreateBooking(session?.user.token, item.hid, session?.user._id, item.checkInDate, item.checkOutDate, item.picture, item.roomType);
-                
-            } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Booking Failed',
-                    text: 'Your booking has failed',
-                    confirmButtonText: 'OK'
-                });
-                return; // Exit the function early if the booking creation fails
-            }
-            
-            dispatch(removeFromCart(item._id));
-            // await new Promise((resolve) => setTimeout(resolve, 500)); // Wait for 1000 milliseconds before processing the next item
-        } 
-        
-        router.push("/hotel");
-        Swal.fire({
-            icon: 'success',
-            title: 'Booking Successful',
-            text: 'Your booking has been successfully created',
-            confirmButtonText: 'OK'
-        });
-        
-    };
+    // const createBooking = async () => {
+    //     for (const item of cartItems) {
+    //         // if (cartItems.length > 3) {
+
+    //         //     alert("You can only book 3 rooms at a time");
+    //         //     return; // Exit the function early if the booking limit is exceeded
+    //         // }
+    //         try {
+    //             if (!session) return;
+    //             await userCreateBooking(session?.user.token, item.hid, session?.user._id, item.checkInDate, item.checkOutDate, item.picture);
+    //         } catch (error) {
+    //             alert("You can only book 3 rooms at a time");
+    //             return; // Exit the function early if the booking creation fails
+    //         }
+
+    //         dispatch(removeFromCart(item._id));
+    //         // await new Promise((resolve) => setTimeout(resolve, 500)); // Wait for 1000 milliseconds before processing the next item
+    //     }
+    // };
 
     return (
         cartItems.length > 0 ?
@@ -158,13 +141,11 @@ export default function CartPanel() {
                                 </div>
                             </div>
                             <div className="flex flex-row justify-center mt-5">
-                                <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105" onClick={createBooking}>
-                                    Book Now
+                                <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+                                    <StripeCheckout cartItems={cartItems}/>
                                 </button>
                             </div>
-                            <div className="flex flex-col items-center justify-center">
-                                <StripeCheckout cartItems={cartItems}/>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
