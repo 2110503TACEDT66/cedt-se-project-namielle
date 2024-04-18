@@ -9,6 +9,7 @@ import dayjs, { Dayjs } from "dayjs"
 import Image from "next/image";
 import { CartItem } from "../../../interface"
 import { addToCart } from "../redux/features/cartSlice"
+import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 
 export default function reservation() {
@@ -20,19 +21,21 @@ export default function reservation() {
     const roomType = urlParams.get("roomType") || ""
     const roomName = urlParams.get("roomName") || ""
 
+    const {data: session} = useSession();
     const dispatch = useDispatch<AppDispatch>()
     const [checkInDate, setCheckInDate] = useState<Dayjs>(dayjs())
     const [checkOutDate, setCheckOutDate] = useState<Dayjs>(dayjs().add(1, "day"))
 
     const router = useRouter();
     const MakeReservation = () => {
-        if (checkInDate !== null && checkOutDate !== null && hid !== null && price !== null) {
+        if (checkInDate !== null && checkOutDate !== null && hid !== null && price !== null && session !== null) {
             const booking: CartItem = {
                 _id: dayjs().format("YYYYMMDDHHmmssSSS"),
                 checkInDate: dayjs(checkInDate).format("YYYY-MM-DD"),
                 checkOutDate: dayjs(checkOutDate).format("YYYY-MM-DD"),
                 hid: hid,
                 price: checkOutDate.diff(checkInDate, "day") * parseInt(price),
+                user: session.user._id,
                 name: name,
                 picture: picture,
                 roomType: roomType,

@@ -15,6 +15,7 @@ const HotelSchema = new mongoose.Schema(
         },
         tel: {
             type: String,
+            require: [true, "Please add a telephone number"],
         },
         capacity: {
             type: Number,
@@ -24,6 +25,22 @@ const HotelSchema = new mongoose.Schema(
         file: {
             type: String,
             required: [true, "Please add a picture of the hotel"],
+        },
+        price: {
+            type: Number,
+            required: [true, "Please add a price"],
+        },
+        city: {
+            type: String,
+            required: [true, "Please add a city"],
+        },
+        bookCount: {
+            type: Number,
+            default: 0,
+        },
+        priority: {
+            type: Number,
+            default: 0,
         },
     },
     {

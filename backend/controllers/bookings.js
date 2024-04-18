@@ -14,7 +14,7 @@ exports.getBookings = async (req, res, next) => {
         });
     } else {
         if (req.params.hotelId) {
-            console.log(req.params.hotelId);
+            // console.log(req.params.hotelId);
             query = Booking.find({ hotel: req.params.hotelId }).populate({
                 path: "hotel",
                 select: "name address tel file",
@@ -76,6 +76,7 @@ exports.getBooking = async (req, res, next) => {
 exports.addBooking = async (req, res, next) => {
 
     try {
+        console.log(req.user);
         req.body.hotel = req.params.hotelId;
 
         const hotel = await Hotel.findById(req.params.hotelId);
@@ -106,7 +107,7 @@ exports.addBooking = async (req, res, next) => {
             });
         }
 
-        const booking = await Booking.create(req.body);
+        // await Booking.create(req.body);
 
         //Decreased roomLimit
         const roomType = await RoomType.findById(booking.roomType);
