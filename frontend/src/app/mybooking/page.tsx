@@ -158,7 +158,7 @@ export default function mybooking() {
                                     className="rounded-sm w-[20%] h-[80%]"
                                 />
                                 <div className="ml-2 text-black">
-                                    <h1 className="text-2xl font-bold">{}</h1>
+                                    {/* <h1 className="text-2xl font-bold">{}</h1> */}
                                     <h1 className="text-2xl font-bold">{booking.hotel.name}</h1>
                                 
                                     <table>

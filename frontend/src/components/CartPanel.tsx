@@ -20,7 +20,7 @@ export default function CartPanel() {
     const { data: session } = useSession();
     const [bookingCount, setBookingCount] = useState<number>(0);
     const [discountCode, setDiscountCode] = useState([]);
-    const [inputCode, setInputCode] = useState<string>();
+    const [inputCode, setInputCode] = useState<string>("");
     // const [totalPrice, setTotalPrice] = useState(0);
     const [discountedPrice, setDiscountedPrice] = useState<number>(0);
 
@@ -132,14 +132,6 @@ export default function CartPanel() {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td className="border border-gray-400 px-4 py-2">
-                                            <h3 className="text-sm">Service Fee: </h3>
-                                        </td>
-                                        <td className="border border-gray-400 px-4 py-2 text-right">
-                                            <h3 className="text-sm">฿ {(totalPrice * 0.3).toFixed(2)}.-</h3>
-                                        </td>
-                                    </tr>
-                                    <tr>
                                     <td className="border border-gray-400 px-4 py-2">
                                         <h3 className="text-sm">Discount: </h3>
                                     </td>
@@ -155,7 +147,7 @@ export default function CartPanel() {
                                         </td>
                                         <td className="border border-gray-400 px-4 py-2 text-right">
                                         <h3 className="text-sm">
-                                            ฿ {((totalPrice * 1.3)-discountedPrice).toFixed(2)}.-
+                                            ฿ {(totalPrice-discountedPrice).toFixed(2)}.-
                                         </h3>
                                         </td>
                                     </tr>
@@ -200,7 +192,7 @@ export default function CartPanel() {
                                         Nah
                                     </button> :
                                     <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
-                                        <StripeCheckout cartItems={cartItems}/>
+                                        <StripeCheckout cartItems={cartItems} discountCode={inputCode}/>
                                     </button>
                                 } 
                                

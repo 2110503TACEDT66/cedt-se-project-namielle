@@ -3,6 +3,7 @@ const Booking = require("../models/Booking");
 const Hotel = require("../models/Hotel");
 const RoomType = require("../models/RoomType");
 const dotenv = require("dotenv");
+const Discount = require("../models/Discount")
 
 dotenv.config({ path: "./config/config.env" });
 
@@ -14,6 +15,7 @@ const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 //@access Private
 exports.createCheckoutSession = async (req, res) => {
     const payload = await req.body;
+    const discountPercentage = await useDiscountCode(payload.discountCode);
     //create booking data
     try{
         payload.cartItems.map(async (item) => {
@@ -52,8 +54,6 @@ exports.createCheckoutSession = async (req, res) => {
                 .json({ success: false, message: "Cannot create Booking" });
         }
 
-        // const booking = await Booking.create(req.body);
-        
         //stripe
         const lineItems = payload.cartItems.map((product) => ({
             price_data: {
@@ -61,7 +61,7 @@ exports.createCheckoutSession = async (req, res) => {
                 product_data: {
                     name: product.name,
                 },
-                unit_amount: product.price * 100,
+                unit_amount: product.price * 100 * discountPercentage,
             },
             quantity: 1,
         }));
@@ -195,4 +195,19 @@ const fullfillOrder = async (transaction) => {
     await RoomType.findByIdAndUpdate(booking.roomType, { roomLimit : totalRoomLimit});
     
 
+};
+
+const useDiscountCode = async (userDiscountCode) => {
+    try {
+        const discounts = await Discount.find();
+        const discount = discounts.find((item) => item.code === userDiscountCode);
+        if (discount) {
+            console.log("percent: ", (100 - discount.percentage) / 100);
+            return (100 - discount.percentage) / 100;
+        }
+        return 1;
+
+    } catch (error) {
+        console.error("Error fetching discount", error);
+    }
 };

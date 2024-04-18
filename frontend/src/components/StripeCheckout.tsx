@@ -11,10 +11,12 @@ import getUserProfile from "@/libs/getUserProfile";
 
 export default function StripeCheckout({
     cartItems,
+    discountCode,
 }: {
-    cartItems: Array<CartItem>;
+    cartItems: Array<CartItem>,
+    discountCode: String,
 }) {
-    const dispatch = useDispatch<AppDispatch>();
+    // const dispatch = useDispatch<AppDispatch>();
     const { data: session } = useSession();
     const makePayment = async () => {
         const stripe = await loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`);
@@ -29,7 +31,7 @@ export default function StripeCheckout({
             return;
         }
 
-        const stripeSession = await createStripeSession(cartItems, session.user.token, userData.data._id);
+        const stripeSession = await createStripeSession(cartItems, session.user.token, userData.data._id, discountCode);
         
         // console.log(stripeSession);
 

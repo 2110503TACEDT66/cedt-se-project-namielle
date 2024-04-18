@@ -98,7 +98,6 @@ export interface ReviewJson {
         isHidden: Boolean,
     }[],
 }
-<<<<<<< HEAD
 
 export interface discountJson {
     data:{
@@ -110,5 +109,3 @@ export interface discountJson {
         __v: number,
     };
 }
-=======
->>>>>>> 6214c1ef3637b75ef5172f219b2c45690219f0f8

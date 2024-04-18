@@ -4,7 +4,8 @@ import { CartItem } from "../../interface";
 export default async function createStripeSession(
     cartItems: Array<CartItem>,
     token: String,
-    uid: String
+    uid: String,
+    discountCode: String
 ) {
     const response = await fetch(
         "http://localhost:5000/api/v1/stripe/create-checkout-session",
@@ -17,7 +18,9 @@ export default async function createStripeSession(
             },
             body: JSON.stringify({ 
                 cartItems:cartItems,
-                user: uid}),
+                user: uid,
+                discountCode: discountCode
+            }),
         }
     );
 
