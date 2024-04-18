@@ -38,6 +38,10 @@ const HotelSchema = new mongoose.Schema(
         bookCount: {
             type: Number,
         },
+        priority: {
+            type: Number,
+            default: 0,
+        }
     },
     {
         toJSON: { virtuals: true },

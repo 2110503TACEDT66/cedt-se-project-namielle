@@ -32,10 +32,11 @@ export default function AddRecommendCard({ hotelName, imgSrc, hotelCity, hotelAd
                 <div className="w-full px-[4%] pt-[2%] " style={{ color: '#777' }}>
                     Tel. {hotelTel}
                 </div>
-                <label>
-                    <input type="checkbox" className="m-3" defaultChecked={checkData}/>
-                    Make Recommended
-                </label>
+                <input
+                    id={hotelName}
+                    type="checkbox"
+                    className="m-3"
+                />
             </div>
         </main>
     );
