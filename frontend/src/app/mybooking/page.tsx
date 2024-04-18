@@ -13,6 +13,7 @@ import { useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/store";
 import { removeAllFromCart } from "../redux/features/cartSlice";
+import getRoomType from "@/libs/getRoomType";
 
 export default function mybooking() {
     const params = useSearchParams();
@@ -43,11 +44,17 @@ export default function mybooking() {
     const [deleteBooking, setDeleteBooking] = useState<string | null>(null);
     const [showEditForm, setShowEditForm] = useState(false);
     const [editingBooking, setEditingBooking] = useState<BookingItem | null>(null);
+    
 
     useEffect(() => {
         const fetchBookings = async () => {
             try {
                 const result = await getBookings(session.user.token);
+                result.data.map(async (item:any) => {
+                    // console.log(item);
+                    item.roomDetail = await getRoomType(session.user.token, item.roomType);
+                })
+                console.log(result);
                 setBookings(result);
 
             } catch (error) {
@@ -114,11 +121,23 @@ export default function mybooking() {
                                     className="rounded-sm w-[20%] h-[80%]"
                                 />
                                 <div className="ml-2 text-black">
+                                    <h1 className="text-2xl font-bold">{}</h1>
                                     <h1 className="text-2xl font-bold">{booking.hotel.name}</h1>
-                                    <h3 className="text-xl text-gray-700">
-                                        Date: {booking.checkInDate} {`->`} {booking.checkOutDate}
-                                    </h3>
-                                    <h4 className="text-md text-gray-600">User ID: {booking.user}</h4>
+                                    <table>
+                                        <tr>
+                                            <td>Room Type:</td>
+                                            <td>{}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Check In:</td>
+                                            <td>{booking.checkInDate}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Check Out:</td>
+                                            <td>{booking.checkOutDate}</td>
+                                        </tr>
+                                    </table>
+                                    
                                 </div>
                                 <div className="ml-auto flex flex-row h-[80%]">
                                     <button className="bg-blue-500 w-[50%] text-white rounded-lg p-1 m-1 hover:bg-blue-700 text-white rounded-lg transition duration-300 transform hover:scale-105" onClick={() => handleEditClick(booking)}>

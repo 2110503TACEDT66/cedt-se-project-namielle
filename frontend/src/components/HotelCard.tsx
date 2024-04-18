@@ -35,7 +35,7 @@ export default function HotelCard({ hotelName, imgSrc, hotelAddress, hotelTel, r
                         </thead>
                         <tbody>
                         {roomType.map((room:any) => (
-                            room.roomLimit >= persons && (
+                            (room.personLimit >= persons && room.roomLimit > 0)&& (
                             <tr className="border-b border-gray-200 hover:bg-gray-50">
                                 <td className="px-2 py-1">{room.name}</td>
                                 <td className="px-2 py-1">{room.personLimit}</td>
