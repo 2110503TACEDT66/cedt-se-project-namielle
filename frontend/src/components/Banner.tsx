@@ -21,10 +21,10 @@ export default function Banner() {
     return (
         <div className="flex flex-row flex-wrap justify-center items-center gap-x-64 gap-y-36 py-40">
             <div className="flex flex-col justify-center items-center">
-                <h1 className="font-semibold font-serif text-6xl text-slate-800 leading-loose text-center mb-8">Explore your <span className="text-orange-500 bold">world</span>,<br/>One <span className="text-orange-500 bold">stay</span> at a time</h1>
+                <h1 className="font-semibold font-serif text-6xl text-slate-800 leading-loose text-center mb-8">Explore your <span className="text-pink-500 font-bold">world</span>,<br/>One <span className="text-pink-500 font-bold">stay</span> at a time</h1>
 
                 <Link href={'/hotel'}>
-                    <button className="w-[200px] h-[50px] text-2xl text-slate-900 font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-500 rounded-2xl">Book Now!</button>
+                    <button className="w-[200px] h-[50px] text-2xl text-pink-500 font-bold font-sans bg-slate-800 hover:bg-pink-500 hover:text-slate-800 rounded-2xl">Book Now!</button>
                 </Link>
             </div>
 

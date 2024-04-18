@@ -33,7 +33,7 @@ export default function TopMenu() {
             <Link href={'/'}>
                 <div className="flex h-full w-auto ml-3 items-center">
                     <Image src={'/img/Teamlogo.png'} className="h-full w-auto" alt='logo' width={0} height={0} sizes='100vh' />
-                    <h1 className='text-2xl font-black tracker-widest bg-gradient-to-b from-violet-800 from-40% to-pink-500 to-70% text-transparent bg-clip-text'>NAMIELLE</h1>
+                    <h1 className='text-3xl font-black tracker-widest bg-gradient-to-b from-violet-800 from-40% to-pink-500 to-70% text-transparent bg-clip-text mt-3 fixed left-[87px]'>NAMIELLE</h1>
                 </div>
             </Link>
             <div className='flex flex-row absolute right-0 h-full mr-3 items-center'>
