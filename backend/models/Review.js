@@ -26,6 +26,10 @@ const ReviewSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    isHidden: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 module.exports = mongoose.model("Review", ReviewSchema);

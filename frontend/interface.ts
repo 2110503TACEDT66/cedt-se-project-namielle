@@ -87,5 +87,6 @@ export interface ReviewJson {
         stars: Number,
         description: String,
         createAt: Date,
+        isHidden: Boolean,
     }[],
 }
