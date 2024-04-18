@@ -118,7 +118,7 @@ exports.getHotel = async (req, res, next) => {
 //@access Private
 exports.createHotel = async (req, res, next) => {
     //console.log("a");
-    var data = req.body;
+    var data = req.body;/*
     if (req.file && req.file.filename) {
         data.file = req.file.filename;
     } else {
@@ -126,12 +126,16 @@ exports.createHotel = async (req, res, next) => {
         return res
             .status(400)
             .json({ error: "Please add a picture to the hotel" });
+    }*/
+    try {
+        const hotel = await Hotel.create(data);
+        res.status(201).json({
+            success: true,
+            data: hotel,
+        });
+    } catch (err) {
+        res.status(400).json({ success: false });
     }
-    const hotel = await Hotel.create(data);
-    res.status(201).json({
-        success: true,
-        data: hotel,
-    });
 };
 
 //@desc Update hotels
