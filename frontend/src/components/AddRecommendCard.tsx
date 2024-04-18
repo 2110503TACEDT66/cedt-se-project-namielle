@@ -5,8 +5,10 @@ import React, { useEffect, useState } from 'react';
 import UpdateHotel from "@/libs/UpdateHotel";
 import { Select } from "@mui/material";
 
+var globalSelect : number[] = [];
+
 export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, hotelAddress, hotelTel, hotelPriority 
-    , onCancel, onSave
+    , onCancel, onSave,
 }: {hotel: any, hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string, hotelPriority: number
     ,onCancel?: () => void, onSave?: () => void 
 }) {
@@ -14,43 +16,86 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
     const [Priority, setPriority] = useState<number>(hotelPriority);
     const [updateHotel, setUpdateHotel] = useState<any | null>(null);
     const [prevSelectedValue, setPrevSelectedValue] = useState("0");
-
+    
    function disablePriority(e:number){
+     setTimeout(function () {
         var select = document.getElementById(hotelName) as HTMLSelectElement;
-        if(select == null){
-            return select;
+        if (select === null)
+            disablePriority(e);
+        else {
+            select[e].disabled = true;
         }
-        select[e].disabled = true;
-        return;
-   }
+        }, 500);
+    };
    
-   function enablePriority(e:number){
+    function enablePriority(e:number){
+        setTimeout(function () {
+           var select = document.getElementById(hotelName) as HTMLSelectElement;
+           if (select === null)
+               enablePriority(e);
+           else {
+               select[e].disabled = false;
+           }
+           }, 500);
+       };
+    
+   //current select number and add save data
+   let cur : number;   
+   //if(hotelPriority != 0) globalSelect.push(hotelPriority);
+   function changePriority(e : number){
+        setTimeout(function () {
         var select = document.getElementById(hotelName) as HTMLSelectElement;
-        if(select == null){
-            return select;
-        }
-        select[e].disabled = false;
-        return;
-   }
-
-   function changePriority(e:number){
-        if(e == 1){
-            disablePriority(1);
+        if (select === null)
+            changePriority(e);
+        else {
+            let itr = globalSelect.indexOf(cur);
+            if(e == 0){
+                globalSelect.splice(itr,1);
+            }
+            else if(e == 1){
+                globalSelect.push(1);
+                if(cur != 0) globalSelect.splice(itr,1);
+            }
+            else if(e == 2){
+                globalSelect.push(2);
+                if(cur != 0) globalSelect.splice(itr,1);
+            }
+            else if(e == 3){
+                globalSelect.push(3);
+                if(cur != 0) globalSelect.splice(itr,1);
+            }
             enablePriority(2);
-            enablePriority(3);
+            check();
         }
-        else if(e == 2){
-            disablePriority(2);
-            enablePriority(1);
-            enablePriority(3);
-        }
-        else if(e == 3){
-            disablePriority(3);
-            enablePriority(1);
-            enablePriority(2);
-        }
-        return;
+       },500)
     }
+
+    function check() {
+        let one = false,two = false,three = false;
+        for(let e of globalSelect){
+            if(e == 1){
+                disablePriority(1);
+                one = true;
+            }
+            else if(e == 2){
+                disablePriority(2);
+                two = true;
+            }
+            else if(e == 3){
+                disablePriority(3);
+                three = true;
+            }
+        }
+        if(!one) enablePriority(1);
+        if(!two) enablePriority(2);
+        if(!three) enablePriority(3);
+    };
+    function currentSelect(){
+        var selectBox = document.getElementById(hotelName) as HTMLSelectElement;
+        var selectedValue = selectBox.selectedIndex;
+        cur = selectedValue;
+    }
+    
 
     const fetchUpdateHotels = async () => {
 
@@ -70,7 +115,6 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
         mySelect.selectedIndex = hotelPriority
         return;
     }
-    
 
     // const randPrice = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
 
@@ -92,15 +136,17 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
                 <div className="w-full px-[4%] pt-[2%] " style={{ color: '#777' }}>
                     Tel. {hotelTel}
                 </div>
-                <select value={Priority} name="rank" id={hotelName} 
+                <select value={Priority} name="mySelect" id={hotelName}
+                    onMouseEnter={()=>{check();currentSelect()}}
                     onChange={(e) => {
                         setPriority(e.target.selectedIndex); 
+                        changePriority(e.target.selectedIndex);
                     }}
                     >
-                    <option value="0" selected>0</option>
-                        <option id="one" value="1" onChange={changePriority(1)} >1</option>
-                        <option id="two" value="2" onChange={changePriority(2)} >2</option>
-                        <option id="three" value="3" onChange={changePriority(3)}>3</option>
+                    <option value="0">0</option>
+                    <option id="one" value="1">1</option>
+                    <option id="two" value="2">2</option>
+                    <option id="three" value="3">3</option>
                 </select>
                 <div className="text-opacity-0">
                 {
