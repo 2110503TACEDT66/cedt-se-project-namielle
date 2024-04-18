@@ -31,9 +31,9 @@ export default function TopMenu() {
     return (
         <div className="h-[70px] bg-paper fixed top-0 left-0 right-0 z-30 border-b border-t border-solid border-gray-400 flex flex-row">
             <Link href={'/'}>
-                <div className="flex h-full w-auto ml-3 my-1 items-center">
+                <div className="flex h-full w-auto ml-3 items-center">
                     <Image src={'/img/Teamlogo.png'} className="h-full w-auto" alt='logo' width={0} height={0} sizes='100vh' />
-                    <h1 className='text-2xl font-bold bg-gradient-to-b from-violet-800 from-40% to-pink-500 to-70% text-transparent bg-clip-text'>NAMIELLE</h1>
+                    <h1 className='text-2xl font-black tracker-widest bg-gradient-to-b from-violet-800 from-40% to-pink-500 to-70% text-transparent bg-clip-text'>NAMIELLE</h1>
                 </div>
             </Link>
             <div className='flex flex-row absolute right-0 h-full mr-3 items-center'>
