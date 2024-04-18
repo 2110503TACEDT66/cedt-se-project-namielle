@@ -8,6 +8,7 @@ import getHotels from "@/libs/getHotels";
 export default function AddRecommendedHotel({hotelJson}:{hotelJson:any}) {
     const [hotelData, setHotelData] = useState<any>();
     const [checkedBoxes, setCheckedBoxes] = useState([]);
+    const [checkCount, setCheckCount] = useState(0);
     const [search, setSearch] = useState('');
 
     useEffect(() => {
@@ -22,22 +23,6 @@ export default function AddRecommendedHotel({hotelJson}:{hotelJson:any}) {
 
         fetchUserData();
     }, [])
-
-    // function handleCheckboxChange(e, hotelName){
-    //     if(e.target.checked){
-    //         console.log(hotelName);
-    //         if(checkedBoxes.length < 3){
-    //             setCheckedBoxes([...checkedBoxes, hotelName]);
-    //         }
-    //         else{
-    //             e.target.checked = false;
-    //             alert('Maximum 3 hotels can be recommended at a time');
-    //         }
-    //     }
-    //     else{
-    //         setCheckedBoxes(checkedBoxes.filter((item) => item !== hotelName));
-    //     }
-    // }
 
     console.log(search);
     console.log(hotelData);
@@ -70,7 +55,6 @@ export default function AddRecommendedHotel({hotelJson}:{hotelJson:any}) {
                                 hotelTel={hotelItem.tel}
                                 hotelPriority={hotelItem.priority}
                             />
-                            
                     ))}
                 </div>
             </div>
