@@ -44,7 +44,13 @@ exports.createCheckoutSession = async (req, res) => {
                     success: false,
                     message: `The user with ID ${req.user.id} has already made 3 bookings`,
                 });
-            }
+            }});
+        } catch(error){
+            console.log(error);
+            return res
+                .status(500)
+                .json({ success: false, message: "Cannot create Booking" });
+        }
 
         // const booking = await Booking.create(req.body);
         
@@ -78,16 +84,14 @@ exports.createCheckoutSession = async (req, res) => {
                 stripe_id: "NULL",
             });
         });
-        res.status(200).json({ success: true, sessionId: session.id });
+        
         console.log(payload.cartItems)
-    });
+    
 
-    } catch(error){
-        console.log(error);
-        return res
-            .status(500)
-            .json({ success: false, message: "Cannot create Booking" });
-    }
+    res.status(200).json({ success: true, sessionId: session.id });
+    
+
+    
         // await Booking.create(item);
     
 };
@@ -115,7 +119,7 @@ exports.handleStripeWebhook = async (req, res) => {
         event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
     } catch (err) {
         console.error(err.message);
-        return res.status(400).send(`Webhook Error: ${err.message}`);
+        return res.status(400);
     }
 
     // console.log(event.type);
@@ -129,6 +133,7 @@ exports.handleStripeWebhook = async (req, res) => {
                 session_id: event.data.object.id,
             });
             transaction.forEach(async (element) => {
+                console.log(element);
                 element.stripe_id = event.data.object.payment_intent;
                 await Transaction.findByIdAndUpdate(element.id, element, {
                     new: true,
@@ -137,6 +142,7 @@ exports.handleStripeWebhook = async (req, res) => {
        
             });
             transaction.forEach(async (element) => {
+                
                 await fullfillOrder(element);
             });
         }   

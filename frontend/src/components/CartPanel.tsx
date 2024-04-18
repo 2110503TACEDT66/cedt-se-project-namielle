@@ -6,56 +6,34 @@ import getBookings from "@/libs/getBookings";
 import userCreateBooking from "@/libs/userCreateBooking";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import StripeCheckout from "./StripeCheckout";
 import { useRouter } from "next/navigation"
+import { promises } from "dns";
+import Swal from "sweetalert2";
 
 export default function CartPanel() {
     const cartItems = useAppSelector((state) => state.cartSlice.CartBookingItems);
     const dispatch = useDispatch<AppDispatch>()
     const { data: session } = useSession()
+    const bookingCount = useRef(0)
 
+    useEffect(() => {
+        const fetchBookings = async () => {
+            try {
+                const bookings = await getBookings(session?.user.token as  string)
+                bookingCount.current = bookings.count
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        fetchBookings()
+    }, [])
     let totalPrice = 0
     cartItems.map((item) => {
         totalPrice += item.price
     })
-
-    // const [bookings, setBookings] = useState();
-    // useEffect(() => {
-    //     const fetchBookings = async () => {
-    //         try {
-    //             if (!session) return;
-    //             const result = await getBookings(session.user.token);
-    //             setBookings(result);
-
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     }
-    //     fetchBookings();
-
-    // }, [cartItems]})
-
-    // const createBooking = async () => {
-    //     for (const item of cartItems) {
-    //         // if (cartItems.length > 3) {
-
-    //         //     alert("You can only book 3 rooms at a time");
-    //         //     return; // Exit the function early if the booking limit is exceeded
-    //         // }
-    //         try {
-    //             if (!session) return;
-    //             await userCreateBooking(session?.user.token, item.hid, session?.user._id, item.checkInDate, item.checkOutDate, item.picture);
-    //         } catch (error) {
-    //             alert("You can only book 3 rooms at a time");
-    //             return; // Exit the function early if the booking creation fails
-    //         }
-
-    //         dispatch(removeFromCart(item._id));
-    //         // await new Promise((resolve) => setTimeout(resolve, 500)); // Wait for 1000 milliseconds before processing the next item
-    //     }
-    // };
 
     return (
         cartItems.length > 0 ?
@@ -141,9 +119,21 @@ export default function CartPanel() {
                                 </div>
                             </div>
                             <div className="flex flex-row justify-center mt-5">
-                                <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
-                                    <StripeCheckout cartItems={cartItems}/>
-                                </button>
+                                { bookingCount.current >= 3 ? 
+                                    <button className="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105" onClick={()=> {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: 'You can only book 3 rooms',
+                                        })
+                                    }}>
+                                        Nah I'd win
+                                    </button> :
+                                    <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+                                        <StripeCheckout cartItems={cartItems}/>
+                                    </button>
+                                } 
+                               
                             </div>
                             
                         </div>
