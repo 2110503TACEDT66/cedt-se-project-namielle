@@ -3,7 +3,7 @@ import CardTemplate from "./CardTemplate";
 import getHotels from "@/libs/getHotels";
 import getHotel from "@/libs/getHotel";
 
-export default function HotelCard({ hotelName, imgSrc, hotelAddress, hotelTel, hotelPrice }: { hotelName: string, imgSrc: string, hotelAddress: string, hotelTel: string, hotelPrice: number }) {
+export default function HotelCard({ hotelName, imgSrc, hotelAddress, hotelTel, roomType, persons }: { hotelName: string, imgSrc: string, hotelAddress: string, hotelTel: string,  roomType: any, persons: number}) {
 
     // const randPrice = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
 
@@ -23,9 +23,21 @@ export default function HotelCard({ hotelName, imgSrc, hotelAddress, hotelTel, h
                 <div className="w-full px-[4%] pt-[2%] ">
                     Tel. {hotelTel}
                 </div>
-
-                <div className="w-full px-[4%] pt-[2%] text-2xl r-0 b-0 text-orange-500 font-bold">
-                    {hotelPrice} ฿
+                <div className="w-full px-[4%] pt-[2%] ">
+                    {
+                        roomType.map((room: any) => (
+                            <div>
+                                {
+                                    room.roomLimit >= persons ? 
+                                    <div className="flex justify-between px-[4%]">
+                                        <div>{room.name}</div>
+                                        <div>{room.price}.-</div>
+                                    </div> 
+                                    : null
+                                }
+                            </div>
+                        ))
+                    }
                 </div>
                 {/* <div className="w-full px-[4%] pt-[2%] text-2xl r-0 b-0">
                     {imgSrc}
