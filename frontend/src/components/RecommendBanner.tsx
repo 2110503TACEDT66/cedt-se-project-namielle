@@ -12,9 +12,6 @@ export default function RecommendBanner() {
     const [search, setSearch] = useState('');
     const [sortedArray, setSortedArray] = useState<any[]>([]);
 
-    //Hotel Ranking
-    let rank1 = 0, rank2 = 0, rank3 = 0;
-
     // Add state for sortedArray
 
     useEffect(() => {
@@ -24,6 +21,13 @@ export default function RecommendBanner() {
                 setHotelData(result);
                 //Calculate Rank
                 const sorted = result?.data.sort((n1: any, n2: any) => {
+                    if(n1.priority > n2.priority){
+                        return -1
+                    }
+                    if(n1.priority < n2.priority){
+                        return 1
+                    }
+
                     if (n1.bookCount > n2.bookCount) {
                         return -1;
                     }
@@ -34,6 +38,7 @@ export default function RecommendBanner() {
 
                     return 0;
                 });
+                
                 setSortedArray(sorted);
             } catch (err) {
                 console.error(err);

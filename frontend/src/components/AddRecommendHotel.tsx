@@ -73,7 +73,6 @@ export default function AddRecommendedHotel({hotelJson}:{hotelJson:any}) {
                             
                     ))}
                 </div>
-                
             </div>
         </div>
     );

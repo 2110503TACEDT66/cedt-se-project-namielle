@@ -14,8 +14,8 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
     const [Priority, setPriority] = useState<number>(hotelPriority);
     const [updateHotel, setUpdateHotel] = useState<any | null>(null);
 
-    useEffect(() => {
-        const fetchUpdateHotels = async () => {
+   
+    const fetchUpdateHotels = async () => {
 
             try {
                 if (!session) return;
@@ -25,9 +25,6 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
                 console.error(error);
             }
         }
-        fetchUpdateHotels();
-    }, [updateHotel, onSave]
-    )
     function selectRank(){
         var mySelect = document.getElementById(hotelName) as HTMLSelectElement;
         if(mySelect == null){
@@ -68,6 +65,7 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
                    selectRank()
                 }
                 </div>
+                <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mr-4" onClick={fetchUpdateHotels}>Save</button>
             </div>
         </main>
     );
