@@ -8,6 +8,15 @@ import { useRouter } from 'next/navigation';
 export default function AddNewHotel() {
     const router = useRouter();
     const { data: session } = useSession();
+
+    if (session?.user.role !== 'admin') {
+        return (
+            <div className="flex justify-center items-center h-[80vh]">
+                <div className="text-3xl text-black font-semibold">You are not authorized to access this page</div>
+            </div>
+        );
+    }
+
     const name = useRef("");
     const address = useRef("");
     const telephone = useRef("");
