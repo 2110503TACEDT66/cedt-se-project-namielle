@@ -9,9 +9,24 @@ import { useEffect, useState } from "react";
 import DateBooker from "@/components/DateBooker";
 import dayjs, { Dayjs } from "dayjs";
 import EditBooking from "@/components/EditBooking";
+import { useSearchParams } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../redux/store";
+import { removeAllFromCart } from "../redux/features/cartSlice";
 
 export default function mybooking() {
+    const params = useSearchParams();
+    const successfulCheckout = params.get('success');
+    console.log(successfulCheckout);
+    const dispatch = useDispatch<AppDispatch>();
     const { data: session } = useSession();
+
+    if (successfulCheckout == 'true') {
+        dispatch(removeAllFromCart());
+        console.log("Cart is cleared");
+    }
+
+    
     // console.log(session);
     if (!session) {
         return (

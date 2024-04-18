@@ -63,8 +63,8 @@ exports.createCheckoutSession = async (req, res) => {
         const session = await stripe.checkout.sessions.create({
             line_items: lineItems,
             mode: "payment",
-            success_url: `${process.env.HOST}:3000/mybooking`,
-            cancel_url: `${process.env.HOST}:3000/cart?success=false`,
+            success_url: `${process.env.HOST}:3000/mybooking?success=true`,
+            cancel_url: `${process.env.HOST}:3000/cart?cancel=true`,
         });
 
         payload.cartItems.map(async (product) => {
@@ -187,5 +187,6 @@ const fullfillOrder = async (transaction) => {
     const roomType = await RoomType.findById(booking.roomType);
     let totalRoomLimit = roomType.roomLimit - 1;
     await RoomType.findByIdAndUpdate(booking.roomType, { roomLimit : totalRoomLimit});
+    
 
 };
