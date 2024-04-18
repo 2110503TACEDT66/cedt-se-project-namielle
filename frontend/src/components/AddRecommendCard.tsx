@@ -5,12 +5,12 @@ import React, { useEffect, useState } from 'react';
 import UpdateHotel from "@/libs/UpdateHotel";
 import { Select } from "@mui/material";
 
-var globalSelect : number[] = [];
+// var globalSelect : number[] = [];
 
 export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, hotelAddress, hotelTel, hotelPriority 
-    , onCancel, onSave,
+    , onCancel, onSave,globalSelect
 }: {hotel: any, hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string, hotelPriority: number
-    ,onCancel?: () => void, onSave?: () => void 
+    ,onCancel?: () => void, onSave?: () => void , globalSelect: number[]
 }) {
     const { data: session } = useSession();
     const [Priority, setPriority] = useState<number>(hotelPriority);
@@ -28,6 +28,8 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
         }, 500);
     };
    
+    console.log(globalSelect);
+
     function enablePriority(e:number){
         setTimeout(function () {
            var select = document.getElementById(hotelName) as HTMLSelectElement;
@@ -64,7 +66,8 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
                 globalSelect.push(3);
                 if(cur != 0) globalSelect.splice(itr,1);
             }
-            enablePriority(2);
+            // enablePriority(2);
+            // localStorage.setItem('globalSelect', JSON.stringify(globalSelect)); try to save data
             check();
         }
        },500)
@@ -98,7 +101,6 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
     
 
     const fetchUpdateHotels = async () => {
-
             try {
                 if (!session) return;
                 const result = await UpdateHotel(session?.user.token,hotel._id,Priority);
@@ -107,6 +109,7 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
                 console.error(error);
             }
     }
+    
     function selectRank(){
         var mySelect = document.getElementById(hotelName) as HTMLSelectElement;
         if(mySelect == null){
@@ -130,30 +133,33 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
                 <div className="w-full px-[4%] pt-[2%] " style={{ color: '#777' }}>
                     {hotelCity}
                 </div>
-                <div className="w-full px-[4%] pt-[2%] text-sm" style={{ color: '#777' }}>
-                    Address: {hotelAddress}
-                </div>
                 <div className="w-full px-[4%] pt-[2%] " style={{ color: '#777' }}>
                     Tel. {hotelTel}
                 </div>
-                <select value={Priority} name="mySelect" id={hotelName}
-                    onMouseEnter={()=>{check();currentSelect()}}
-                    onChange={(e) => {
-                        setPriority(e.target.selectedIndex); 
-                        changePriority(e.target.selectedIndex);
-                    }}
-                    >
-                    <option value="0">0</option>
-                    <option id="one" value="1">1</option>
-                    <option id="two" value="2">2</option>
-                    <option id="three" value="3">3</option>
-                </select>
-                <div className="text-opacity-0">
-                {
-                   selectRank()
-                }
+                <div className="inline flex items-center mt-[10%] ml-[8%]">
+                    <select value={Priority} name="mySelect" id={hotelName} 
+                        className="w-[50px] h-[30px] bg-white border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent mr-[4%]"
+                        onMouseEnter={()=>{check();currentSelect()}}
+                        onChange={(e) => {
+                            setPriority(e.target.selectedIndex); 
+                            changePriority(e.target.selectedIndex);
+                        }}
+                        onLoad={(e) => {
+                            console.log("a");
+                        }}
+                        >
+                        <option value="0">0</option>
+                        <option id="one" value="1">1</option>
+                        <option id="two" value="2">2</option>
+                        <option id="three" value="3">3</option>
+                    </select>
+                    <div className="text-opacity-0">
+                        {
+                        selectRank()
+                        }
+                    </div>
+                    <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mr-4" onClick={fetchUpdateHotels}>Save</button>
                 </div>
-                <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mr-4" onClick={fetchUpdateHotels}>Save</button>
             </div>
         </main>
     );
