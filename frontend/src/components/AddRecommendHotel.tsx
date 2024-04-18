@@ -62,11 +62,13 @@ export default function AddRecommendedHotel({hotelJson}:{hotelJson:any}) {
                             return searchTerm === '' ? true : hotelItem.name.toLowerCase().includes(searchTerm) || hotelItem.city.toLowerCase().includes(searchTerm);
                         }).map((hotelItem: any) => (
                             <AddRecommendCard
+                                hotel={hotelItem}
                                 hotelName={hotelItem.name}
                                 imgSrc={`/img/${hotelItem.file}`}
                                 hotelCity={hotelItem.city}
                                 hotelAddress={hotelItem.address}
                                 hotelTel={hotelItem.tel}
+                                hotelPriority={hotelItem.priority}
                             />
                             
                     ))}
