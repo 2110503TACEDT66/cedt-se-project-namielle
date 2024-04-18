@@ -50,11 +50,17 @@ export default function mybooking() {
         const fetchBookings = async () => {
             try {
                 const result = await getBookings(session.user.token);
-                result.data.map(async (item:any) => {
-                    // console.log(item);
-                    item.roomDetail = await getRoomType(session.user.token, item.roomType);
-                })
-                console.log(result);
+                // result.data.map(async (item:any) => {
+                //     // console.log(item);
+                //     const room = await getRoomType(session.user.token, item.roomType);
+                //     item.roomDetail = room.data.name;
+                // })
+                for(let i = 0; i < result.data.length; i++) {
+                    const room = await getRoomType(session.user.token, result.data[i].roomType);
+                    // console.log(room);
+                    result.data[i].roomDetail = room;
+                }
+                // console.log(result);
                 setBookings(result);
 
             } catch (error) {
@@ -113,6 +119,7 @@ export default function mybooking() {
                     {bookings?.count > 0 ? (
                         bookings?.data.map((booking: BookingItem) => (
                             <div key={booking._id} className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white ">
+                                
                                 <Image
                                     src={`/img/${booking.hotel.file}`}
                                     alt={booking.hotel.name}
@@ -123,17 +130,18 @@ export default function mybooking() {
                                 <div className="ml-2 text-black">
                                     <h1 className="text-2xl font-bold">{}</h1>
                                     <h1 className="text-2xl font-bold">{booking.hotel.name}</h1>
+                                
                                     <table>
                                         <tr>
-                                            <td>Room Type:</td>
-                                            <td>{}</td>
+                                            <td className="pl-1">Room Type:</td>
+                                            <td>{booking.roomDetail.data.name}</td>
                                         </tr>
                                         <tr>
-                                            <td>Check In:</td>
+                                            <td className="pl-1">Check In:</td>
                                             <td>{booking.checkInDate}</td>
                                         </tr>
                                         <tr>
-                                            <td>Check Out:</td>
+                                            <td className="pl-1">Check Out:</td>
                                             <td>{booking.checkOutDate}</td>
                                         </tr>
                                     </table>

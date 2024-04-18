@@ -11,6 +11,14 @@ export interface BookingItem {
         file: string,
         id: string
     },
+    roomDetail: {
+        data: {
+            name: string,
+            personLimit: number,
+            price: number,
+            roomLimit: number
+        }
+    },
     createdAt: string,
     __v: number,
 }
