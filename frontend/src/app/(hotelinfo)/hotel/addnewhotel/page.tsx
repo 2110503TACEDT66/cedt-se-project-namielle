@@ -1,21 +1,28 @@
 'use client'
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import adminAddHotel from '@/libs/adminAddHotel';
 import Swal from "sweetalert2";
 import { useRouter } from 'next/navigation';
+import getUserProfile from '@/libs/getUserProfile';
 
 export default function AddNewHotel() {
     const router = useRouter();
+    const [userData, setUserData] = useState<any>(null);
     const { data: session } = useSession();
 
-    if (session?.user.role !== 'admin') {
-        return (
-            <div className="flex justify-center items-center h-[80vh]">
-                <div className="text-3xl text-black font-semibold">You are not authorized to access this page</div>
-            </div>
-        );
-    }
+    useEffect(() => {
+        const fetchData = async () => {
+
+            // console.log(session)
+            if (session) {
+                const userData = await getUserProfile(session?.user.token);
+                setUserData(userData);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const name = useRef("");
     const address = useRef("");
@@ -24,6 +31,14 @@ export default function AddNewHotel() {
     const file = useRef("");
     const price = useRef(0);
     const city = useRef("");
+
+    if (userData?.data.role !== 'admin') {
+        return (
+            <div className="flex justify-center items-center h-[80vh]">
+                <div className="text-3xl text-black font-semibold">You are not authorized to access this page</div>
+            </div>
+        );
+    }
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
