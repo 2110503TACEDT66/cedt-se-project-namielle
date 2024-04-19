@@ -59,16 +59,16 @@ export default function AddNewHotel() {
             router.push("/hotel");
             Swal.fire({
                 icon: 'success',
-                title: 'Booking Successful',
-                text: 'Your booking has been successfully created',
+                title: 'Sucessfully added hotel',
+                text: 'Hotel has been added successfully',
                 confirmButtonText: 'OK'
             });
         } catch (error) {
             console.error('Error adding hotel:', error);
             Swal.fire({
                 icon: 'error',
-                title: 'Add Hotel Failed',
-                text: 'Your hotel has failed to be added',
+                title: 'Failed to add hotel',
+                text: 'Hotel has not been added successfully',
                 confirmButtonText: 'OK'
             });
         }
