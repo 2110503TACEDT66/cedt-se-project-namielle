@@ -17,7 +17,7 @@ import Swal from "sweetalert2";
 
 export default function Detailpage({ params }: { params: { hid: string } }) {
 
-    const [hotelDetail, setHotelDetail] = useState<HotelJson>();
+    const [hotelDetail, setHotelDetail] = useState<any>();
     const [review, setReview] = useState<ReviewJson>();
     const [userInfo, setUserInfo] = useState<any>();
     const [roomType, setRoomType] = useState<any>() || null;
@@ -25,6 +25,7 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
     const [remainRoom, setRemainRoom] = useState<any>(0);
     const [personLimit, setPersonLimit] = useState<any>(0) || null;
     const [price, setPrice] = useState<any>();
+    const { data: session } = useSession();
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -60,12 +61,11 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
         AvgReview = sum / review.count
     }
 
-    const session = useSession();
     if (session) {
         useEffect(() => {
             const fetchUserData = async () => {
                 try {
-                    const result = await getUserProfile(session.user.token)
+                    const result = await getUserProfile(session?.user.token)
                     setUserInfo(result);
                 } catch (err) {
                     console.error(err);

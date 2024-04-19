@@ -47,7 +47,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                 <div className="text-center">
                     <h1 className="text-lg pt-2 font-semibold text-center font-black ">
                        {hotelData?.data.filter((hotelItem: any) => {
-                        return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase() || hotelItem.city.toLowerCase().includes(search.toLowerCase()))
+                        return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase()) || hotelItem.city.toLowerCase().includes(search.toLowerCase())
                         }).filter((hotelItem: any) => {
                             for(let i = 0; i < hotelItem.roomType.length; i++) {
                                 if(hotelItem.roomType[i].personLimit >= persons) {
@@ -55,7 +55,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                                 }
                             }
                         }).length != 0 ? `You found ${hotelData?.data.filter((hotelItem: any) => {
-                            return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase() || hotelItem.city.toLowerCase().includes(search.toLowerCase()))
+                            return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase()) || hotelItem.city.toLowerCase().includes(search.toLowerCase())
                             }).filter((hotelItem: any) => {
                                 for(let i = 0; i < hotelItem.roomType.length; i++) {
                                     if(hotelItem.roomType[i].personLimit >= persons) {
@@ -66,7 +66,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                     </h1> 
                 </div>
                 {hotelData?.data.filter((hotelItem: any) => {
-                    return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase() || hotelItem.city.toLowerCase().includes(search.toLowerCase()))
+                    return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase()) || hotelItem.city.toLowerCase().includes(search.toLowerCase())
                 }).filter((hotelItem: any) => {
                     for(let i = 0; i < hotelItem.roomType.length; i++) {
                         if(hotelItem.roomType[i].personLimit >= persons) {

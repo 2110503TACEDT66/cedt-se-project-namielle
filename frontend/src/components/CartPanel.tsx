@@ -68,8 +68,15 @@ export default function CartPanel() {
                     setDiscountedPrice(newDiscountedPrice); // อัพเดทค่าของส่วนลดที่ถูกปรับแล้ว
                     return;
                 }
+                else{
+                    setDiscountedPrice(0);
+                }
             }
-            console.log("Invalid discount code");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Invalid code!",
+            });
         } catch (error) {
             console.error("Error fetching discount", error);
         }
