@@ -5,6 +5,7 @@ const {
     addReview,
     updateReview,
     deleteReview,
+    hideReview,
 } = require("../controllers/reviews");
 
 const router = express.Router({ mergeParams: true });
@@ -20,5 +21,7 @@ router
     .get(getReview)
     .put(protect, authorize("admin", "user"), updateReview)
     .delete(protect, authorize("admin", "user"), deleteReview);
+router
+    .put('/:id/hide', protect, authorize('admin'), hideReview);
 
 module.exports = router;

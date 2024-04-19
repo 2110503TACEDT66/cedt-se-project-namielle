@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const RoomType = require("./RoomType");
 
 const BookingSchema = new mongoose.Schema({
     checkInDate: {
@@ -17,6 +18,10 @@ const BookingSchema = new mongoose.Schema({
     hotel: {
         type: mongoose.Schema.ObjectId,
         ref: "Hotel",
+        required: true,
+    },
+    roomType: {
+        type: String,
         required: true,
     },
     createdAt: {

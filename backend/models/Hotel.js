@@ -21,6 +21,7 @@ const HotelSchema = new mongoose.Schema(
         },
         tel: {
             type: String,
+            require: [true, "Please add a telephone number"],
         },
         capacity: {
             type: Number,
@@ -37,14 +38,16 @@ const HotelSchema = new mongoose.Schema(
         },
         bookCount: {
             type: Number,
+            default: 0,
         },
         priority: {
             type: Number,
             default: 0,
-        }
+        },
     },
     {
         toJSON: { virtuals: true },
+        toObject: { virtuals: true },
         toObject: { virtuals: true },
     }
 );
@@ -57,6 +60,7 @@ HotelSchema.pre(
         console.log(`Booking being removed from hotel ${this._id}`);
         await this.model("Booking").deleteMany({ hotel: this._id });
         await this.model("Review").deleteMany({ hotel: this._id });
+        await this.model("RoomType").deleteMany({ hotel: this._id });
         next();
     }
 );
@@ -71,6 +75,13 @@ HotelSchema.virtual("booking", {
 
 HotelSchema.virtual("review", {
     ref: "Review",
+    localField: "_id",
+    foreignField: "hotel",
+    justOne: false,
+});
+
+HotelSchema.virtual("roomType", {
+    ref: "RoomType",
     localField: "_id",
     foreignField: "hotel",
     justOne: false,

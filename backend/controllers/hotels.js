@@ -1,5 +1,6 @@
 const Hotel = require("../models/Hotel");
-const booking = require("../models/Booking");
+const Booking = require("../models/Booking");
+const RoomType = require("../models/RoomType");
 const fs = require("fs");
 const Booking = require("../models/Booking");
 
@@ -14,7 +15,7 @@ exports.getHotels = async (req, res, next) => {
     const removeFields = ["select", "sort", "page", "limit"];
     //Loop over removeFields and delete them from reqQuery
     removeFields.forEach((param) => delete reqQuery[param]);
-    console.log(reqQuery);
+    // console.log(reqQuery);
     //Create query string
     let queryStr = JSON.stringify(reqQuery);
     queryStr = queryStr.replace(
@@ -26,8 +27,9 @@ exports.getHotels = async (req, res, next) => {
         select: "_id",
     }).populate({
         path: "review"
+    }).populate({
+        path: "roomType"
     });
-    
     //Select fields
     if (req.query.select) {
         const fields = req.query.select.split(",").join(" ");
@@ -80,11 +82,11 @@ exports.getHotels = async (req, res, next) => {
             };
         }
 
-        console.log(req.query);
+        // console.log(req.query);
 
         res.status(200).json({
             success: true,
-            count: hotels.length,
+            capacity: total,
             data: hotels,
         });
     } catch (err) {
@@ -109,15 +111,27 @@ exports.getHotel = async (req, res, next) => {
     console.log(`Total booking of all hotels: ${totalBook}`);
     await Hotel.findByIdAndUpdate(req.params.id, { bookCount : totalBook });
 
+    // Temporary
+    let totalCapacity = 0;
+    const roomTypes = await RoomType.find({ hotel: hotels._id });
+   
+    for (let roomType of roomTypes) {
+        totalCapacity += roomType.roomLimit;
+    }
+    console.log(`Total capacity of all hotels: ${totalCapacity}`);
+    await Hotel.findByIdAndUpdate(req.params.id, { capacity: totalCapacity });
+    
     try {
         const hotel = await Hotel.findById(req.params.id).populate({
             path: "booking",
             select: "_id",
+        }).populate({
+            path: "roomType"
         });
         if (!hotel) {
             return res.status(400).json({ success: false });
         }
-        res.status(200).json({ success: true, data: hotel });
+        res.status(200).json({ success: true, data: hotel});
     } catch (err) {
         res.status(400).json({ success: false });
     }
@@ -128,7 +142,7 @@ exports.getHotel = async (req, res, next) => {
 //@access Private
 exports.createHotel = async (req, res, next) => {
     //console.log("a");
-    var data = req.body;
+    var data = req.body;/*
     if (req.file && req.file.filename) {
         data.file = req.file.filename;
     } else {
@@ -136,12 +150,16 @@ exports.createHotel = async (req, res, next) => {
         return res
             .status(400)
             .json({ error: "Please add a picture to the hotel" });
+    }*/
+    try {
+        const hotel = await Hotel.create(data);
+        res.status(201).json({
+            success: true,
+            data: hotel,
+        });
+    } catch (err) {
+        res.status(400).json({ success: false });
     }
-    const hotel = await Hotel.create(data);
-    res.status(201).json({
-        success: true,
-        data: hotel,
-    });
 };
 
 //@desc Update hotels

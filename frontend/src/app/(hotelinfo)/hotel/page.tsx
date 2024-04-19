@@ -3,7 +3,8 @@ import HotelCatalog from "@/components/HotelCatalog"
 import RecommendBanner from "@/components/RecommendBanner"
 
 export default function Hotels() {
-    const hotels = getHotels()
+    const hotels = getHotels();
+
     return (
         <main className="p-5">
             <RecommendBanner></RecommendBanner>

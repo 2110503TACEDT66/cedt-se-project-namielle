@@ -9,6 +9,8 @@ import dayjs, { Dayjs } from "dayjs"
 import Image from "next/image";
 import { CartItem } from "../../../interface"
 import { addToCart } from "../redux/features/cartSlice"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
 export default function reservation() {
     const urlParams = useSearchParams()
@@ -16,23 +18,32 @@ export default function reservation() {
     const price = urlParams.get("price") || "0"
     const name = urlParams.get("name") || ""
     const picture = urlParams.get("file") || ""
+    const roomType = urlParams.get("roomType") || ""
+    const roomName = urlParams.get("roomName") || ""
 
+    const {data: session} = useSession();
     const dispatch = useDispatch<AppDispatch>()
     const [checkInDate, setCheckInDate] = useState<Dayjs>(dayjs())
     const [checkOutDate, setCheckOutDate] = useState<Dayjs>(dayjs().add(1, "day"))
 
+    const router = useRouter();
     const MakeReservation = () => {
-        if (checkInDate !== null && checkOutDate !== null && hid !== null && price !== null) {
+        if (checkInDate !== null && checkOutDate !== null && hid !== null && price !== null && session !== null) {
             const booking: CartItem = {
                 _id: dayjs().format("YYYYMMDDHHmmssSSS"),
                 checkInDate: dayjs(checkInDate).format("YYYY-MM-DD"),
                 checkOutDate: dayjs(checkOutDate).format("YYYY-MM-DD"),
                 hid: hid,
                 price: checkOutDate.diff(checkInDate, "day") * parseInt(price),
+                user: session.user._id,
                 name: name,
-                picture: picture
+                picture: picture,
+                roomType: roomType,
+                roomName: roomName
             }
             dispatch(addToCart(booking))
+            router.push("/hotel");
+            
         }
     }
 
@@ -50,6 +61,7 @@ export default function reservation() {
 
                 <div className="text-center mb-6">
                     <h1 className="text-3xl font-bold text-gray-800 mb-2">{name}</h1>
+                    <h1 className="text-2xl font-semibold text-gray-800">RoomType: {roomName}</h1>
                     <p className="text-gray-600">It's Happening...</p>
                 </div>
                 <div className="flex justify-between items-center mb-8">
@@ -64,7 +76,7 @@ export default function reservation() {
                 </div>
                 <div className="text-center">
 
-                    <h1 className={`text-4xl font-bold ${totalPrice >= 0 ? 'text-green-600' : 'text-red-600'} mb-4`}>{totalPrice >= 0 ? `฿ ${totalPrice}` : "Wrong"}</h1>
+                    <h1 className={`text-4xl font-bold ${totalPrice >= 0 ? 'text-green-600' : 'text-red-600'} mb-4`}>{totalPrice >= 0 ? `฿ ${totalPrice}` : "Incorrect Date"}</h1>
 
                     <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105" onClick={MakeReservation}>
                         Add to Cart
