@@ -100,7 +100,7 @@ export interface ReviewJson {
 }
 
 export interface discountJson {
-    data:{
+    data: {
         name: string,
         info: string,
         code: string,

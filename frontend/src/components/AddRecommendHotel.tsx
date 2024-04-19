@@ -7,7 +7,7 @@ import getHotels from "@/libs/getHotels";
 
 
 
-export default function AddRecommendedHotel({hotelJson}:{hotelJson:any}) {
+export default function AddRecommendedHotel({ hotelJson }: { hotelJson: any }) {
     const [hotelData, setHotelData] = useState<any>();
     const [search, setSearch] = useState('');
     const [change, setChange] = useState({});
@@ -19,11 +19,11 @@ export default function AddRecommendedHotel({hotelJson}:{hotelJson:any}) {
                 const result = await getHotels()
                 setHotelData(result);
                 result.data.map((hotelItem: any) => {
-                    if(hotelItem.priority != 0 && globalSelect.current.includes(hotelItem.priority) == false){
+                    if (hotelItem.priority != 0 && globalSelect.current.includes(hotelItem.priority) == false) {
                         globalSelect.current.push(hotelItem.priority);
                         console.log(hotelItem.priority);
                     }
-                        
+
                 })
                 console.log(globalSelect);
             } catch (err) {
@@ -60,22 +60,22 @@ export default function AddRecommendedHotel({hotelJson}:{hotelJson:any}) {
                         Update All
                     </button> */}
                 </div>
-                
+
                 <div className="flex flex-wrap justify-between">
                     {hotelData?.data.filter((hotelItem: any) => {
-                            const searchTerm = search.toLowerCase();
-                            return searchTerm === '' ? true : hotelItem.name.toLowerCase().includes(searchTerm) || hotelItem.city.toLowerCase().includes(searchTerm);
-                        }).map((hotelItem: any) => (
-                            <AddRecommendCard
-                                hotel={hotelItem}
-                                hotelName={hotelItem.name}
-                                imgSrc={`/img/${hotelItem.file}`}
-                                hotelCity={hotelItem.city}
-                                hotelAddress={hotelItem.address}
-                                hotelTel={hotelItem.tel}
-                                hotelPriority={hotelItem.priority}
-                                globalSelect = {globalSelect.current}
-                            />
+                        const searchTerm = search.toLowerCase();
+                        return searchTerm === '' ? true : hotelItem.name.toLowerCase().includes(searchTerm) || hotelItem.city.toLowerCase().includes(searchTerm);
+                    }).map((hotelItem: any) => (
+                        <AddRecommendCard
+                            hotel={hotelItem}
+                            hotelName={hotelItem.name}
+                            imgSrc={`/img/${hotelItem.file}`}
+                            hotelCity={hotelItem.city}
+                            hotelAddress={hotelItem.address}
+                            hotelTel={hotelItem.tel}
+                            hotelPriority={hotelItem.priority}
+                            globalSelect={globalSelect.current}
+                        />
                     ))}
                 </div>
             </div>

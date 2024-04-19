@@ -22,3 +22,4 @@ router
     .delete(protect, authorize("admin", "user"), deleteBooking);
 
 module.exports = router;
+

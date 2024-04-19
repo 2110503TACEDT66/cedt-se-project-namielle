@@ -1,17 +1,17 @@
 'use client'
 import React from 'react';
 
-export default function CardTemplate2({ children, contentName }:{ children:React.ReactNode, contentName:string }){
+export default function CardTemplate2({ children, contentName }: { children: React.ReactNode, contentName: string }) {
 
 
-    function onCardMouseAction(event: React.SyntheticEvent){
-        if(event.type=='mouseover'){
+    function onCardMouseAction(event: React.SyntheticEvent) {
+        if (event.type == 'mouseover') {
             event.currentTarget.classList.remove('shadow-lg')
             event.currentTarget.classList.add('shadow-2xl')
             event.currentTarget.classList.remove('bg-white')
             event.currentTarget.classList.add('bg-neutral-200')
         }
-        else{
+        else {
             event.currentTarget.classList.remove('shadow-2xl')
             event.currentTarget.classList.add('shadow-lg')
             event.currentTarget.classList.remove('bg-neutral-200')
@@ -20,9 +20,9 @@ export default function CardTemplate2({ children, contentName }:{ children:React
     }
 
     return (
-        <div className='w-full h-[300px] rounded-lg shadow-lg bg-white' 
-        onMouseOver={(e)=>onCardMouseAction(e)}
-        onMouseOut={(e)=>onCardMouseAction(e)}>
+        <div className='w-full h-[300px] rounded-lg shadow-lg bg-white'
+            onMouseOver={(e) => onCardMouseAction(e)}
+            onMouseOut={(e) => onCardMouseAction(e)}>
             {children}
         </div>
     );

@@ -51,7 +51,7 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
 
         fetchUserData();
     }
-    , [hotelDetail])
+        , [hotelDetail])
     let AvgReview = 0;
     if (review?.count) {
         let sum: number = 0;
@@ -71,12 +71,12 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
                     console.error(err);
                 }
             };
-    
+
             fetchUserData();
         }, [session])
     }
-    
-   
+
+
 
     const handleRoomTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedRoomName = e.target.value;
@@ -116,7 +116,7 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
             <div className="bg-white h-[80px] w-[90%] mt-5 mx-auto border border-solid border-slate-800 flex  divide-x divide-solid divide-slate-800">
                 <div className="leading-none w-[20%] flex justify-center items-center">
                     <select className="block w-[80%] h-[50%] text-xl text-black font-sans border border-solid border-slate-800 rounded-md" onChange={handleRoomTypeChange}>
-                    <option key="" value="" className="text-black text-center">Select Your Room</option>
+                        <option key="" value="" className="text-black text-center">Select Your Room</option>
                         {hotelDetail?.data.roomType.map((item: any) => (
                             <option key={item.name} value={item.name} className="text-black text-center">{item.name}</option>
                         ))}
@@ -124,47 +124,47 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
                 </div>
                 <div className="leading-none w-[30%] flex justify-center items-center">
                     {price == null ? <h1 className="block font-bold text-green-800 text-xl">Please Select Room</h1> :
-                    <><h1 className="block font-bold text-green-800 text-2xl">฿ {price}</h1>
-                    <h1 className="block text-green-800 text-xl "> /day</h1></>
-                    } 
-                    
+                        <><h1 className="block font-bold text-green-800 text-2xl">฿ {price}</h1>
+                            <h1 className="block text-green-800 text-xl "> /day</h1></>
+                    }
+
                 </div>
                 <div className="leading-none w-[30%] flex justify-center items-center">
-                    {personLimit == 0 ? 
-                        <h1 className="block font-bold text-green-800 text-xl">Please Select Room</h1> 
+                    {personLimit == 0 ?
+                        <h1 className="block font-bold text-green-800 text-xl">Please Select Room</h1>
                         :
                         <>
-                        <h1 className="block font-bold text-green-800 text-xl">{personLimit}</h1> 
-                        <h1 className="block text-green-800 text-xl">&nbsp;persons limit</h1>
+                            <h1 className="block font-bold text-green-800 text-xl">{personLimit}</h1>
+                            <h1 className="block text-green-800 text-xl">&nbsp;persons limit</h1>
                         </>
                     }
                 </div>
                 <div className="leading-none w-[30%] flex justify-center items-center">
-                    {remainRoom == 0 ? 
-                        <h1 className="block font-bold text-red-800 text-xl">No Room Available</h1> 
-                        :<>
-                        <h1 className="block font-bold text-green-800 text-xl">{remainRoom}</h1>
-                        <h1 className="block text-green-800 text-xl">&nbsp;rooms left</h1></>
+                    {remainRoom == 0 ?
+                        <h1 className="block font-bold text-red-800 text-xl">No Room Available</h1>
+                        : <>
+                            <h1 className="block font-bold text-green-800 text-xl">{remainRoom}</h1>
+                            <h1 className="block text-green-800 text-xl">&nbsp;rooms left</h1></>
                     }
-                    
+
                 </div>
                 <div className="leading-none w-[20%] flex justify-center items-center">
-                    { price == null || remainRoom == 0 ? 
-                    <button className="block p-1 text-2xl text-white font-bold font-sans bg-gray-500 hover:bg-slate-800 hover:text-gray-800 rounded-md" onClick={()=>{
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Please select room type and check availability',
-                          })
-                    }}>
-                        RESERVE
-                    </button> 
-                    :
-                    <Link href={`/reservation?price=${price}&hid=${params.hid}&name=${hotelDetail?.data.name}&file=${hotelDetail?.data.file}&roomType=${roomType}&roomName=${roomName}`} className="flex justify-center items-center">
-                        <button className="block p-1 text-2xl text-white font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-500 rounded-md">
+                    {price == null || remainRoom == 0 ?
+                        <button className="block p-1 text-2xl text-white font-bold font-sans bg-gray-500 hover:bg-slate-800 hover:text-gray-800 rounded-md" onClick={() => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Please select room type and check availability',
+                            })
+                        }}>
                             RESERVE
                         </button>
-                    </Link> 
+                        :
+                        <Link href={`/reservation?price=${price}&hid=${params.hid}&name=${hotelDetail?.data.name}&file=${hotelDetail?.data.file}&roomType=${roomType}&roomName=${roomName}`} className="flex justify-center items-center">
+                            <button className="block p-1 text-2xl text-white font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-500 rounded-md">
+                                RESERVE
+                            </button>
+                        </Link>
                     }
                 </div>
             </div>
@@ -186,7 +186,7 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
                 {
                     review?.data.map((item: any) => (
 
-                        <ReviewBlock key={item.user?.name} user={item.user?.name} rating={item.stars} comment={item.description} createdAt={item.createAt.slice(0, 10)} id={item._id} isHidden={item.isHidden}/>
+                        <ReviewBlock key={item.user?.name} user={item.user?.name} rating={item.stars} comment={item.description} createdAt={item.createAt.slice(0, 10)} id={item._id} isHidden={item.isHidden} />
                     ))
 
                 }

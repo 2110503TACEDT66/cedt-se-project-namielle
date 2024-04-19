@@ -36,11 +36,11 @@ export default function TopMenu() {
                     <h1 className='text-3xl font-black tracker-widest bg-gradient-to-b from-violet-800 from-40% to-pink-500 to-70% text-transparent bg-clip-text mt-3 fixed left-[87px]'>NAMIELLE</h1>
                 </div>
             </Link>
-            
+
             <div className='flex flex-row absolute right-0 h-full mr-3 items-center'>
                 {
-                userData?.data.role === 'admin' ? <TopMenuItem title='Recommended Management' pageRef='/addrecommended' />
-                    : null
+                    userData?.data.role === 'admin' ? <TopMenuItem title='Recommended Management' pageRef='/addrecommended' />
+                        : null
                 }
                 <TopMenuItem title='Browse Hotel' pageRef='/hotel' />
                 {
@@ -51,16 +51,16 @@ export default function TopMenu() {
                                     : null
                             }
                             {
-                                userData?.data.role === 'user' || "admin" ? <TopMenuItem title='Discount Code' pageRef='/discount' /> 
+                                userData?.data.role === 'user' || "admin" ? <TopMenuItem title='Discount Code' pageRef='/discount' />
                                     : null
                             }
                             {
                                 userData?.data.role === 'admin' ?
-                                <>
-                                <TopMenuItem title='All Booking' pageRef='/mybooking' />
-                                <TopMenuItem title='Add new hotel' pageRef='/hotel/addnewhotel' />
-                                </>
-                                : <TopMenuItem title='My Booking' pageRef='/mybooking' />
+                                    <>
+                                        <TopMenuItem title='All Booking' pageRef='/mybooking' />
+                                        <TopMenuItem title='Add new hotel' pageRef='/hotel/addnewhotel' />
+                                    </>
+                                    : <TopMenuItem title='My Booking' pageRef='/mybooking' />
                             }
                             <UserDropDown />
                         </> :
@@ -68,12 +68,12 @@ export default function TopMenu() {
                 }
 
                 <Link href={'/cart'} className="relative">
-                    {cartItems.length > 0 ? 
-                    <div className='h-[16px] w-[16px] bg-red-600 rounded-[50%] absolute top-0 right-3'>
-                        <div className="m-auto font-bold h-full text-center w-full text-xs text-white">{cartItems.length}</div>
-                    </div> 
-                    : ""}
-                    
+                    {cartItems.length > 0 ?
+                        <div className='h-[16px] w-[16px] bg-red-600 rounded-[50%] absolute top-0 right-3'>
+                            <div className="m-auto font-bold h-full text-center w-full text-xs text-white">{cartItems.length}</div>
+                        </div>
+                        : ""}
+
                     <Image src={'/img/shopping-cart.png'} alt='profile' width={0} height={0} sizes='3vh' className='h-[100%] w-auto mx-5' />
                 </Link>
 

@@ -8,7 +8,6 @@ import NextAuthProvider from "@/providers/NextAuthProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

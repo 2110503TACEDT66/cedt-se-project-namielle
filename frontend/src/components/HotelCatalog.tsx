@@ -21,7 +21,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
 
         fetchUserData();
     }, [])
-    
+
     // console.log(search);
 
     return (
@@ -41,35 +41,35 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                     </div>
                     <div className="m-1 w-[10%]">
                         <h2 className="text-lg font-semibold text-gray-800">Persons</h2>
-                        <input type="number" id="persons" name="persons" placeholder="Persons" min={0} className="input input-bordered text-l p-2 w-[100%] h-[65%] border-solid border border-gray-400 rounded-md" onChange={(e) => setPersons(Number(e.target.value)) }/>
+                        <input type="number" id="persons" name="persons" placeholder="Persons" min={0} className="input input-bordered text-l p-2 w-[100%] h-[65%] border-solid border border-gray-400 rounded-md" onChange={(e) => setPersons(Number(e.target.value))} />
                     </div>
                 </div>
                 <div className="text-center">
                     <h1 className="text-lg pt-2 font-semibold text-center font-black ">
-                       {hotelData?.data.filter((hotelItem: any) => {
-                        return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase()) || hotelItem.city.toLowerCase().includes(search.toLowerCase())
+                        {hotelData?.data.filter((hotelItem: any) => {
+                            return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase()) || hotelItem.city.toLowerCase().includes(search.toLowerCase())
                         }).filter((hotelItem: any) => {
-                            for(let i = 0; i < hotelItem.roomType.length; i++) {
-                                if(hotelItem.roomType[i].personLimit >= persons) {
+                            for (let i = 0; i < hotelItem.roomType.length; i++) {
+                                if (hotelItem.roomType[i].personLimit >= persons) {
                                     return hotelItem;
                                 }
                             }
                         }).length != 0 ? `You found ${hotelData?.data.filter((hotelItem: any) => {
                             return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase()) || hotelItem.city.toLowerCase().includes(search.toLowerCase())
-                            }).filter((hotelItem: any) => {
-                                for(let i = 0; i < hotelItem.roomType.length; i++) {
-                                    if(hotelItem.roomType[i].personLimit >= persons) {
-                                        return hotelItem;
-                                    }
+                        }).filter((hotelItem: any) => {
+                            for (let i = 0; i < hotelItem.roomType.length; i++) {
+                                if (hotelItem.roomType[i].personLimit >= persons) {
+                                    return hotelItem;
                                 }
-                            }).length} hotels.`: "No matching hotels found."}
-                    </h1> 
+                            }
+                        }).length} hotels.` : "No matching hotels found."}
+                    </h1>
                 </div>
                 {hotelData?.data.filter((hotelItem: any) => {
                     return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase()) || hotelItem.city.toLowerCase().includes(search.toLowerCase())
                 }).filter((hotelItem: any) => {
-                    for(let i = 0; i < hotelItem.roomType.length; i++) {
-                        if(hotelItem.roomType[i].personLimit >= persons) {
+                    for (let i = 0; i < hotelItem.roomType.length; i++) {
+                        if (hotelItem.roomType[i].personLimit >= persons) {
                             return hotelItem;
                         }
                     }

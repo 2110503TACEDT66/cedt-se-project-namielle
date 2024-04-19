@@ -6,14 +6,14 @@ const RoomType = require("../models/RoomType");
 //@access Public
 exports.getRoomTypes = async (req, res, next) => {
     try {
-        const roomTypes = await RoomType.find({user: req.user.id});
+        const roomTypes = await RoomType.find({ user: req.user.id });
         res.status(200).json({
             success: true,
             count: roomTypes.length,
             data: roomTypes,
         });
     } catch (err) {
-        console.log(err);   
+        console.log(err);
         return res.status(404).json({
             success: false,
             message: "Cannot find room types",
@@ -21,7 +21,7 @@ exports.getRoomTypes = async (req, res, next) => {
     }
 };
 
-//@desc Get single room type         
+//@desc Get single room type
 //@route GET /api/v1/roomTypes/:id
 //@access Public
 exports.getRoomType = async (req, res, next) => {
@@ -57,19 +57,22 @@ exports.addRoomType = async (req, res, next) => {
 //@access Private
 exports.updateRoomType = async (req, res, next) => {
     try {
-        const roomType = await RoomType.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true,
-        });
+        const roomType = await RoomType.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
         if (!roomType) {
             return res.status(400).json({ success: false });
         }
         res.status(200).json({ success: true, data: roomType });
-    }
-    catch (err) {
+    } catch (err) {
         res.status(400).json({ success: false });
-    }   
-}
+    }
+};
 
 //@desc Delete room type
 //@route Delete /api/v1/roomTypes/:id

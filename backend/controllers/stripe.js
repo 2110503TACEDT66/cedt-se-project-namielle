@@ -3,7 +3,7 @@ const Booking = require("../models/Booking");
 const Hotel = require("../models/Hotel");
 const RoomType = require("../models/RoomType");
 const dotenv = require("dotenv");
-const Discount = require("../models/Discount")
+const Discount = require("../models/Discount");
 
 dotenv.config({ path: "./config/config.env" });
 
@@ -17,10 +17,10 @@ exports.createCheckoutSession = async (req, res) => {
     const payload = await req.body;
     const discountPercentage = await useDiscountCode(payload.discountCode);
     //create booking data
-    try{
+    try {
         payload.cartItems.map(async (item) => {
             const hotel = await Hotel.findById(item.hid);
-            
+
             if (!hotel) {
                 return res.status(404).json({
                     success: false,
@@ -46,54 +46,51 @@ exports.createCheckoutSession = async (req, res) => {
                     success: false,
                     message: `The user with ID ${req.user.id} has already made 3 bookings`,
                 });
-            }});
-        } catch(error){
-            console.log(error);
-            return res
-                .status(500)
-                .json({ success: false, message: "Cannot create Booking" });
-        }
+            }
+        });
+    } catch (error) {
+        console.log(error);
+        return res
+            .status(500)
+            .json({ success: false, message: "Cannot create Booking" });
+    }
 
-        //stripe
-        const lineItems = payload.cartItems.map((product) => ({
-            price_data: {
-                currency: "thb",
-                product_data: {
-                    name: product.name,
-                },
-                unit_amount: product.price * 100 * discountPercentage,
+    //stripe
+    const lineItems = payload.cartItems.map((product) => ({
+        price_data: {
+            currency: "thb",
+            product_data: {
+                name: product.name,
             },
-            quantity: 1,
-        }));
+            unit_amount: product.price * 100 * discountPercentage,
+        },
+        quantity: 1,
+    }));
 
-        const session = await stripe.checkout.sessions.create({
-            line_items: lineItems,
-            mode: "payment",
-            success_url: `${process.env.HOST}:3000/mybooking?success=true`,
-            cancel_url: `${process.env.HOST}:3000/cart?cancel=true`,
-        });
+    const session = await stripe.checkout.sessions.create({
+        line_items: lineItems,
+        mode: "payment",
+        success_url: `${process.env.HOST}:3000/mybooking?success=true`,
+        cancel_url: `${process.env.HOST}:3000/cart?cancel=true`,
+    });
 
-        payload.cartItems.map(async (product) => {
-            await Transaction.create({
-                session_id: session.id,
-                checkInDate: product.checkInDate,
-                checkOutDate: product.checkOutDate,
-                roomType: product.roomType,
-                hotel: product.hid,
-                user: payload.user,
-                stripe_id: "NULL",
-            });
+    payload.cartItems.map(async (product) => {
+        await Transaction.create({
+            session_id: session.id,
+            checkInDate: product.checkInDate,
+            checkOutDate: product.checkOutDate,
+            roomType: product.roomType,
+            hotel: product.hid,
+            user: payload.user,
+            stripe_id: "NULL",
         });
-        
-        console.log(payload.cartItems)
-    
+    });
+
+    console.log(payload.cartItems);
 
     res.status(200).json({ success: true, sessionId: session.id });
-    
 
-    
-        // await Booking.create(item);
-    
+    // await Booking.create(item);
 };
 
 //@desc get endpoint of retrieve checkout session status
@@ -110,7 +107,6 @@ exports.getCheckoutSessionStatus = async (req, res) => {
     });
 };
 
-
 exports.handleStripeWebhook = async (req, res) => {
     console.log("successfully received webhook event");
     const sig = req.headers["stripe-signature"];
@@ -126,9 +122,8 @@ exports.handleStripeWebhook = async (req, res) => {
 
     if (event.type === "checkout.session.completed") {
         console.log("checkout session data: " + event.data.object);
-        const session = event.data.object
+        const session = event.data.object;
         if (session.payment_status === "paid") {
-
             const transaction = await Transaction.find({
                 session_id: event.data.object.id,
             });
@@ -139,18 +134,12 @@ exports.handleStripeWebhook = async (req, res) => {
                     new: true,
                     runValidators: true,
                 });
-       
             });
             transaction.forEach(async (element) => {
-                
                 await fullfillOrder(element);
             });
-        }   
-    }
-
-    else if (event.type === "checkout.session.async_payment_succeeded") {
-        
-       
+        }
+    } else if (event.type === "checkout.session.async_payment_succeeded") {
         const transaction = await Transaction.find({
             session_id: event.data.object.id,
         });
@@ -162,51 +151,46 @@ exports.handleStripeWebhook = async (req, res) => {
             });
             await fullfillOrder(element);
         });
-
-    
     }
-
-
 
     res.status(200).json({ received: true });
 };
 
 const fullfillOrder = async (transaction) => {
     //add Booking for each transaction
-    const booking = {   
+    const booking = {
         user: transaction.user,
         hotel: transaction.hotel,
         checkInDate: transaction.checkInDate,
         checkOutDate: transaction.checkOutDate,
         roomType: transaction.roomType,
         createdAt: Date.now(),
-
-
     };
-    try {await Booking.create(booking);}
-    catch(err) {
+    try {
+        await Booking.create(booking);
+    } catch (err) {
         console.log("error: " + err.message);
     }
-    
 
     //Decreased roomLimit
     const roomType = await RoomType.findById(booking.roomType);
     let totalRoomLimit = roomType.roomLimit - 1;
-    await RoomType.findByIdAndUpdate(booking.roomType, { roomLimit : totalRoomLimit});
-    
-
+    await RoomType.findByIdAndUpdate(booking.roomType, {
+        roomLimit: totalRoomLimit,
+    });
 };
 
 const useDiscountCode = async (userDiscountCode) => {
     try {
         const discounts = await Discount.find();
-        const discount = discounts.find((item) => item.code === userDiscountCode);
+        const discount = discounts.find(
+            (item) => item.code === userDiscountCode
+        );
         if (discount) {
             console.log("percent: ", (100 - discount.percentage) / 100);
             return (100 - discount.percentage) / 100;
         }
         return 1;
-
     } catch (error) {
         console.error("Error fetching discount", error);
     }

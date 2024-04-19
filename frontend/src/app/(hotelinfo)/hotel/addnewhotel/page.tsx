@@ -45,7 +45,7 @@ export default function AddNewHotel() {
         console.log('submitting form');
         try {
             if (!session) return;
-            
+
             const response = await adminAddHotel(
                 session?.user.token,
                 name.current,
@@ -92,7 +92,7 @@ export default function AddNewHotel() {
                             type="text"
                             placeholder="Hotel Name"
                             onChange={(e) => { name.current = e.target.value }}
-                            required/>
+                            required />
                     </div>
                     <div className="mb-6">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="address">
@@ -105,7 +105,7 @@ export default function AddNewHotel() {
                             type="text"
                             placeholder="Address"
                             onChange={(e) => { address.current = e.target.value }}
-                            required/>
+                            required />
                     </div>
                     <div className="mb-6">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="telephone">
@@ -118,7 +118,7 @@ export default function AddNewHotel() {
                             type="text"
                             placeholder="Telephone"
                             onChange={(e) => { telephone.current = e.target.value }}
-                            required/>
+                            required />
                     </div>
                     <div className="mb-6">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="price">
@@ -131,7 +131,7 @@ export default function AddNewHotel() {
                             type="text"
                             placeholder="Price"
                             onChange={(e) => { price.current = parseInt(e.target.value) }}
-                            required/>
+                            required />
                     </div>
                     <div className="mb-6">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="capacity">
@@ -145,7 +145,7 @@ export default function AddNewHotel() {
                             min="0"
                             placeholder="Capacity"
                             onChange={(e) => { capacity.current = parseInt(e.target.value) }}
-                            required/>
+                            required />
                     </div>
                     <div className="mb-6">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="city">
@@ -158,7 +158,7 @@ export default function AddNewHotel() {
                             type="text"
                             placeholder="City"
                             onChange={(e) => { city.current = e.target.value }}
-                            required/>
+                            required />
                     </div>
                     <div className="mb-6">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="file">
@@ -171,7 +171,7 @@ export default function AddNewHotel() {
                             type="text"
                             placeholder="Image URL"
                             onChange={(e) => { file.current = e.target.value }}
-                            required/>
+                            required />
                     </div>
                     <div className="flex justify-center">
                         <button className="bg-orange-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline" type="submit">

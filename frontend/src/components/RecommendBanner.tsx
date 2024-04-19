@@ -21,10 +21,10 @@ export default function RecommendBanner() {
                 setHotelData(result);
                 //Calculate Rank
                 const sorted = result?.data.sort((n1: any, n2: any) => {
-                    if(n1.priority > n2.priority){
+                    if (n1.priority > n2.priority) {
                         return -1
                     }
-                    if(n1.priority < n2.priority){
+                    if (n1.priority < n2.priority) {
                         return 1
                     }
 
@@ -38,7 +38,7 @@ export default function RecommendBanner() {
 
                     return 0;
                 });
-                
+
                 setSortedArray(sorted);
             } catch (err) {
                 console.error(err);

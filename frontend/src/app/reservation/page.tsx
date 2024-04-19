@@ -21,7 +21,7 @@ export default function reservation() {
     const roomType = urlParams.get("roomType") || ""
     const roomName = urlParams.get("roomName") || ""
 
-    const {data: session} = useSession();
+    const { data: session } = useSession();
     const dispatch = useDispatch<AppDispatch>()
     const [checkInDate, setCheckInDate] = useState<Dayjs>(dayjs())
     const [checkOutDate, setCheckOutDate] = useState<Dayjs>(dayjs().add(1, "day"))
@@ -43,7 +43,7 @@ export default function reservation() {
             }
             dispatch(addToCart(booking))
             router.push("/hotel");
-            
+
         }
     }
 

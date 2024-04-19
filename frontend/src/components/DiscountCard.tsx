@@ -1,13 +1,13 @@
 import Image from "next/image";
 import CardTemplate2 from "./CardTemplate2";
 
-export default function DiscountCard({ discountName,/* imgSrc,*/ discountcode, discountinfo }: { discountName: string,/* imgSrc: string,*/ discountcode: string, discountinfo: string}) {
+export default function DiscountCard({ discountName,/* imgSrc,*/ discountcode, discountinfo }: { discountName: string,/* imgSrc: string,*/ discountcode: string, discountinfo: string }) {
 
     return (
         <CardTemplate2 contentName={discountName}>
-            
+
             <div className='w-full h-[60%] relative rounded-t-lg'>
-                
+
             </div>
             <div className='w-full h-[40%] p-[10px]'>
                 {discountName}

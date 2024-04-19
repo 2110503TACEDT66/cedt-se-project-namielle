@@ -20,19 +20,19 @@ export default function StripeCheckout({
     const { data: session } = useSession();
     const makePayment = async () => {
         const stripe = await loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`);
-        const userData =  await getUserProfile(session?.user.token as string);
+        const userData = await getUserProfile(session?.user.token as string);
 
         if (cartItems.length > 3) {
             alert("You can only book 3 rooms at a time");
             return; // Exit the function early if the booking limit is exceeded
         }
 
-        if(!session){
+        if (!session) {
             return;
         }
 
         const stripeSession = await createStripeSession(cartItems, session.user.token, userData.data._id, discountCode);
-        
+
         // console.log(stripeSession);
 
         // cartItems.map((item) => {

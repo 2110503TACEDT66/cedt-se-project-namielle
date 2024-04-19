@@ -33,7 +33,8 @@ body {
 }
 
 body {
-    color: #304159; /* temp var(--foreground-hex);*/
+    color: #304159;
+    /* temp var(--foreground-hex);*/
     margin-top: 70px;
     margin-bottom: 50px;
 }

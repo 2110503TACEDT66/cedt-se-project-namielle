@@ -49,7 +49,7 @@ export default function CartPanel() {
             }
         };
         fetchDiscount();
-    }, []);    
+    }, []);
     let totalPrice = 0;
     cartItems.map((item) => {
         totalPrice += item.price;
@@ -68,7 +68,7 @@ export default function CartPanel() {
                     setDiscountedPrice(newDiscountedPrice); // อัพเดทค่าของส่วนลดที่ถูกปรับแล้ว
                     return;
                 }
-                else{
+                else {
                     setDiscountedPrice(0);
                 }
             }
@@ -139,45 +139,45 @@ export default function CartPanel() {
                                         </td>
                                     </tr>
                                     <tr>
-                                    <td className="border border-gray-400 px-4 py-2">
-                                        <h3 className="text-sm">Discount: </h3>
-                                    </td>
-                                    <td className="border border-gray-400 px-4 py-2 text-right">
-                                        <h3 className="text-sm">
-                                           - ฿ {discountedPrice.toFixed(2)}.-
-                                        </h3>
-                                    </td>
-                                </tr>
+                                        <td className="border border-gray-400 px-4 py-2">
+                                            <h3 className="text-sm">Discount: </h3>
+                                        </td>
+                                        <td className="border border-gray-400 px-4 py-2 text-right">
+                                            <h3 className="text-sm">
+                                                - ฿ {discountedPrice.toFixed(2)}.-
+                                            </h3>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td className="border border-gray-400 px-4 py-2">
                                             <h3 className="text-md font-bold">Total Price: </h3>
                                         </td>
                                         <td className="border border-gray-400 px-4 py-2 text-right">
-                                        <h3 className="text-sm">
-                                            ฿ {(totalPrice-discountedPrice).toFixed(2)}.-
-                                        </h3>
+                                            <h3 className="text-sm">
+                                                ฿ {(totalPrice - discountedPrice).toFixed(2)}.-
+                                            </h3>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                             <div>
-                            <form className="mt-4">
-                                <input
-                                    type="text"
-                                    className="border border-gray-400 px-4 py-2 w-full"
-                                    placeholder="Discount Code"
-                                    value={inputCode}
-                                    onChange={(e) => setInputCode(e.target.value)}
-                                />
-                                <button
-                                    type="button"
-                                    className="bg-green-500 text-white font-semibold py-2 px-4 rounded-lg mt-2"
-                                    onClick={checkValidDiscount}
-                                >
-                                    Apply
-                                </button>
-                            </form>
-                        </div>
+                                <form className="mt-4">
+                                    <input
+                                        type="text"
+                                        className="border border-gray-400 px-4 py-2 w-full"
+                                        placeholder="Discount Code"
+                                        value={inputCode}
+                                        onChange={(e) => setInputCode(e.target.value)}
+                                    />
+                                    <button
+                                        type="button"
+                                        className="bg-green-500 text-white font-semibold py-2 px-4 rounded-lg mt-2"
+                                        onClick={checkValidDiscount}
+                                    >
+                                        Apply
+                                    </button>
+                                </form>
+                            </div>
                             <div className="text-lg mt-4 font-bold">
                                 Choose Your Payment Method
                                 <div className="flex flex-row item-center">
@@ -188,8 +188,8 @@ export default function CartPanel() {
                                 </div>
                             </div>
                             <div className="flex flex-row justify-center mt-5">
-                                { bookingCount > 3 ? 
-                                    <button className="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105" onClick={()=> {
+                                {bookingCount > 3 ?
+                                    <button className="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105" onClick={() => {
                                         Swal.fire({
                                             icon: 'error',
                                             title: 'Oops...',
@@ -199,12 +199,12 @@ export default function CartPanel() {
                                         Nah
                                     </button> :
                                     <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
-                                        <StripeCheckout cartItems={cartItems} discountCode={inputCode}/>
+                                        <StripeCheckout cartItems={cartItems} discountCode={inputCode} />
                                     </button>
-                                } 
-                               
+                                }
+
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>

@@ -6,13 +6,13 @@ import { PersistGate } from "redux-persist/integration/react"
 
 
 export default function ReduxProvider({ children }: { children: React.ReactNode }) {
-    
+
     let reduxPersistor = persistStore(store)
 
     return (
         <ReactReduxProvider store={store}>
             <PersistGate loading={null} persistor={reduxPersistor}>
-            {children}
+                {children}
             </PersistGate>
         </ReactReduxProvider>
     )
