@@ -27,22 +27,6 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
     return (
         <div className="justify-center item-center">
             <div className="container mx-auto my-8 p-4 rounded-lg shadow-md block">
-<<<<<<< HEAD
-                <div className="block ml-[20%]">
-                    <input
-                        type="text"
-                        id="search"
-                        name="search"
-                        placeholder="Enter name or city of the hotel..."
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="input input-bordered w-[70%] text-l p-2 m-[2%]"
-                    />
-
-                </div>
-                {hotelData?.data.filter((hotelItem: any) => {
-                    const searchTerm = search.toLowerCase();
-                    return searchTerm === '' ? true : hotelItem.name.toLowerCase().includes(searchTerm) || hotelItem.city.toLowerCase().includes(searchTerm);
-=======
                 <div className="flex flex-row justify-center">
                     <div className="m-1 w-[60%]">
                         <h2 className="text-lg font-semibold text-gray-800">Search Your Hotels</h2>
@@ -63,7 +47,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                 <div className="text-center">
                     <h1 className="text-lg pt-2 font-semibold text-center font-black ">
                        {hotelData?.data.filter((hotelItem: any) => {
-                        return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase())
+                        return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase() || hotelItem.city.toLowerCase().includes(search.toLowerCase()))
                         }).filter((hotelItem: any) => {
                             for(let i = 0; i < hotelItem.roomType.length; i++) {
                                 if(hotelItem.roomType[i].personLimit >= persons) {
@@ -71,7 +55,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                                 }
                             }
                         }).length != 0 ? `You found ${hotelData?.data.filter((hotelItem: any) => {
-                            return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase())
+                            return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase() || hotelItem.city.toLowerCase().includes(search.toLowerCase()))
                             }).filter((hotelItem: any) => {
                                 for(let i = 0; i < hotelItem.roomType.length; i++) {
                                     if(hotelItem.roomType[i].personLimit >= persons) {
@@ -82,14 +66,13 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                     </h1> 
                 </div>
                 {hotelData?.data.filter((hotelItem: any) => {
-                    return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase())
+                    return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase() || hotelItem.city.toLowerCase().includes(search.toLowerCase()))
                 }).filter((hotelItem: any) => {
                     for(let i = 0; i < hotelItem.roomType.length; i++) {
                         if(hotelItem.roomType[i].personLimit >= persons) {
                             return hotelItem;
                         }
                     }
->>>>>>> 9e6178d925a01d611578f71c1822b7f1a97890a3
                 }).map((hotelItem: any) => (
                     <Link key={hotelItem.name} href={`/hotel/${hotelItem.id}`}>
                         <HotelCard

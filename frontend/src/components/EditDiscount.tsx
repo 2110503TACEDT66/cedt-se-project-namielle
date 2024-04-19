@@ -20,7 +20,7 @@ export default function EditDiscount() {
     const handleSumbit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!session || !info || !name || !code || !percentage) return;
-        await PostDiscount( name.current, code.current ,info.current,percentage.current, session.user.token)
+        await PostDiscount( name.current, info.current,code.current ,percentage.current, session.user.token)
         router.refresh();
     }
 

@@ -2,7 +2,6 @@ const Hotel = require("../models/Hotel");
 const Booking = require("../models/Booking");
 const RoomType = require("../models/RoomType");
 const fs = require("fs");
-const Booking = require("../models/Booking");
 
 //@desc Get all hotels
 //@route GET /api/v1/hotels

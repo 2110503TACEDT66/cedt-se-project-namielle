@@ -3,11 +3,7 @@ import CardTemplate from "./CardTemplate";
 import getHotels from "@/libs/getHotels";
 import getHotel from "@/libs/getHotel";
 
-<<<<<<< HEAD
-export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, hotelTel, hotelPrice }: { hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string, hotelPrice: number }) {
-=======
-export default function HotelCard({ hotelName, imgSrc, hotelAddress, hotelTel, roomType, persons }: { hotelName: string, imgSrc: string, hotelAddress: string, hotelTel: string,  roomType: any, persons: number}) {
->>>>>>> 9e6178d925a01d611578f71c1822b7f1a97890a3
+export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, hotelTel,roomType, persons }: { hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string, roomType: any, persons: number }) {
 
     // const randPrice = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
 
@@ -21,23 +17,12 @@ export default function HotelCard({ hotelName, imgSrc, hotelAddress, hotelTel, r
                 <div className="w-[full] font-bold px-[3%] pt-[3%] text-2xl">
                     {hotelName}
                 </div>
-<<<<<<< HEAD
-                <div className="w-full px-[4%] pt-[2%] ">
-                    {hotelCity}
-                </div>
-                <div className="w-full px-[4%] pt-[2%] ">
-=======
                 <div className="w-full px-[3%] pt-1">
->>>>>>> 9e6178d925a01d611578f71c1822b7f1a97890a3
                     Address: {hotelAddress}
                 </div>
                 <div className="w-full px-[3%] pt-1">
                     Tel. {hotelTel}
                 </div>
-<<<<<<< HEAD
-                <div className="w-full px-[4%] pt-[2%] text-2xl r-0 b-0 text-orange-500 font-bold">
-                    {hotelPrice} ฿
-=======
                 <div className="w-[80%] px-[3%] pt-[1%] rounded-lg text-sm">
                     <table className="w-auto table-auto">
                         <thead>
@@ -61,7 +46,6 @@ export default function HotelCard({ hotelName, imgSrc, hotelAddress, hotelTel, r
                         ))}
                         </tbody>
                     </table>
->>>>>>> 9e6178d925a01d611578f71c1822b7f1a97890a3
                 </div>
 
                 {/* <div className="w-full px-[4%] pt-[2%] text-2xl r-0 b-0">
