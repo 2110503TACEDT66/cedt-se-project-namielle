@@ -136,7 +136,7 @@ export default function CartPanel() {
                             <div className="ml-auto">
                                 <Image
                                     src={"/img/delete.png"}
-                                    className="cursor-pointer"
+                                    className="cursor-pointer m-1"
                                     width={40}
                                     height={40}
                                     alt="delete"
