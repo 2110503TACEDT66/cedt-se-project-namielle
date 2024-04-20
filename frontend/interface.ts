@@ -100,6 +100,7 @@ export interface ReviewJson {
 }
 
 export interface discountJson {
+    count: number,
     data: {
         name: string,
         info: string,
@@ -107,5 +108,5 @@ export interface discountJson {
         percentage: number,
         _id: string,
         __v: number,
-    };
+    }[],
 }

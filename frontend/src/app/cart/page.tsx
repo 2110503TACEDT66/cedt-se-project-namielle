@@ -14,7 +14,7 @@ export default async function Cart() {
             </div>
 
             {session ?
-                <div className="flex flex-row m-20 h-auto min-h-lvh bg-paper min">
+                <div className="flex flex-row m-20 h-auto bg-paper">
                     <CartPanel />
                 </div> : <div className="flex justify-center h-auto bg-paper m-10">No item in cart </div>
             }
