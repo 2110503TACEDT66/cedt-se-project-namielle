@@ -33,13 +33,6 @@ export default function StripeCheckout({
 
         const stripeSession = await createStripeSession(cartItems, session.user.token, userData.data._id, discountCode);
 
-        // console.log(stripeSession);
-
-        // cartItems.map((item) => {
-        //     console.log("remove -> ", item);
-        //     dispatch(removeFromCart(item._id));
-        // });
-
         const result = stripe?.redirectToCheckout({
             sessionId: stripeSession.sessionId,
         });

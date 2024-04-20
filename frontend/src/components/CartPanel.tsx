@@ -12,6 +12,8 @@ import StripeCheckout from "./StripeCheckout";
 import { discountJson } from "../../interface";
 import Swal from "sweetalert2";
 import getDiscounts from "@/libs/getDiscounts";
+import { Rating } from "@mui/material";
+const dayjs = require("dayjs");
 
 export default function CartPanel() {
     const cartItems = useAppSelector(
@@ -87,25 +89,44 @@ export default function CartPanel() {
 
     return cartItems.length > 0 ? (
         <div className="flex flex-row w-full justify-center">
-            <div className="w-[55%]">
+            <div className="w-[55%] h-full">
                 {cartItems.map((item) => {
+                    const checkInDate = dayjs(item.checkInDate).format(
+                        "D MMMM YYYY"
+                    );
+                    const checkOutDate = dayjs(item.checkOutDate).format(
+                        "D MMMM YYYY"
+                    );
                     return (
                         <div className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white">
-                            <Image
-                                src={`/img/${item.picture}`}
-                                alt={item.name}
-                                width={200}
-                                height={200}
-                                className="rounded-sm"
-                            />
-                            <div className="ml-2 text-black">
-                                <h1 className="text-2xl">{item.name}</h1>
+                            <div className="w-[200px] h-[200px] relative">
+                                <Image
+                                    src={`/img/${item.picture}`}
+                                    alt={item.name}
+                                    fill={true}
+                                    className="object-cover rounded-sm"
+                                />
+                            </div>
+                            <div className="ml-1 p-2 text-black">
+                                <h1 className="text-2xl font-bold">{item.name}</h1>
                                 <h2 className="text-xl">
                                     {item.roomName} room
                                 </h2>
-                                <h3 className="text-sm">
-                                    Date: {item.checkInDate} {`->`}{" "}
-                                    {item.checkOutDate}
+                                <div className="flex gap-1">
+                                    <Rating
+                                        name="read-only"
+                                        value={item.review.rating}
+                                        readOnly
+                                    />
+                                    <div className="text-bold">({item.review.rating})</div>
+                                    <div className="opacity-50">{item.review.count} reviews</div>
+                                    
+                                </div>
+                                <h3 className="text-sm mt-2">
+                                    Date: {checkInDate} {`->`} {checkOutDate}
+                                </h3>
+                                <h3 className="text-sm mt-1">
+                                    Address: {item.address}
                                 </h3>
                                 <h3 className="text-2xl pt-3 text-orange-500">
                                     {formatter.format(item.price)}
@@ -113,21 +134,43 @@ export default function CartPanel() {
                                 </h3>
                             </div>
                             <div className="ml-auto">
-                                <button
-                                    className="bg-red-500 text-white rounded-lg p-1 m-1"
-                                    onClick={() =>
-                                        dispatch(removeFromCart(item._id))
-                                    }
-                                >
-                                    Cancel
-                                </button>
+                                <Image
+                                    src={"/img/delete.png"}
+                                    className="cursor-pointer"
+                                    width={40}
+                                    height={40}
+                                    alt="delete"
+                                    onClick={() => {
+                                        Swal.fire({
+                                            title: "Are you sure?",
+                                            text: "You won't be able to revert this!",
+                                            icon: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonColor: "#d33",
+                                            cancelButtonColor: "#3085d6",
+                                            confirmButtonText:
+                                                "Yes, delete it!",
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                Swal.fire({
+                                                    title: "Deleted!",
+                                                    text: "Your file has been deleted.",
+                                                    icon: "success",
+                                                });
+                                                dispatch(
+                                                    removeFromCart(item._id)
+                                                );
+                                            }
+                                        });
+                                    }}
+                                ></Image>
                             </div>
                         </div>
                     );
                 })}
             </div>
-            <div className="w-[35%]">
-                <div className="h-fit text-black ml-[10%] border-solid border-2 border-gray-400 rounded-md bg-white">
+            <div className="w-[35%] ">
+                <div className="h-full text-black ml-[10%] border-solid border-2 border-gray-400 rounded-md bg-white">
                     <div className="p-4 mx-8">
                         <div className="text-xl font-bold text-center mt-3 mb-5">
                             Your Cart

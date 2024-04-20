@@ -33,6 +33,11 @@ export interface CartItem {
     picture: string,
     roomType: string,
     roomName: string,
+    address: string,
+    review: {
+        rating: number,
+        count: number
+    }
 }
 
 export interface BookItem {
