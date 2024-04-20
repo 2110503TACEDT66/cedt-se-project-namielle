@@ -11,6 +11,14 @@ export interface BookingItem {
         file: string,
         id: string
     },
+    roomDetail: {
+        data: {
+            name: string,
+            personLimit: number,
+            price: number,
+            roomLimit: number
+        }
+    },
     createdAt: string,
     __v: number,
 }
@@ -87,6 +95,7 @@ export interface ReviewJson {
         stars: Number,
         description: String,
         createAt: Date,
+        isHidden: Boolean,
     }[],
 }
 

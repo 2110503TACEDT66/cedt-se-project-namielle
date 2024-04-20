@@ -13,16 +13,19 @@ import getUserProfile from "@/libs/getUserProfile";
 import { use, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { HotelJson, ReviewJson } from "../../../../../interface";
+import Swal from "sweetalert2";
 
 export default function Detailpage({ params }: { params: { hid: string } }) {
 
-    const [hotelDetail, setHotelDetail] = useState<HotelJson>();
+    const [hotelDetail, setHotelDetail] = useState<any>();
     const [review, setReview] = useState<ReviewJson>();
     const [userInfo, setUserInfo] = useState<any>();
     const [roomType, setRoomType] = useState<any>() || null;
     const [roomName, setRoomName] = useState<any>() || null;
     const [remainRoom, setRemainRoom] = useState<any>(0);
+    const [personLimit, setPersonLimit] = useState<any>(0) || null;
     const [price, setPrice] = useState<any>();
+    const { data: session } = useSession();
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -58,12 +61,11 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
         AvgReview = sum / review.count
     }
 
-    const session = useSession();
     if (session) {
         useEffect(() => {
             const fetchUserData = async () => {
                 try {
-                    const result = await getUserProfile(session.user.token)
+                    const result = await getUserProfile(session?.user.token)
                     setUserInfo(result);
                 } catch (err) {
                     console.error(err);
@@ -84,6 +86,11 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
             setPrice(selectedRoom.price);
             setRoomType(selectedRoom._id);
             setRemainRoom(selectedRoom.roomLimit);
+            setPersonLimit(selectedRoom.personLimit);
+        } else {
+            setPrice(null);
+            setRemainRoom(0);
+            setPersonLimit(0);
         }
     };
 
@@ -117,22 +124,48 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
                 </div>
                 <div className="leading-none w-[30%] flex justify-center items-center">
                     {price == null ? <h1 className="block font-bold text-green-800 text-xl">Please Select Room</h1> :
-                    <><h1 className="block font-bold text-green-800 text-4xl">฿ {price}</h1>
+                    <><h1 className="block font-bold text-green-800 text-2xl">฿ {price}</h1>
                     <h1 className="block text-green-800 text-xl "> /day</h1></>
                     } 
                     
                 </div>
                 <div className="leading-none w-[30%] flex justify-center items-center">
-                    {remainRoom == 0 ? <h1 className="block font-bold text-red-800 text-xl">No Room Available</h1> :
-                        <>Remain room : {remainRoom}</>
+                    {personLimit == 0 ? 
+                        <h1 className="block font-bold text-green-800 text-xl">Please Select Room</h1> 
+                        :
+                        <>
+                        <h1 className="block font-bold text-green-800 text-xl">{personLimit}</h1> 
+                        <h1 className="block text-green-800 text-xl">&nbsp;persons limit</h1>
+                        </>
                     }
                 </div>
+                <div className="leading-none w-[30%] flex justify-center items-center">
+                    {remainRoom == 0 ? 
+                        <h1 className="block font-bold text-red-800 text-xl">No Room Available</h1> 
+                        :<>
+                        <h1 className="block font-bold text-green-800 text-xl">{remainRoom}</h1>
+                        <h1 className="block text-green-800 text-xl">&nbsp;rooms left</h1></>
+                    }
+                    
+                </div>
                 <div className="leading-none w-[20%] flex justify-center items-center">
+                    { price == null || remainRoom == 0 ? 
+                    <button className="block p-1 text-2xl text-white font-bold font-sans bg-gray-500 hover:bg-slate-800 hover:text-gray-800 rounded-md" onClick={()=>{
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Please select room type and check availability',
+                          })
+                    }}>
+                        RESERVE
+                    </button> 
+                    :
                     <Link href={`/reservation?price=${price}&hid=${params.hid}&name=${hotelDetail?.data.name}&file=${hotelDetail?.data.file}&roomType=${roomType}&roomName=${roomName}`} className="flex justify-center items-center">
                         <button className="block p-1 text-2xl text-white font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-500 rounded-md">
                             RESERVE
                         </button>
-                    </Link>
+                    </Link> 
+                    }
                 </div>
             </div>
 
@@ -153,7 +186,7 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
                 {
                     review?.data.map((item: any) => (
 
-                        <ReviewBlock key={item.user?.name} user={item.user?.name} rating={item.stars} comment={item.description} createdAt={item.createAt.slice(0, 10)} />
+                        <ReviewBlock key={item.user?.name} user={item.user?.name} rating={item.stars} comment={item.description} createdAt={item.createAt.slice(0, 10)} id={item._id} isHidden={item.isHidden}/>
                     ))
 
                 }

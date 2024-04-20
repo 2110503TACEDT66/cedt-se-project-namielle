@@ -1,27 +1,56 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { loadStripe } from "@stripe/stripe-js";
 import { CartItem } from "../../interface";
 import createStripeSession from "@/libs/createStripeSession";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/redux/store";
+import { removeFromCart } from "@/app/redux/features/cartSlice";
+import { useSession } from "next-auth/react";
+import getUserProfile from "@/libs/getUserProfile";
 
-export default function StripeCheckout( {cartItems} : {cartItems: Array<CartItem>}) {
-  const makePayment = async () => {
-    const stripe = await loadStripe("pk_test_51P41CKD7m7MeQAMy74Cvm7Up3wkvuBE53QspEcz6Okq4NW1lRsOdiEiBixPwqCtAljB8Ih9m3A3NhUCZ3LpH6GEL000EFHGT8G");
+export default function StripeCheckout({
+    cartItems,
+    discountCode,
+}: {
+    cartItems: Array<CartItem>,
+    discountCode: String,
+}) {
+    // const dispatch = useDispatch<AppDispatch>();
+    const { data: session } = useSession();
+    const makePayment = async () => {
+        const stripe = await loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`);
+        const userData =  await getUserProfile(session?.user.token as string);
 
-    const session = await createStripeSession({cartItems})
+        if (cartItems.length > 3) {
+            alert("You can only book 3 rooms at a time");
+            return; // Exit the function early if the booking limit is exceeded
+        }
 
-    const result = stripe?.redirectToCheckout({
-      sessionId: session.id
-    })
+        if(!session){
+            return;
+        }
 
-    if((await result)?.error){
-      console.log((await result)?.error);
-    }
-  }
+        const stripeSession = await createStripeSession(cartItems, session.user.token, userData.data._id, discountCode);
+        
+        // console.log(stripeSession);
 
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <button onClick={makePayment} >click</button>
-    </main>
-  );
+        // cartItems.map((item) => {
+        //     console.log("remove -> ", item);
+        //     dispatch(removeFromCart(item._id));
+        // });
+
+        const result = stripe?.redirectToCheckout({
+            sessionId: stripeSession.sessionId,
+        });
+
+        if ((await result)?.error) {
+            console.log((await result)?.error);
+        }
+
+    };
+
+    return (
+        <button onClick={makePayment}>Check Out</button>
+    );
 }

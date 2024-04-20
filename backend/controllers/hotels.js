@@ -14,7 +14,7 @@ exports.getHotels = async (req, res, next) => {
     const removeFields = ["select", "sort", "page", "limit"];
     //Loop over removeFields and delete them from reqQuery
     removeFields.forEach((param) => delete reqQuery[param]);
-    console.log(reqQuery);
+    // console.log(reqQuery);
     //Create query string
     let queryStr = JSON.stringify(reqQuery);
     queryStr = queryStr.replace(
@@ -53,6 +53,19 @@ exports.getHotels = async (req, res, next) => {
         const total = await Hotel.countDocuments();
         query = query.skip(startIndex).limit(limit);
         const hotels = await query;
+
+        //Calculate BookCount
+        for (let hotel of hotels) {
+            let totalBook = 0;
+            const bookings = await Booking.find({ hotel: hotel._id });
+    
+             for (let booking of bookings) {
+                totalBook += 1;
+            }
+            //console.log(`Total booking of all hotels: ${totalBook}`);
+            await Hotel.findByIdAndUpdate(hotel._id.toString(), { bookCount : totalBook });
+        }
+
         //Pagination result
         const pagination = {};
         if (endIndex < total) {
@@ -68,7 +81,7 @@ exports.getHotels = async (req, res, next) => {
             };
         }
 
-        console.log(req.query);
+        // console.log(req.query);
 
         res.status(200).json({
             success: true,
@@ -84,8 +97,18 @@ exports.getHotels = async (req, res, next) => {
 //@route GET /api/v1/hotels/:id
 //@access Public
 exports.getHotel = async (req, res, next) => {
+    //Calculate BookCount
     // Get all hotels
     const hotels = await Hotel.findById(req.params.id);
+
+    let totalBook = 0;
+    const bookings = await Booking.find({ hotel: hotels._id });
+
+    for (let booking of bookings) {
+        totalBook += 1;
+    }
+    console.log(`Total booking of all hotels: ${totalBook}`);
+    await Hotel.findByIdAndUpdate(req.params.id, { bookCount : totalBook });
 
     // Temporary
     let totalCapacity = 0;
@@ -118,7 +141,7 @@ exports.getHotel = async (req, res, next) => {
 //@access Private
 exports.createHotel = async (req, res, next) => {
     //console.log("a");
-    var data = req.body;
+    var data = req.body;/*
     if (req.file && req.file.filename) {
         data.file = req.file.filename;
     } else {
@@ -126,12 +149,16 @@ exports.createHotel = async (req, res, next) => {
         return res
             .status(400)
             .json({ error: "Please add a picture to the hotel" });
+    }*/
+    try {
+        const hotel = await Hotel.create(data);
+        res.status(201).json({
+            success: true,
+            data: hotel,
+        });
+    } catch (err) {
+        res.status(400).json({ success: false });
     }
-    const hotel = await Hotel.create(data);
-    res.status(201).json({
-        success: true,
-        data: hotel,
-    });
 };
 
 //@desc Update hotels

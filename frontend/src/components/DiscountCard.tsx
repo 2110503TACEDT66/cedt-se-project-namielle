@@ -5,6 +5,7 @@ export default function DiscountCard({ discountName,/* imgSrc,*/ discountcode, d
 
     return (
         <CardTemplate2 contentName={discountName}>
+            
             <div className='w-full h-[60%] relative rounded-t-lg'>
                 
             </div>

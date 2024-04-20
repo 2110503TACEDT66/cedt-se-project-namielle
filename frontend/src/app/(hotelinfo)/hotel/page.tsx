@@ -1,11 +1,13 @@
 import getHotels from "@/libs/getHotels"
 import HotelCatalog from "@/components/HotelCatalog"
+import RecommendBanner from "@/components/RecommendBanner"
 
 export default function Hotels() {
-    const hotels = getHotels()
+    const hotels = getHotels();
+
     return (
         <main className="p-5">
-            <h1 className="text-xl font-medium text-center item-center">Hotel</h1>
+            <RecommendBanner></RecommendBanner>
             <HotelCatalog hotelJson={hotels} />
         </main>
     )
