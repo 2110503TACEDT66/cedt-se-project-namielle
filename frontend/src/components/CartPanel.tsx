@@ -129,7 +129,7 @@ export default function CartPanel() {
                                     Address: {item.address}
                                 </h3>
                                 <h3 className="text-2xl pt-3 text-orange-500">
-                                    {formatter.format(item.price)}
+                                    {formatter.format(item.price).replace('฿', 'THB ')}
                                     .-
                                 </h3>
                             </div>
@@ -195,7 +195,7 @@ export default function CartPanel() {
                                                 <h3 className="text-md">
                                                     {formatter.format(
                                                         item.price
-                                                    )}
+                                                    ).replace('฿', 'THB ')}
                                                     .-
                                                 </h3>
                                             </td>
@@ -214,7 +214,7 @@ export default function CartPanel() {
                                     </td>
                                     <td className="border border-gray-400 px-4 py-2 text-right">
                                         <h3 className="text-sm">
-                                            {formatter.format(totalPrice)}.-
+                                            {formatter.format(totalPrice).replace('฿', 'THB ')}.-
                                         </h3>
                                     </td>
                                 </tr>
@@ -225,7 +225,7 @@ export default function CartPanel() {
                                     <td className="border border-gray-400 px-4 py-2 text-right">
                                         <h3 className="text-sm text-orange-sweet">
                                             -{" "}
-                                            {formatter.format(discountedPrice)}
+                                            {formatter.format(discountedPrice).replace('฿', 'THB ')}
                                             .-
                                         </h3>
                                     </td>
@@ -240,7 +240,7 @@ export default function CartPanel() {
                                         <h3 className="text-sm">
                                             {formatter.format(
                                                 totalPrice - discountedPrice
-                                            )}
+                                            ).replace('฿', 'THB ')}
                                             .-
                                         </h3>
                                     </td>
@@ -264,7 +264,7 @@ export default function CartPanel() {
                                     />
                                     <button
                                         type="button"
-                                        className="bg-green-500 text-white font-semibold py-2 px-4 rounded-lg ml-2"
+                                        className="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg ml-2"
                                         onClick={checkValidDiscount}
                                     >
                                         Apply
@@ -272,43 +272,10 @@ export default function CartPanel() {
                                 </div>
                             </form>
                         </div>
-                        <div className="text-lg mt-4 font-bold">
-                            Choose Your Payment Method
-                            <div className="flex flex-row item-center">
-                                <Image
-                                    src="/img/bitcoin.png"
-                                    alt="bitcoin"
-                                    width={40}
-                                    height={40}
-                                    className="mr-2 transition ease-in-out hover:scale-110"
-                                />
-                                <Image
-                                    src="/img/visa.png"
-                                    alt="visa"
-                                    width={40}
-                                    height={40}
-                                    className="mr-2 transition ease-in-out hover:scale-110"
-                                />
-                                <Image
-                                    src="/img/mastercard.png"
-                                    alt="mastercard"
-                                    width={40}
-                                    height={40}
-                                    className="mr-2 transition ease-in-out hover:scale-110"
-                                />
-                                <Image
-                                    src="/img/paypal.png"
-                                    alt="paypal"
-                                    width={40}
-                                    height={40}
-                                    className="mr-2 transition ease-in-out hover:scale-110"
-                                />
-                            </div>
-                        </div>
                         <div className="flex flex-row justify-center mt-5">
                             {bookingCount > 3 ? (
                                 <button
-                                    className="bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
+                                    className="bg-slate-400 hover:bg-slate-600 text-white font-semibold py-3 w-full rounded-lg transition duration-300 transform hover:scale-105"
                                     onClick={() => {
                                         Swal.fire({
                                             icon: "error",
@@ -320,11 +287,12 @@ export default function CartPanel() {
                                     Nah
                                 </button>
                             ) : (
-                                <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+                                <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 w-full rounded-lg transition tracking-wide duration-300 transform hover:scale-105">
                                     <StripeCheckout
                                         cartItems={cartItems}
                                         discountCode={inputCode}
                                     />
+                                    <span className="absolute top-0 left-0 w-0 h-full bg-red-600 transition-all duration-300 group-hover:w-full"></span>
                                 </button>
                             )}
                         </div>
