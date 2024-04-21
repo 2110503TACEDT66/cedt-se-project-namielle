@@ -23,7 +23,7 @@ export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, 
                     {hotelName}
                 </div>
                 <div className="w-full px-[3%] pt-1">
-                    Address: {hotelAddress}
+                    Address: {hotelAddress}, {hotelCity}
                 </div>
                 <div className="w-full px-[3%] pt-1">
                     Tel. {hotelTel}

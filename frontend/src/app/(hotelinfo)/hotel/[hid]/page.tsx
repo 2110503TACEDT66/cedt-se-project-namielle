@@ -6,13 +6,11 @@ import Image from "next/image";
 import getHotel from "@/libs/getHotel";
 import Link from "next/link";
 import getReviewsByHotel from "@/libs/getReviews";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import YourReview from "@/components/YourReview";
 import getUserProfile from "@/libs/getUserProfile";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { HotelJson, ReviewJson } from "../../../../../interface";
+import { ReviewJson } from "../../../../../interface";
 import Swal from "sweetalert2";
 
 export default function Detailpage({ params }: { params: { hid: string } }) {
