@@ -148,9 +148,6 @@ export default function AddRecommendCard({ hotel, hotelName, imgSrc, hotelCity, 
                             setPriority(e.target.selectedIndex);
                             changePriority(e.target.selectedIndex);
                         }}
-                        onLoad={(e) => {
-                            console.log("a");
-                        }}
                     >
                         <option value="0">0</option>
                         <option id="one" value="1">1</option>
