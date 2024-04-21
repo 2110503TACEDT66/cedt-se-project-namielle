@@ -3,10 +3,15 @@ import CardTemplate from "./CardTemplate";
 import getHotels from "@/libs/getHotels";
 import getHotel from "@/libs/getHotel";
 
-export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, hotelTel, roomType, persons }: { hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string, roomType: any, persons: number }) {
+export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, hotelTel, roomType, persons, minPrice, maxPrice}: 
+    { hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string, roomType: any, persons: number, minPrice: number, maxPrice: number}) {
 
     // const randPrice = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
 
+    const formatter = new Intl.NumberFormat("th-TH", {
+        style: "currency",
+        currency: "THB",
+    });
 
     return (
         <CardTemplate contentName={hotelName}>
@@ -35,11 +40,11 @@ export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, 
                         </thead>
                         <tbody>
                             {roomType.map((room: any) => (
-                                (room.personLimit >= persons && room.roomLimit > 0) && (
+                                (room.personLimit >= persons && room.roomLimit > 0 && room.price >= minPrice && room.price <= maxPrice) && (
                                     <tr className="border-b border-gray-200 hover:bg-gray-50">
                                         <td className="px-2 py-1">{room.name}</td>
                                         <td className="px-2 py-1">{room.personLimit}</td>
-                                        <td className="px-2 py-1">{room.price}</td>
+                                        <td className="px-2 py-1">{formatter.format(room.price)}</td>
                                         <td className="px-2 py-1">{room.roomLimit}</td>
                                     </tr>
                                 )
