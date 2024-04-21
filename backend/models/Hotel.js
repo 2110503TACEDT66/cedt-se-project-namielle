@@ -26,10 +26,6 @@ const HotelSchema = new mongoose.Schema(
             type: String,
             required: [true, "Please add a picture of the hotel"],
         },
-        price: {
-            type: Number,
-            required: [true, "Please add a price"],
-        },
         city: {
             type: String,
             required: [true, "Please add a city"],
