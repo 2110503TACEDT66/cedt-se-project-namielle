@@ -47,7 +47,7 @@ export default function AddRecommendedHotel({ hotelJson }: { hotelJson: any }) {
                         name="search"
                         placeholder="Enter name or city of the hotel..."
                         onChange={(e) => setSearch(e.target.value)}
-                        className="input input-bordered w-[70%] text-l p-2 m-[2%]"
+                        className="input input-bordered w-[70%] text-l p-2 m-[2%] bg-white border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                     />
                     {/* <button onClick={() => {
                         for (const id in changes) {

@@ -36,12 +36,12 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                             name="search"
                             placeholder="Search..."
                             onChange={(e) => setSearch(e.target.value)}
-                            className="input input-bordered text-l p-2 mr-[2%] w-[100%] h-[65%] border-solid border border-gray-400 rounded-md"
+                            className="input input-bordered text-l p-2 mr-[2%] w-[100%] h-[65%] border-solid border border-gray-400 rounded-md bg-white"
                         />
                     </div>
                     <div className="m-1 w-[10%]">
                         <h2 className="text-lg font-semibold text-gray-800">Persons</h2>
-                        <input type="number" id="persons" name="persons" placeholder="Persons" min={0} className="input input-bordered text-l p-2 w-[100%] h-[65%] border-solid border border-gray-400 rounded-md" onChange={(e) => setPersons(Number(e.target.value))} />
+                        <input type="number" id="persons" name="persons" placeholder="Persons" min={0} className="input input-bordered text-l p-2 w-[100%] h-[65%] border-solid border border-gray-400 rounded-md bg-white" onChange={(e) => setPersons(Number(e.target.value))} />
                     </div>
                 </div>
                 <div className="text-center">
