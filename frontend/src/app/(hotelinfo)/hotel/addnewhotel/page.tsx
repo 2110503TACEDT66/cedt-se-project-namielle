@@ -90,18 +90,18 @@ export default function AddNewHotel() {
             `
           }}
         >
-              <div className="w-full max-w-lg p-8 bg-black rounded-lg shadow-2xl">
-      <div className="flex justify-center mb-8">
-        <h1 
-          className="text-3xl font-bold" 
-          style={{
-            background: "linear-gradient(to right, #B892FF, #8A1DFF)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent"
-          }}
-        >
-          Add New Hotel
-        </h1>
+            <div className="w-full max-w-lg p-8 rounded-lg shadow-2xl" style={{ backgroundColor: "#1E1E1E" }}>
+                <div className="flex justify-center mb-8">
+                    <h1 
+                        className="text-3xl font-bold" 
+                        style={{
+                            background: "linear-gradient(to right, #B892FF, #8A1DFF)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent"
+                        }}
+                    >
+                        Add New Hotel
+                    </h1>
       
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -185,9 +185,15 @@ export default function AddNewHotel() {
                             required />
                     </div>
                     <div className="flex justify-center">
-                        <button className="w-1/2 py-2 px-6 text-lg text-white bg-purple-500 hover:bg-purple-700 rounded focus:outline-none focus:shadow-outline" type="submit">
-                            Add Hotel
-                        </button>
+                    <button className="w-1/2 py-2 px-6 text-lg rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:scale-105"type="submit"
+                            style={{
+                                     color: 'white',
+                                     background: 'linear-gradient(to right, #B892FF, #8A1DFF)',
+                                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+                                   }}
+>
+                         Add Hotel
+                    </button>
                     </div>
                 </form>
             </div>
