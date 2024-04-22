@@ -1,16 +1,14 @@
 import Image from "next/image";
-import CardTemplate from "./CardTemplate";
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import UpdateHotel from "@/libs/UpdateHotel";
-import { Select } from "@mui/material";
 
 // var globalSelect : number[] = [];
 
 export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, hotelAddress, hotelTel, hotelPriority 
-    , onCancel, onSave,globalSelect
+    ,globalSelect
 }: {hotel: any, hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string, hotelPriority: number
-    ,onCancel?: () => void, onSave?: () => void , globalSelect: number[]
+    , globalSelect: number[]
 }) {
     const { data: session } = useSession();
     const [Priority, setPriority] = useState<number>(hotelPriority);
@@ -42,7 +40,7 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
        };
     
    //current select number and add save data
-   let cur : number;   
+   let cur = hotelPriority;   
    //if(hotelPriority != 0) globalSelect.push(hotelPriority);
    function changePriority(e : number){
         setTimeout(function () {
@@ -50,7 +48,8 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
         if (select === null)
             changePriority(e);
         else {
-            let itr = globalSelect.indexOf(cur);
+            cur = Priority;
+            let itr = globalSelect.indexOf(Priority);
             if(e == 0){
                 globalSelect.splice(itr,1);
             }
@@ -69,6 +68,7 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
             // enablePriority(2);
             // localStorage.setItem('globalSelect', JSON.stringify(globalSelect)); try to save data
             check();
+            cur = Priority;
         }
        },500)
     }
@@ -139,26 +139,21 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
                 <div className="inline flex items-center mt-[10%] ml-[8%]">
                     <select value={Priority} name="mySelect" id={hotelName} 
                         className="w-[50px] h-[30px] bg-white border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent mr-[4%]"
-                        onMouseEnter={()=>{check();currentSelect()}}
+                        onMouseEnter={()=>{check()}}
                         onChange={(e) => {
-                            setPriority(e.target.selectedIndex); 
                             changePriority(e.target.selectedIndex);
+                            setPriority(e.target.selectedIndex); 
                         }}
                         onLoad={(e) => {
                             console.log("a");
                         }}
+                        onClick={fetchUpdateHotels}
                         >
                         <option value="0">0</option>
                         <option id="one" value="1">1</option>
                         <option id="two" value="2">2</option>
                         <option id="three" value="3">3</option>
                     </select>
-                    <div className="text-opacity-0">
-                        {
-                        selectRank()
-                        }
-                    </div>
-                    <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mr-4" onClick={fetchUpdateHotels}>Save</button>
                 </div>
             </div>
         </main>
