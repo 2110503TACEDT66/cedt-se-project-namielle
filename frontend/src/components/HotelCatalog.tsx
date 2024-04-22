@@ -49,6 +49,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                         {hotelData?.data.filter((hotelItem: any) => {
                             return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase()) || hotelItem.city.toLowerCase().includes(search.toLowerCase())
                         }).filter((hotelItem: any) => {
+                            if (hotelItem.roomType.length === 0) return hotelItem;
                             for (let i = 0; i < hotelItem.roomType.length; i++) {
                                 if (hotelItem.roomType[i].personLimit >= persons) {
                                     return hotelItem;
@@ -57,6 +58,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                         }).length != 0 ? `You found ${hotelData?.data.filter((hotelItem: any) => {
                             return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase()) || hotelItem.city.toLowerCase().includes(search.toLowerCase())
                         }).filter((hotelItem: any) => {
+                            if (hotelItem.roomType.length === 0) return hotelItem;
                             for (let i = 0; i < hotelItem.roomType.length; i++) {
                                 if (hotelItem.roomType[i].personLimit >= persons) {
                                     return hotelItem;
@@ -68,6 +70,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                 {hotelData?.data.filter((hotelItem: any) => {
                     return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase()) || hotelItem.city.toLowerCase().includes(search.toLowerCase())
                 }).filter((hotelItem: any) => {
+                    if (hotelItem.roomType.length === 0) return hotelItem;
                     for (let i = 0; i < hotelItem.roomType.length; i++) {
                         if (hotelItem.roomType[i].personLimit >= persons) {
                             return hotelItem;
