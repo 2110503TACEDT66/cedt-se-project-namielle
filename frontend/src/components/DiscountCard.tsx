@@ -1,7 +1,20 @@
 import Image from "next/image";
 import CardTemplate2 from "./CardTemplate2";
+import { FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import deleteDiscount from "@/libs/deleteDiscount";
 
-export default function DiscountCard({ discountName,/* imgSrc,*/ discountcode, discountinfo }: { discountName: string,/* imgSrc: string,*/ discountcode: string, discountinfo: string}) {
+export default function DiscountCard({ discountid ,discountName,/* imgSrc,*/ discountcode, discountinfo }: { discountid: string ,discountName: string,/* imgSrc: string,*/ discountcode: string, discountinfo: string}) {
+
+    const {data: session} = useSession();
+    const router = useRouter();
+    const handleSumbit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if(!session) return;
+        await deleteDiscount( discountid, session.user.token);
+        router.refresh();
+    }
 
     return (
         <CardTemplate2 contentName={discountName}>
@@ -20,9 +33,11 @@ export default function DiscountCard({ discountName,/* imgSrc,*/ discountcode, d
                     </div>
                 </div>
             </div>
-            <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 "
-            style={{ margin: '10px' }}
-                    >Delete</button>
+            <form onSubmit={handleSumbit}>
+                <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 "
+                style={{ margin: '10px' }}
+                        >Delete</button>
+            </form>
         </CardTemplate2 >
     )
 }
@@ -31,3 +46,16 @@ export default function DiscountCard({ discountName,/* imgSrc,*/ discountcode, d
 <Image src={imgSrc} alt={discountName} fill={true} className="object-cover" />
 </div>*/
 
+/*
+<div className="block w-full text-black">
+                <div className="w-full font-bold px-[4%] pt-[2%] ">
+                    {discountName}
+                </div>
+                <div className="w-full px-[4%] pt-[2%] ">
+                    Info: {discountinfo}
+                </div>
+                <div className="w-full px-[4%] pt-[2%] ">
+                    Code: {discountcode}
+                </div>
+            </div>
+*/
