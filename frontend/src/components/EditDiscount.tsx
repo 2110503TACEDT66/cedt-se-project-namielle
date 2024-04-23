@@ -30,19 +30,19 @@ export default function EditDiscount() {
                 <label className="text-orange-500 font-sans font-black text-8xl mb-8 center">Create Discount</label>
 
                 <div className="flex flex-col items-start w-full mb-4">
-                    <label htmlFor="name" className="text-slate-900 font-sans mb-2">Name :</label>
+                    <label htmlFor="name" className="text-slate-900 font-sans mb-2">Name </label>
                     <input
                         required
                         placeholder="Enter name"
                         type="text"
                         id="name"
-                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12"
+                        className="border border-slate-500 mb-6 p-2 font-sans w-full h-12"
                         onChange={(e) => { name.current = e.target.value }}
                     />
                 </div>
 
                 <div className="flex flex-col items-start w-full mb-4">
-                    <label htmlFor="info" className="text-slate-900 font-sans mb-2">Info :</label>
+                    <label htmlFor="info" className="text-slate-900 font-sans mb-2">Info </label>
                     <input
                         required
                         placeholder="Enter info"
@@ -54,7 +54,7 @@ export default function EditDiscount() {
                 </div>
 
                 <div className="flex flex-col items-start w-full mb-4">
-                    <label htmlFor="code" className="text-slate-900 font-sans mb-2">Code :</label>
+                    <label htmlFor="code" className="text-slate-900 font-sans mb-2">Code </label>
                     <input
                         required
                         placeholder="Enter code"
@@ -66,7 +66,7 @@ export default function EditDiscount() {
                 </div>
 
                 <div className="flex flex-col items-start w-full mb-4">
-                    <label htmlFor="percentage" className="text-slate-900 font-sans mb-2">Percentage :</label>
+                    <label htmlFor="percentage" className="text-slate-900 font-sans mb-2">Percentage </label>
                     <input
                         required
                         placeholder="Enter percentage"
@@ -78,7 +78,7 @@ export default function EditDiscount() {
                 </div>
 
                 <div className="w-full flex justify-center">
-                    <button type="submit" className="w-[45%] h-[100%] my-5 text-xl text-slate-900 font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-400 rounded-2xl"
+                    <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
                     >Create</button>
                     {
                         errMsg && <p className="text-red-700 text-sm mt-5 w-[45%]">{errMsg}</p>

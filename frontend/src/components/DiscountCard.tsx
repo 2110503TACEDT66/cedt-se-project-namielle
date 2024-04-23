@@ -20,6 +20,9 @@ export default function DiscountCard({ discountName,/* imgSrc,*/ discountcode, d
                     </div>
                 </div>
             </div>
+            <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 "
+            style={{ margin: '10px' }}
+                    >Delete</button>
         </CardTemplate2 >
     )
 }
