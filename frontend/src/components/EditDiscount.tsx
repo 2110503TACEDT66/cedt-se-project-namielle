@@ -21,7 +21,9 @@ export default function EditDiscount() {
         e.preventDefault();
         if (!session || !info || !name || !code || !percentage) return;
         await PostDiscount( name.current, info.current,code.current ,percentage.current, session.user.token)
-        router.refresh();
+        router.push("/discount");
+        // router.refresh();
+        // window.location.reload();
     }
 
     return (

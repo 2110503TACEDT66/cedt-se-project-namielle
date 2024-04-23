@@ -13,7 +13,9 @@ export default function DiscountCard({ discountid ,discountName,/* imgSrc,*/ dis
         e.preventDefault();
         if(!session) return;
         await deleteDiscount( discountid, session.user.token);
+        //console.log("Discount deleted. Refreshing page...");
         router.refresh();
+        window.location.reload();
     }
 
     return (
