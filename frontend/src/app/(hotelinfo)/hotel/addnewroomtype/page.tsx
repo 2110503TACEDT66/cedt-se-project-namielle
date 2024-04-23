@@ -1,12 +1,12 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import useAddRoomType from '@/libs/useAddRoomType'; // ยืนยันเส้นทางนี้ให้ถูกต้อง
-import getHotels from '@/libs/getHotels'; // ยืนยันเส้นทางนี้ให้ถูกต้อง
+import useAddRoomType from '@/libs/useAddRoomType'; 
+import getHotels from '@/libs/getHotels'; 
 import Swal from 'sweetalert2';
-import { useRouter } from 'next/navigation'; // ตรวจสอบว่าได้นำเข้าจาก 'next/router'
+import { useRouter } from 'next/navigation'; 
 
-// โครงสร้างข้อมูลโรงแรม
+
 interface Hotel {
   _id: string;
   name: string;
@@ -26,11 +26,11 @@ export default function AddNewRoomType() {
   });
 
   useEffect(() => {
-    // โหลดข้อมูลโรงแรมเมื่อ component ถูกโหลด
+    
     async function loadHotels() {
       try {
         const { data } = await getHotels();
-        setHotels(data); // ตั้งสมมติฐานว่า API ส่งคืนข้อมูลใน 'data'
+        setHotels(data); 
       } catch (error) {
         console.error("Error fetching hotels:", error);
       }
@@ -38,7 +38,7 @@ export default function AddNewRoomType() {
     loadHotels();
   }, []);
 
-  // ฟังก์ชันสำหรับการจัดการการเปลี่ยนแปลงในฟอร์ม
+ 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -46,15 +46,15 @@ export default function AddNewRoomType() {
       [name]: value,
     }));
   };
-  // ฟังก์ชันสำหรับการจัดการเมื่อฟอร์มถูกส่ง
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // แปลงค่าจำนวนคนและราคาให้อยู่ในรูปแบบตัวเลข
+   
     const personLimitNumber = parseInt(formData.personLimit, 10);
     const priceNumber = parseFloat(formData.price);
     const roomLimitNumber = parseInt(formData.roomLimit, 10);
 
-    // ตรวจสอบความถูกต้องของข้อมูลฟอร์ม
+    
     if (!formData.hotel || !formData.name || isNaN(personLimitNumber) || isNaN(priceNumber) || isNaN(roomLimitNumber)) {
       Swal.fire({
         icon: 'error',
@@ -65,7 +65,7 @@ export default function AddNewRoomType() {
       return;
     }
 
-    // พยายามเพิ่มประเภทห้องพักผ่าน API
+   
     try {
       await addRoomType({
         ...formData,
@@ -73,7 +73,7 @@ export default function AddNewRoomType() {
         price: priceNumber,
         roomLimit: roomLimitNumber,
       });
-      router.push('/hotel'); // เปลี่ยนเส้นทางไปที่ต้องการหลังจากเพิ่มสำเร็จ
+      router.push('/hotel'); 
       Swal.fire({
         icon: 'success',
         title: 'Successfully added room type',
@@ -91,7 +91,7 @@ export default function AddNewRoomType() {
     }
   };
 
-  // ถ้าไม่มีข้อมูล session, แสดงข้อความให้เข้าสู่ระบบ
+ 
   if (!session) {
     return (
       <div className="flex justify-center items-center h-[80vh]">
@@ -100,7 +100,7 @@ export default function AddNewRoomType() {
     );
   }
 
-  // แสดงแบบฟอร์มเต็มรูปแบบสำหรับเพิ่มประเภทห้องพัก
+
   return (
     <div className="flex justify-center items-center h-screen"
     style={{
