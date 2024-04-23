@@ -28,16 +28,3 @@ export default function DiscountCard({ discountName,/* imgSrc,*/ discountcode, d
 <Image src={imgSrc} alt={discountName} fill={true} className="object-cover" />
 </div>*/
 
-/*
-<div className="block w-full text-black">
-                <div className="w-full font-bold px-[4%] pt-[2%] ">
-                    {discountName}
-                </div>
-                <div className="w-full px-[4%] pt-[2%] ">
-                    Info: {discountinfo}
-                </div>
-                <div className="w-full px-[4%] pt-[2%] ">
-                    Code: {discountcode}
-                </div>
-            </div>
-*/

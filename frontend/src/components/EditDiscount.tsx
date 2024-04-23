@@ -29,28 +29,57 @@ export default function EditDiscount() {
             <form className="w-[50%] flex flex-col" onSubmit={handleSumbit}>
                 <label className="text-orange-500 font-sans font-black text-8xl mb-8 center">Create Discount</label>
 
-                <div className="h-12 w-full mb-6 border border-slate-500 font-sans divide-x divide-slate-500">
-                    <input required placeholder="Name" type="text" className="border border-slate-500 mb-6 p-2 font-sans w-full h-12"
-                        onChange={(e) => { name.current = e.target.value }} />
+                <div className="flex flex-col items-start w-full mb-4">
+                    <label htmlFor="name" className="text-slate-900 font-sans mb-2">Name :</label>
+                    <input
+                        required
+                        placeholder="Enter name"
+                        type="text"
+                        id="name"
+                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12"
+                        onChange={(e) => { name.current = e.target.value }}
+                    />
                 </div>
 
-                <input required className="border border-slate-500 mb-6 p-2 font-sans w-full h-12" placeholder="Info" type="text"
-                    onChange={(e) => { info.current = e.target.value }} />
-
-                <div className="h-12 w-full mb-10 border border-slate-500 font-sans divide-x divide-slate-500">
-                    <input required placeholder="Code" type="text" className="border border-slate-500 mb-6 p-2 font-sans w-full h-12"
-                        onChange={(e) => { code.current = e.target.value }} />
+                <div className="flex flex-col items-start w-full mb-4">
+                    <label htmlFor="info" className="text-slate-900 font-sans mb-2">Info :</label>
+                    <input
+                        required
+                        placeholder="Enter info"
+                        type="text"
+                        id="info"
+                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12"
+                        onChange={(e) => { info.current = e.target.value }}
+                    />
                 </div>
 
-                <div className="h-12 w-full mb-10 border border-slate-500 font-sans divide-x divide-slate-500">
-                    <input required placeholder="Percentage" type="number" className="border border-slate-500 mb-6 p-2 font-sans w-full h-12"
-                        onChange={(e) => { percentage.current = e.target.value }} />
+                <div className="flex flex-col items-start w-full mb-4">
+                    <label htmlFor="code" className="text-slate-900 font-sans mb-2">Code :</label>
+                    <input
+                        required
+                        placeholder="Enter code"
+                        type="text"
+                        id="code"
+                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12"
+                        onChange={(e) => { code.current = e.target.value }}
+                    />
+                </div>
+
+                <div className="flex flex-col items-start w-full mb-4">
+                    <label htmlFor="percentage" className="text-slate-900 font-sans mb-2">Percentage :</label>
+                    <input
+                        required
+                        placeholder="Enter percentage"
+                        type="number"
+                        id="percentage"
+                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12"
+                        onChange={(e) => { percentage.current = e.target.value }}
+                    />
                 </div>
 
                 <div className="w-full flex justify-center">
                     <button type="submit" className="w-[45%] h-[100%] my-5 text-xl text-slate-900 font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-400 rounded-2xl"
                     >Create</button>
-
                     {
                         errMsg && <p className="text-red-700 text-sm mt-5 w-[45%]">{errMsg}</p>
                     }

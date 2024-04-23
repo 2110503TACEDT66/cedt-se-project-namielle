@@ -131,7 +131,7 @@ exports.deleteDiscount = async (req, res, next) => {
         if (!discount) {
             return res.status(404).json({
                 success: false,
-                message: `Bootcamp not found with id of ${req.params.id}`,
+                message: `discount not found with id of ${req.params.id}`,
             });
         }
         await discount.deleteOne();
