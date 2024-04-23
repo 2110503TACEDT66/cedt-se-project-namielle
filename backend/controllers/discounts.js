@@ -67,13 +67,6 @@ exports.getDiscounts = async (req, res, next) => {
     } catch (err) {
         res.status(400).json({ success: false });
     }
-    // try {
-    //     const discounts = await Discount.find();
-    // res.status(200).json({ success: true, data: discounts });
-    // } catch (err) {
-    //     res.status(404).json({ success: false });
-    // }
-    
 
 };
 
@@ -135,14 +128,13 @@ exports.deleteDiscount = async (req, res, next) => {
             });
         }
         await discount.deleteOne();
-        if (discount?.file) {
+        /*if (discount?.file) {
             await fs.unlink("./uploads/" + discount.file, (err) => {
                 if (err) {
                     res.status(400).json({ success: false });
                 }
             });
-        }
-
+        }*/
         res.status(200).json({ success: true, data: {} });
     } catch (err) {
         res.status(400).json({ success: false });
