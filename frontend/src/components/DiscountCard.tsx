@@ -3,8 +3,9 @@ import CardTemplate2 from "./CardTemplate2";
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import deleteDiscount from "@/libs/deleteDiscount";
+import getUserProfile from "@/libs/getUserProfile";
 
 export default function DiscountCard({ discountid ,discountName,/* imgSrc,*/ discountcode, discountinfo }: { discountid: string ,discountName: string,/* imgSrc: string,*/ discountcode: string, discountinfo: string}) {
 
@@ -19,6 +20,19 @@ export default function DiscountCard({ discountid ,discountName,/* imgSrc,*/ dis
         router.refresh();
         window.location.reload();
     }
+
+    useEffect(() => {
+        const fetchData = async () => {
+
+            // console.log(session)
+            if (session) {
+                const userData = await getUserProfile(session?.user.token);
+                setUserData(userData);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         userData?.data.role === 'admin' ?
