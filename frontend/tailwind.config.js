@@ -7,10 +7,25 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                // example: className="text-gray-slate-dark"
-                paper: "#F9F2ED",
-                "gray-slate-dark": "#304159", // tailwind: text-slate-800
-                "orange-sweet": "#FF7E67", // tailwind: text-orange-500
+                // light theme
+                "paper": "#FAF7F5",
+                "paper-yellow": "#EFEAE6",
+                "paper-more-yellow": "#ECE3CA",
+                "gray-sweet": "#6B7280",
+                "purple-dark": "#291334",
+                // dark theme
+                "midnight": "#0F172A",
+                "midnight-dark": "#0C1425",
+                "midnight-blue": "#1E293B",
+                "gray-dark": "#1E293B",
+                "white-grayish": "#C8CBD0",
+                // both theme
+                "pink-sweet": "#EC4899",
+                "purple-namielle": "#761AE4",
+                "pink-namielle": "#E96063",
+                "red-error": "#FF5861",
+                "green-success": "#00A96E",
+                "blue-info": "#00B5FF",
             },
         },
         fontFamily: {
