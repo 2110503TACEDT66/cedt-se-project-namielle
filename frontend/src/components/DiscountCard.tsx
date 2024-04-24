@@ -33,7 +33,6 @@ export default function DiscountCard({ discountid ,discountName,/* imgSrc,*/ dis
     }, []);
 
     return (
-        userData?.data.role === 'admin' ?
         <CardTemplate2 contentName={discountName}>
             
             <div className='w-full h-[60%] relative rounded-t-lg'>
@@ -50,29 +49,15 @@ export default function DiscountCard({ discountid ,discountName,/* imgSrc,*/ dis
                     </div>
                 </div>
             </div>
-            <form onSubmit={handleSumbit}>
-                <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 "
-                style={{ margin: '10px' }}
-                        >Delete</button>
-            </form>
-        </CardTemplate2 >
-        :
-        <CardTemplate2 contentName={discountName}>
-            
-            <div className='w-full h-[60%] relative rounded-t-lg'>
-                
-            </div>
-            <div className='w-full h-[40%] p-[10px]'>
-                {discountName}
-                <div>
-                    <div className="w-full px-[5%] pt-[2%] ">
-                        Info: {discountinfo}
-                    </div>
-                    <div className="w-full px-[5%] pt-[2%] ">
-                        Code: {discountcode}
-                    </div>
-                </div>
-            </div>
+            {
+                userData?.data.role === 'admin' ?
+                    <form onSubmit={handleSumbit}>
+                        <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 "
+                        style={{ margin: '10px' }}
+                            >Delete</button>
+                    </form>
+                    : null
+            }
         </CardTemplate2 >
     )
 }
