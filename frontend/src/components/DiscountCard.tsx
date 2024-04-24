@@ -3,10 +3,12 @@ import CardTemplate2 from "./CardTemplate2";
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
 import deleteDiscount from "@/libs/deleteDiscount";
 
 export default function DiscountCard({ discountid ,discountName,/* imgSrc,*/ discountcode, discountinfo }: { discountid: string ,discountName: string,/* imgSrc: string,*/ discountcode: string, discountinfo: string}) {
 
+    const [userData, setUserData] = useState<any>(null);
     const {data: session} = useSession();
     const router = useRouter();
     const handleSumbit = async (e: FormEvent<HTMLFormElement>) => {
@@ -19,6 +21,7 @@ export default function DiscountCard({ discountid ,discountName,/* imgSrc,*/ dis
     }
 
     return (
+        userData?.data.role === 'admin' ?
         <CardTemplate2 contentName={discountName}>
             
             <div className='w-full h-[60%] relative rounded-t-lg'>
@@ -40,6 +43,24 @@ export default function DiscountCard({ discountid ,discountName,/* imgSrc,*/ dis
                 style={{ margin: '10px' }}
                         >Delete</button>
             </form>
+        </CardTemplate2 >
+        :
+        <CardTemplate2 contentName={discountName}>
+            
+            <div className='w-full h-[60%] relative rounded-t-lg'>
+                
+            </div>
+            <div className='w-full h-[40%] p-[10px]'>
+                {discountName}
+                <div>
+                    <div className="w-full px-[5%] pt-[2%] ">
+                        Info: {discountinfo}
+                    </div>
+                    <div className="w-full px-[5%] pt-[2%] ">
+                        Code: {discountcode}
+                    </div>
+                </div>
+            </div>
         </CardTemplate2 >
     )
 }
