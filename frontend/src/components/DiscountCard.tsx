@@ -23,8 +23,6 @@ export default function DiscountCard({ discountid ,discountName,/* imgSrc,*/ dis
 
     useEffect(() => {
         const fetchData = async () => {
-
-            // console.log(session)
             if (session) {
                 const userData = await getUserProfile(session?.user.token);
                 setUserData(userData);
