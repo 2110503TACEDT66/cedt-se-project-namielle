@@ -6,16 +6,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
 :root {
-    --foreground-hex: #304159;
+    --background-hex: theme(colors.paper);
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --foreground-hex: 255, 255, 255;
-    }
-
-    html {
-        color-scheme: dark;
+        --background-hex: theme(colors.midnight);
     }
 }
 
@@ -25,16 +21,8 @@
     margin: 0;
 }
 
-html,
 body {
-    background-color: #F9F2ED;
-    max-width: 100vw;
-    overflow-x: hidden;
-}
-
-body {
-    color: #304159;
-    /* temp var(--foreground-hex);*/
+    background-color: var(--background-hex);
     margin-top: 70px;
     margin-bottom: 50px;
 }
