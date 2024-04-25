@@ -29,7 +29,7 @@ export default function TopMenu() {
     const cartItems = useAppSelector((state) => state.cartSlice.CartBookingItems);
 
     return (
-        <div className="h-[70px] bg-paper fixed top-0 left-0 right-0 z-30 border-b border-t border-solid border-gray-400 flex flex-row">
+        <div className="h-[70px] bg-paper-yellow dark:bg-midnight-dark fixed top-0 left-0 right-0 z-30 flex flex-row">{/*border-b border-t border-solid border-gray-400*/}
             <Link href={'/'}>
                 <div className="flex h-full w-auto ml-3 items-center">
                     <Image src={'/img/Teamlogo.png'} className="h-full w-auto" alt='logo' width={0} height={0} sizes='100vh' />
@@ -40,12 +40,12 @@ export default function TopMenu() {
             <div className='flex flex-row-reverse absolute right-0 h-full mr-3 items-center'>
                 <Link href={'/cart'} className="relative">
                     {cartItems.length > 0 ?
-                        <div className='h-[16px] w-[16px] bg-red-600 rounded-[50%] absolute top-0 right-3'>
+                        <div className='h-[16px] w-[16px] bg-red-600 rounded-[50%] absolute top-0 right-3 z-[10]'>
                             <div className="m-auto font-bold h-full text-center w-full text-xs text-white">{cartItems.length}</div>
                         </div>
                         : ""}
 
-                    <Image src={'/img/shopping-cart.png'} alt='profile' width={0} height={0} sizes='3vh' className='h-[100%] w-auto mx-5' />
+                    <Image src={'/img/shopping-cart.png'} alt='profile' width={0} height={0} sizes='3vh' className='h-[100%] w-auto mx-5 dark:invert' />
                 </Link>
 
                 {

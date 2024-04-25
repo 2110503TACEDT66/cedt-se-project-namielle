@@ -31,7 +31,7 @@ export default function UserDropDown() {
 
     return (
         <div className="flex justify-center">
-            <Image src={'/img/profile-user.png'} alt='profile' width={0} height={0} sizes='3vh' className='h-[100%] w-auto mx-5 cursor-pointer' onClick={
+            <Image src={'/img/profile-user.png'} alt='profile' width={0} height={0} sizes='3vh' className='h-[100%] w-auto mx-5 cursor-pointer dark:invert' onClick={
                 () => {
                     if (display === 'invisible') setDisplay("visible");
                     else { setDisplay("invisible") };
