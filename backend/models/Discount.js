@@ -19,10 +19,10 @@ const DiscountSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please add a discount-percentage"],
     },
-    /*file: {
-            type: String,
-            required: [true, "Please add a picture "],
-        },*/
+    image: {
+        type: String,
+        required: [true, "Please add a image"],
+    },
 });
 
 module.exports = mongoose.model("Discount", DiscountSchema);

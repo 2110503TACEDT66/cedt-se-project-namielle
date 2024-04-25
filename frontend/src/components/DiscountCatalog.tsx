@@ -30,10 +30,11 @@ export default function DiscountCatalog({ discountJson }: { discountJson: any })
                 discountData.data.map((discountItem: any) => (
                     <div className='w-1/5 sm:w-1/3 md:w-1/4 lg:w-1/5 xl:w-1/5 flex flex-wrap gap-4' style={{ margin: '36px' }}>
                     <DiscountCard
-                        discountid={discountItem._id} // Assuming each discount has a unique ID
+                        discountId={discountItem._id} // Assuming each discount has a unique ID
                         discountName={discountItem.name}
-                        discountinfo={discountItem.info}
-                        discountcode={discountItem.code}
+                        discountInfo={discountItem.info}
+                        discountCode={discountItem.code}
+                        discountImage={discountItem.Image}
                     />
                     </div>
                 ))

@@ -5,6 +5,7 @@ import { FormEvent, useRef, useState } from "react"
 import PostDiscount from "@/libs/postDiscount";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 
 export default function EditDiscount() {
@@ -12,6 +13,7 @@ export default function EditDiscount() {
     const info = useRef("");
     const code = useRef("");
     const percentage = useRef("");
+    const image = useRef("");
 
     const [errMsg, setErrMsg] = useState("");
     const { data: session } = useSession();
@@ -19,8 +21,12 @@ export default function EditDiscount() {
     const router = useRouter()
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (!session || !info || !name || !code || !percentage) return;
-        await PostDiscount( name.current, info.current,code.current ,percentage.current, session.user.token)
+        Swal.fire({
+            title: "Created!",
+            icon: "success",
+        });
+        if (!session || !info || !name || !code || !image || !percentage) return;
+        await PostDiscount( name.current, info.current,code.current ,percentage.current, image.current, session.user.token)
         router.push("/discount");
         // router.refresh();
         // window.location.reload();
@@ -76,6 +82,18 @@ export default function EditDiscount() {
                         id="percentage"
                         className="border border-slate-500 mb-2 p-2 font-sans w-full h-12"
                         onChange={(e) => { percentage.current = e.target.value }}
+                    />
+                </div>
+                
+                <div className="flex flex-col items-start w-full mb-4">
+                    <label htmlFor="image" className="text-slate-900 font-sans mb-2">Image link </label>
+                    <input
+                        required
+                        placeholder="Enter image link"
+                        type="text"
+                        id="image"
+                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12"
+                        onChange={(e) => { image.current = e.target.value }}
                     />
                 </div>
 

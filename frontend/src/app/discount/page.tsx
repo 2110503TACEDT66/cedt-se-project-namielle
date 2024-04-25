@@ -1,12 +1,28 @@
+"use client"
 import getDiscounts from "@/libs/getDiscounts"
 import DiscountCatalog from "@/components/DiscountCatalog"
+import { useEffect, useState } from "react";
+
 
 export default function discounts() {
-    const discounts = getDiscounts()
+    const [discounts, setDiscounts] = useState<any>(null);
+
+    useEffect(() => {
+      const fetchDiscounts = async () => {
+        const fetchedDiscounts = await getDiscounts();
+        setDiscounts(fetchedDiscounts);
+      };
+  
+      fetchDiscounts();
+    }, []);
+
     return (
         <main className="text-center p-5">
             <h1 className="text-orange-500 font-sans font-black text-8xl mb-8 center">Today Deal !!!</h1>
-            <DiscountCatalog discountJson={discounts} />
+            {(discounts && discounts.capacity)?
+                <DiscountCatalog discountJson={discounts} />:
+                "so sad\n No code for day"
+            }
         </main>
     )
 }
