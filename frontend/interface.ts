@@ -19,6 +19,10 @@ export interface BookingItem {
             roomLimit: number
         }
     },
+    review:{
+        rating: number,
+        count: number
+    }
     createdAt: string,
     __v: number,
 }

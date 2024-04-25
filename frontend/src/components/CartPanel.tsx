@@ -116,6 +116,7 @@ export default function CartPanel() {
                                     <Rating
                                         name="read-only"
                                         value={item.review.rating}
+                                        precision={0.1}
                                         readOnly
                                     />
                                     <div className="text-bold">({item.review.rating})</div>
@@ -154,7 +155,7 @@ export default function CartPanel() {
                                             if (result.isConfirmed) {
                                                 Swal.fire({
                                                     title: "Deleted!",
-                                                    text: "Your file has been deleted.",
+                                                    text: "Your booking has been deleted.",
                                                     icon: "success",
                                                 });
                                                 dispatch(
