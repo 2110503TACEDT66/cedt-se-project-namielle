@@ -17,7 +17,7 @@ export default function EditDiscount() {
     const {data: session} = useSession();
 
     const router = useRouter()
-    const handleSumbit = async (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!session || !info || !name || !code || !percentage) return;
         await PostDiscount( name.current, info.current,code.current ,percentage.current, session.user.token)
@@ -27,8 +27,8 @@ export default function EditDiscount() {
     }
 
     return (
-        <div className="flex justify-center items-center h-screen">
-            <form className="w-[50%] flex flex-col" onSubmit={handleSumbit}>
+        <div className="flex justify-center items-center h-full">
+            <form className="w-[50%] flex flex-col" onSubmit={handleSubmit}>
                 <label className="text-orange-500 font-sans font-black text-8xl mb-8 center">Create Discount</label>
 
                 <div className="flex flex-col items-start w-full mb-4">
