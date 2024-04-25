@@ -19,6 +19,10 @@ export interface BookingItem {
             roomLimit: number
         }
     },
+    review:{
+        rating: number,
+        count: number
+    }
     createdAt: string,
     __v: number,
 }
@@ -33,6 +37,11 @@ export interface CartItem {
     picture: string,
     roomType: string,
     roomName: string,
+    address: string,
+    review: {
+        rating: number,
+        count: number
+    }
 }
 
 export interface BookItem {
@@ -100,6 +109,7 @@ export interface ReviewJson {
 }
 
 export interface discountJson {
+    count: number,
     data: {
         name: string,
         info: string,
@@ -107,5 +117,5 @@ export interface discountJson {
         percentage: number,
         _id: string,
         __v: number,
-    };
+    }[],
 }

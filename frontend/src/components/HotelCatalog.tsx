@@ -2,18 +2,33 @@
 
 import Link from "next/link";
 import HotelCard from "./HotelCard";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import getHotels from "@/libs/getHotels";
+import { Box, Slider } from "@mui/material";
+
+function valuetext(value: number) {
+    return `THB ${value}`;
+}
+
 
 export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
     const [hotelData, setHotelData] = useState<any>();
     const [search, setSearch] = useState('');
     const [persons, setPersons] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(0);
+    const [value1, setValue1] = React.useState<number[]>([0, 0]);
+    const minDistance = 100;
+
+    const formatter = new Intl.NumberFormat("th-TH", {
+        style: "currency",
+        currency: "THB",
+    });
+
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 const result = await getHotels()
-                setHotelData(result);
+                setHotelData(result);     
             } catch (err) {
                 console.error(err);
             }
@@ -22,7 +37,35 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
         fetchUserData();
     }, [])
 
-    // console.log(search);
+    useEffect(() => {  
+        if (hotelData) {
+            let max = 0;
+            hotelData.data.forEach((hotelItem: any) => {
+                for (let i = 0; i < hotelItem.roomType.length; i++) {
+                    if (hotelItem.roomType[i].price > max) {
+                        max = hotelItem.roomType[i].price;
+                    }
+                }
+            });
+            setMaxPrice(max);
+            setValue1([0, max]);
+        }
+    }, [hotelData])
+   
+    const handleChange1 = (
+        event: Event,
+        newValue: number | number[],
+        activeThumb: number,
+    ) => {
+        if (!Array.isArray(newValue)) {
+            return;
+        }
+        if (activeThumb === 0) {
+            setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
+        } else {
+            setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
+        }
+    };
 
     return (
         <div className="justify-center item-center">
@@ -59,7 +102,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                         }).filter((hotelItem: any) => {
                             if (hotelItem.roomType.length === 0 && persons == 0) return hotelItem;
                             for (let i = 0; i < hotelItem.roomType.length; i++) {
-                                if (hotelItem.roomType[i].personLimit >= persons) {
+                                if (hotelItem.roomType[i].personLimit >= persons && hotelItem.roomType[i].price >= value1[0] && hotelItem.roomType[i].price <= value1[1]) {
                                     return hotelItem;
                                 }
                             }
@@ -68,7 +111,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                         }).filter((hotelItem: any) => {
                             if (hotelItem.roomType.length === 0 && persons == 0) return hotelItem;
                             for (let i = 0; i < hotelItem.roomType.length; i++) {
-                                if (hotelItem.roomType[i].personLimit >= persons) {
+                                if (hotelItem.roomType[i].personLimit >= persons && hotelItem.roomType[i].price >= value1[0] && hotelItem.roomType[i].price <= value1[1]) {
                                     return hotelItem;
                                 }
                             }
@@ -80,7 +123,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                 }).filter((hotelItem: any) => {
                     if (hotelItem.roomType.length === 0 && persons == 0) return hotelItem;
                     for (let i = 0; i < hotelItem.roomType.length; i++) {
-                        if (hotelItem.roomType[i].personLimit >= persons) {
+                        if (hotelItem.roomType[i].personLimit >= persons && hotelItem.roomType[i].price >= value1[0] && hotelItem.roomType[i].price <= value1[1]) {
                             return hotelItem;
                         }
                     }
@@ -94,6 +137,8 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                             hotelTel={hotelItem.tel}
                             roomType={hotelItem.roomType}
                             persons={persons}
+                            minPrice={value1[0]}
+                            maxPrice={value1[1]}
                         />
                     </Link>
                 ))}

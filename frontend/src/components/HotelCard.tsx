@@ -3,10 +3,15 @@ import CardTemplate from "./CardTemplate";
 import getHotels from "@/libs/getHotels";
 import getHotel from "@/libs/getHotel";
 
-export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, hotelTel, roomType, persons }: { hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string, roomType: any, persons: number }) {
+export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, hotelTel, roomType, persons, minPrice, maxPrice}: 
+    { hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string, roomType: any, persons: number, minPrice: number, maxPrice: number}) {
 
     // const randPrice = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
 
+    const formatter = new Intl.NumberFormat("th-TH", {
+        style: "currency",
+        currency: "THB",
+    });
 
     return (
         <CardTemplate contentName={hotelName}>
@@ -18,7 +23,7 @@ export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, 
                     {hotelName}
                 </div>
                 <div className="w-full px-[3%] pt-1">
-                    Address: {hotelAddress}
+                    Address: {hotelAddress}, {hotelCity}
                 </div>
                 <div className="w-full px-[3%] pt-1">
                     Tel. {hotelTel}
@@ -39,7 +44,7 @@ export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, 
                                     <tr className="border-b border-gray-200 hover:bg-gray-50 dark:hover:bg-midnight-dark">
                                         <td className="px-2 py-1">{room.name}</td>
                                         <td className="px-2 py-1">{room.personLimit}</td>
-                                        <td className="px-2 py-1">{room.price}</td>
+                                        <td className="px-2 py-1">{formatter.format(room.price)}</td>
                                         <td className="px-2 py-1">{room.roomLimit}</td>
                                     </tr>
                                 )
