@@ -41,3 +41,4 @@ exports.sendOTP = async (req, res) => {
         });
     }
 };
+

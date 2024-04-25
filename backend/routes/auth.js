@@ -17,3 +17,4 @@ router.get("/me", protect, getMe);
 router.get("/email", checkEmail);
 router.get("/logout", logout);
 module.exports = router;
+

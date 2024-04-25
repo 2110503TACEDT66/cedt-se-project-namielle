@@ -12,7 +12,7 @@ export default function CardTemplate({ children, contentName }: { children: Reac
     }
 
     return (
-        <div className='w-full h-[300px] bg-white rounded-lg border border-black my-10 flex flex-row'
+        <div className='w-full h-[300px] bg-white dark:bg-midnight-blue rounded-lg border border-black dark:border-white-grayish my-10 flex flex-row overflow-hidden'
             onMouseOver={(e) => { onCardMouseAction(e) }}
             onMouseOut={(e) => { onCardMouseAction(e) }}>
             {children}

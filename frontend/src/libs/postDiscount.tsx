@@ -1,4 +1,4 @@
-export default async function PostDiscount(name: string, info: string, code: string,percentage: string,token:string) {
+export default async function PostDiscount(name: string, info: string, code: string, percentage: string, token: string) {
     const response = await fetch(`${process.env.BACKEND_URL}/api/v1/discounts`, {
         method: "POST",
         mode: "cors",
@@ -10,7 +10,7 @@ export default async function PostDiscount(name: string, info: string, code: str
             name: name,
             info: info,
             code: code,
-            percentage:percentage
+            percentage: percentage
         })
     })
     if (!response.ok) {

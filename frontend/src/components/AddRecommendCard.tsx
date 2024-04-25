@@ -3,116 +3,120 @@ import CardTemplate from "./CardTemplate";
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import UpdateHotel from "@/libs/UpdateHotel";
+import { useContext } from "react";
+import { createContext } from "react";
 import { Select } from "@mui/material";
 
 // var globalSelect : number[] = [];
 
-export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, hotelAddress, hotelTel, hotelPriority 
-    , onCancel, onSave,globalSelect
-}: {hotel: any, hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string, hotelPriority: number
-    ,onCancel?: () => void, onSave?: () => void , globalSelect: number[]
+export default function AddRecommendCard({ hotel, hotelName, imgSrc, hotelCity, hotelAddress, hotelTel, hotelPriority
+    , onCancel, onSave, globalSelect
+}: {
+    hotel: any, hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string, hotelPriority: number
+    , onCancel?: () => void, onSave?: () => void, globalSelect: number[]
 }) {
     const { data: session } = useSession();
     const [Priority, setPriority] = useState<number>(hotelPriority);
+    const priorityContext = createContext(Priority);
     const [updateHotel, setUpdateHotel] = useState<any | null>(null);
     const [prevSelectedValue, setPrevSelectedValue] = useState("0");
-    
-   function disablePriority(e:number){
-     setTimeout(function () {
-        var select = document.getElementById(hotelName) as HTMLSelectElement;
-        if (select === null)
-            disablePriority(e);
-        else {
-            select[e].disabled = true;
-        }
+
+    function disablePriority(e: number) {
+        setTimeout(function () {
+            var select = document.getElementById(hotelName) as HTMLSelectElement;
+            if (select === null)
+                disablePriority(e);
+            else {
+                select[e].disabled = true;
+            }
         }, 500);
     };
-   
+
     console.log(globalSelect);
 
-    function enablePriority(e:number){
+    function enablePriority(e: number) {
         setTimeout(function () {
-           var select = document.getElementById(hotelName) as HTMLSelectElement;
-           if (select === null)
-               enablePriority(e);
-           else {
-               select[e].disabled = false;
-           }
-           }, 500);
-       };
-    
-   //current select number and add save data
-   let cur : number;   
-   //if(hotelPriority != 0) globalSelect.push(hotelPriority);
-   function changePriority(e : number){
+            var select = document.getElementById(hotelName) as HTMLSelectElement;
+            if (select === null)
+                enablePriority(e);
+            else {
+                select[e].disabled = false;
+            }
+        }, 500);
+    };
+
+    //current select number and add save data
+    let cur: number;
+    //if(hotelPriority != 0) globalSelect.push(hotelPriority);
+    function changePriority(e: number) {
         setTimeout(function () {
-        var select = document.getElementById(hotelName) as HTMLSelectElement;
-        if (select === null)
-            changePriority(e);
-        else {
-            let itr = globalSelect.indexOf(cur);
-            if(e == 0){
-                globalSelect.splice(itr,1);
+            var select = document.getElementById(hotelName) as HTMLSelectElement;
+            if (select === null)
+                changePriority(e);
+            else {
+                let itr = globalSelect.indexOf(cur);
+                if (e == 0) {
+                    globalSelect.splice(itr, 1);
+                }
+                else if (e == 1) {
+                    globalSelect.push(1);
+                    if (cur != 0) globalSelect.splice(itr, 1);
+                }
+                else if (e == 2) {
+                    globalSelect.push(2);
+                    if (cur != 0) globalSelect.splice(itr, 1);
+                }
+                else if (e == 3) {
+                    globalSelect.push(3);
+                    if (cur != 0) globalSelect.splice(itr, 1);
+                }
+                // enablePriority(2);
+                // localStorage.setItem('globalSelect', JSON.stringify(globalSelect)); try to save data
+                check();
             }
-            else if(e == 1){
-                globalSelect.push(1);
-                if(cur != 0) globalSelect.splice(itr,1);
-            }
-            else if(e == 2){
-                globalSelect.push(2);
-                if(cur != 0) globalSelect.splice(itr,1);
-            }
-            else if(e == 3){
-                globalSelect.push(3);
-                if(cur != 0) globalSelect.splice(itr,1);
-            }
-            // enablePriority(2);
-            // localStorage.setItem('globalSelect', JSON.stringify(globalSelect)); try to save data
-            check();
-        }
-       },500)
+        }, 500)
     }
 
     function check() {
-        let one = false,two = false,three = false;
-        for(let e of globalSelect){
-            if(e == 1){
+        let one = false, two = false, three = false;
+        for (let e of globalSelect) {
+            if (e == 1) {
                 disablePriority(1);
                 one = true;
             }
-            else if(e == 2){
+            else if (e == 2) {
                 disablePriority(2);
                 two = true;
             }
-            else if(e == 3){
+            else if (e == 3) {
                 disablePriority(3);
                 three = true;
             }
         }
-        if(!one) enablePriority(1);
-        if(!two) enablePriority(2);
-        if(!three) enablePriority(3);
+        if (!one) enablePriority(1);
+        if (!two) enablePriority(2);
+        if (!three) enablePriority(3);
     };
-    function currentSelect(){
+    function currentSelect() {
         var selectBox = document.getElementById(hotelName) as HTMLSelectElement;
         var selectedValue = selectBox.selectedIndex;
         cur = selectedValue;
     }
-    
+
 
     const fetchUpdateHotels = async () => {
-            try {
-                if (!session) return;
-                const result = await UpdateHotel(session?.user.token,hotel._id,Priority);
-                setUpdateHotel(result);
-            } catch (error) {
-                console.error(error);
-            }
+        try {
+            if (!session) return;
+            const result = await UpdateHotel(session?.user.token, hotel._id, Priority);
+            setUpdateHotel(result);
+        } catch (error) {
+            console.error(error);
+        }
     }
-    
-    function selectRank(){
+
+    function selectRank() {
         var mySelect = document.getElementById(hotelName) as HTMLSelectElement;
-        if(mySelect == null){
+        if (mySelect == null) {
             return mySelect;
         }
         mySelect.selectedIndex = hotelPriority
@@ -137,17 +141,14 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
                     Tel. {hotelTel}
                 </div>
                 <div className="inline flex items-center mt-[10%] ml-[8%]">
-                    <select value={Priority} name="mySelect" id={hotelName} 
+                    <select value={Priority} name="mySelect" id={hotelName}
                         className="w-[50px] h-[30px] bg-white border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent mr-[4%]"
-                        onMouseEnter={()=>{check();currentSelect()}}
+                        onMouseEnter={() => { check(); currentSelect() }}
                         onChange={(e) => {
-                            setPriority(e.target.selectedIndex); 
+                            setPriority(e.target.selectedIndex);
                             changePriority(e.target.selectedIndex);
                         }}
-                        onLoad={(e) => {
-                            console.log("a");
-                        }}
-                        >
+                    >
                         <option value="0">0</option>
                         <option id="one" value="1">1</option>
                         <option id="two" value="2">2</option>
@@ -155,7 +156,7 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
                     </select>
                     <div className="text-opacity-0">
                         {
-                        selectRank()
+                            selectRank()
                         }
                     </div>
                     <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mr-4" onClick={fetchUpdateHotels}>Save</button>
@@ -163,5 +164,5 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
             </div>
         </main>
     );
-    
+
 }

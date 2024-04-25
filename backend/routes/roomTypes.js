@@ -1,11 +1,11 @@
-const express = require('express');
+const express = require("express");
 const {
     getRoomTypes,
     getRoomType,
     addRoomType,
     updateRoomType,
     deleteRoomType,
-} = require('../controllers/roomTypes');
+} = require("../controllers/roomTypes");
 
 const router = express.Router({ mergeParams: true });
 

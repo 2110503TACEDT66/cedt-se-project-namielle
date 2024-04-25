@@ -4,9 +4,9 @@ import React, { useState, useEffect } from 'react';
 import DiscountCard from "./DiscountCard";
 import getDiscounts from '@/libs/getDiscounts';
 
-export default function DiscountCatalog({discountJson}:{discountJson: any}) {
+export default function DiscountCatalog({ discountJson }: { discountJson: any }) {
     const [discountData, setDiscountData] = useState<any>();
-    
+
 
     useEffect(() => {
         const fetchDiscounts = async () => {

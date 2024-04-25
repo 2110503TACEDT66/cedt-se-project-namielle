@@ -34,9 +34,9 @@ export default function DiscountCard({ discountid ,discountName,/* imgSrc,*/ dis
 
     return (
         <CardTemplate2 contentName={discountName}>
-            
+
             <div className='w-full h-[60%] relative rounded-t-lg'>
-                
+
             </div>
             <div className='w-full h-[40%] p-[10px]'>
                 {discountName}

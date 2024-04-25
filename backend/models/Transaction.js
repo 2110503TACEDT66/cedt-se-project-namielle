@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const TransactionSchema = new mongoose.Schema({
     session_id: {
         type: String,
-        required: true
+        required: true,
     },
     checkInDate: {
         type: String,
@@ -23,13 +23,13 @@ const TransactionSchema = new mongoose.Schema({
         ref: "Hotel",
         required: true,
     },
-    roomType:{
+    roomType: {
         type: String,
         required: true,
     },
     stripe_id: {
         type: String,
-    }
+    },
 });
 
 module.exports = mongoose.model("Transaction", TransactionSchema);

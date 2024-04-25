@@ -14,7 +14,7 @@ export default function EditDiscount() {
     const percentage = useRef("");
 
     const [errMsg, setErrMsg] = useState("");
-    const {data: session} = useSession();
+    const { data: session } = useSession();
 
     const router = useRouter()
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
