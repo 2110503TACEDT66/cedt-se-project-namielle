@@ -3,6 +3,8 @@ import CardTemplate from "./CardTemplate";
 import { useSession } from 'next-auth/react';
 import React, { useEffect, useState } from 'react';
 import UpdateHotel from "@/libs/UpdateHotel";
+import { useContext } from "react";
+import { createContext } from "react";
 import { Select } from "@mui/material";
 
 // var globalSelect : number[] = [];
@@ -15,6 +17,7 @@ export default function AddRecommendCard({ hotel, hotelName, imgSrc, hotelCity, 
 }) {
     const { data: session } = useSession();
     const [Priority, setPriority] = useState<number>(hotelPriority);
+    const priorityContext = createContext(Priority);
     const [updateHotel, setUpdateHotel] = useState<any | null>(null);
     const [prevSelectedValue, setPrevSelectedValue] = useState("0");
 
@@ -144,9 +147,6 @@ export default function AddRecommendCard({ hotel, hotelName, imgSrc, hotelCity, 
                         onChange={(e) => {
                             setPriority(e.target.selectedIndex);
                             changePriority(e.target.selectedIndex);
-                        }}
-                        onLoad={(e) => {
-                            console.log("a");
                         }}
                     >
                         <option value="0">0</option>

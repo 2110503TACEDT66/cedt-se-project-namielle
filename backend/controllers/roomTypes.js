@@ -40,17 +40,29 @@ exports.getRoomType = async (req, res, next) => {
 //@route POST /api/v1/roomTypes
 //@access Private
 exports.addRoomType = async (req, res, next) => {
+    // เช็คข้อมูลที่ส่งมาก่อนทำการสร้าง
+    const { name, personLimit, price, roomLimit, hotel } = req.body;
+
+    if (!name || personLimit <= 0 || price <= 0 || roomLimit <= 0 || !hotel) {
+        return res.status(400).json({
+            success: false,
+            message: "Please provide all the required fields with valid values, including 'hotel'",
+        });
+    }
+
     try {
-        console.log(req.body);
-        const roomType = await RoomType.create(req.body);
+        const roomType = await RoomType.create({ name, personLimit, price, roomLimit, hotel });
         res.status(201).json({
             success: true,
             data: roomType,
         });
     } catch (err) {
-        res.status(400).json({ success: false });
+        // จัดการกับข้อผิดพลาดที่อาจเกิดจาก mongoose validation หรืออื่นๆ
+        console.error(err);
+        res.status(400).json({ success: false, message: err.message });
     }
 };
+
 
 //@desc Update room type
 //@route PUT /api/v1/roomTypes/:id

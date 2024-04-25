@@ -37,36 +37,7 @@ export default function TopMenu() {
                 </div>
             </Link>
 
-            <div className='flex flex-row absolute right-0 h-full mr-3 items-center'>
-                {
-                    userData?.data.role === 'admin' ? <TopMenuItem title='Recommended Management' pageRef='/addrecommended' />
-                        : null
-                }
-                <TopMenuItem title='Browse Hotel' pageRef='/hotel' />
-                {
-                    userData ?
-                        <>
-                            {
-                                userData?.data.role === 'admin' ? <TopMenuItem title='Create Discount' pageRef='/editdiscount' />
-                                    : null
-                            }
-                            {
-                                userData?.data.role === 'user' || "admin" ? <TopMenuItem title='Discount Code' pageRef='/discount' />
-                                    : null
-                            }
-                            {
-                                userData?.data.role === 'admin' ?
-                                    <>
-                                        <TopMenuItem title='All Booking' pageRef='/mybooking' />
-                                        <TopMenuItem title='Add new hotel' pageRef='/hotel/addnewhotel' />
-                                    </>
-                                    : <TopMenuItem title='My Booking' pageRef='/mybooking' />
-                            }
-                            <UserDropDown />
-                        </> :
-                        <TopMenuItem title='Sign-In' pageRef='/signin' />
-                }
-
+            <div className='flex flex-row-reverse absolute right-0 h-full mr-3 items-center'>
                 <Link href={'/cart'} className="relative">
                     {cartItems.length > 0 ?
                         <div className='h-[16px] w-[16px] bg-red-600 rounded-[50%] absolute top-0 right-3'>
@@ -77,6 +48,26 @@ export default function TopMenu() {
                     <Image src={'/img/shopping-cart.png'} alt='profile' width={0} height={0} sizes='3vh' className='h-[100%] w-auto mx-5' />
                 </Link>
 
+                {
+                    userData ?
+                        <>
+                            <UserDropDown />
+                            <TopMenuItem title='Discount Code' pageRef='/discount' />
+                            {
+                                userData?.data.role === 'admin' ?
+                                    <>
+                                        <TopMenuItem title='Create Discount' pageRef='/editdiscount' />
+                                        <TopMenuItem title='All Booking' pageRef='/mybooking' />
+                                        <TopMenuItem title='Add new hotel' pageRef='/hotel/addnewhotel' />
+                                        <TopMenuItem title='Add new roomtype' pageRef='/hotel/addnewroomtype' />
+                                        <TopMenuItem title='Recommended Management' pageRef='/addrecommended' />
+                                    </>
+                                    : <TopMenuItem title='My Booking' pageRef='/mybooking' />
+                            }
+                        </> :
+                        <TopMenuItem title='Sign-In' pageRef='/signin' />
+                }
+                <TopMenuItem title='Browse Hotel' pageRef='/hotel' />
             </div>
         </div>
     )
