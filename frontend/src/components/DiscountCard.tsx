@@ -1,7 +1,36 @@
 import Image from "next/image";
 import CardTemplate2 from "./CardTemplate2";
+import { FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useState,useEffect } from "react";
+import deleteDiscount from "@/libs/deleteDiscount";
+import getUserProfile from "@/libs/getUserProfile";
 
-export default function DiscountCard({ discountName,/* imgSrc,*/ discountcode, discountinfo }: { discountName: string,/* imgSrc: string,*/ discountcode: string, discountinfo: string }) {
+export default function DiscountCard({ discountid ,discountName,/* imgSrc,*/ discountcode, discountinfo }: { discountid: string ,discountName: string,/* imgSrc: string,*/ discountcode: string, discountinfo: string}) {
+
+    const [userData, setUserData] = useState<any>(null);
+    const {data: session} = useSession();
+    const router = useRouter();
+    const handleSumbit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if(!session) return;
+        await deleteDiscount( discountid, session.user.token);
+        //console.log("Discount deleted. Refreshing page...");
+        router.refresh();
+        window.location.reload();
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (session) {
+                const userData = await getUserProfile(session?.user.token);
+                setUserData(userData);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <CardTemplate2 contentName={discountName}>
@@ -20,6 +49,15 @@ export default function DiscountCard({ discountName,/* imgSrc,*/ discountcode, d
                     </div>
                 </div>
             </div>
+            {
+                userData?.data.role === 'admin' ?
+                    <form onSubmit={handleSumbit}>
+                        <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 "
+                        style={{ margin: '10px' }}
+                            >Delete</button>
+                    </form>
+                    : null
+            }
         </CardTemplate2 >
     )
 }
