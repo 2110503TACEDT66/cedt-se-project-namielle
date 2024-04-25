@@ -167,7 +167,7 @@ export default function CartPanel() {
                                 ></Image>
                             </div>
                         </div>
-                    );
+                    )
                 })}
             </div>
             <div className="w-[35%] ">

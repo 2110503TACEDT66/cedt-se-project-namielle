@@ -18,7 +18,7 @@ export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, 
             <div className="w-1/3 relative rounded-t-lg">
                 <Image src={imgSrc} alt={hotelName} fill={true} className="object-cover" />
             </div>
-            <div className="block w-full text-black">
+            <div className="block w-full text-black dark:text-white-grayish">
                 <div className="w-[full] font-bold px-[3%] pt-[3%] text-2xl">
                     {hotelName}
                 </div>
@@ -40,8 +40,8 @@ export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, 
                         </thead>
                         <tbody>
                             {roomType.map((room: any) => (
-                                (room.personLimit >= persons && room.roomLimit > 0 && room.price >= minPrice && room.price <= maxPrice) && (
-                                    <tr className="border-b border-gray-200 hover:bg-gray-50">
+                                (room.personLimit >= persons && room.roomLimit > 0) && (
+                                    <tr className="border-b border-gray-200 hover:bg-gray-50 dark:hover:bg-midnight-dark">
                                         <td className="px-2 py-1">{room.name}</td>
                                         <td className="px-2 py-1">{room.personLimit}</td>
                                         <td className="px-2 py-1">{formatter.format(room.price)}</td>
