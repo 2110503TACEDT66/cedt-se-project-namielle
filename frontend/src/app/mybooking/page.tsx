@@ -155,29 +155,18 @@ export default function mybooking() {
     return (
         <div>
             <div className="flex justify-center items-center text-3xl pt-10 text-purple-dark dark:text-white-grayish">
-                {userData?.data.role === "admin" ? (
-                    <>
-                        All Booking
-                        <Image
-                            src="/img/hotel-logo.png"
-                            alt="hotel-logo"
-                            width={40}
-                            height={40}
-                            className="ml-2 dark:bg-white dark:rounded-md"
-                        />
-                    </>
-                ) : (
-                    <>
-                        My Booking
-                        <Image
-                            src="/img/hotel-logo.png"
-                            alt="hotel-logo"
-                            width={40}
-                            height={40}
-                            className="ml-2"
-                        />
-                    </>
-                )}
+                {
+                    userData?.data.role === "admin"
+                    ? <span>All Booking</span>
+                    : <span>My Booking</span>
+                }
+                <Image
+                    src="/img/hotel-logo.png"
+                    alt="hotel-logo"
+                    width={40}
+                    height={40}
+                    className="ml-2 dark:bg-white dark:rounded-md"
+                />
             </div>
 
             <div className="flex flex-row px-20 pt-10 h-full justify-center items-center">
@@ -276,7 +265,7 @@ export default function mybooking() {
                             );
                         })
                     ) : (
-                        <div className="flex justify-center h-auto bg-paper m-10">
+                        <div className="flex justify-center h-auto m-10 dark:text-white-grayish">
                             No Booking D:
                         </div>
                     )}

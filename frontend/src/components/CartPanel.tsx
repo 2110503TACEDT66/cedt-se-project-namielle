@@ -9,7 +9,7 @@ import Image from "next/image";
 import { use, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import StripeCheckout from "./StripeCheckout";
-import { discountJson } from "../../interface";
+import { CartItem, discountJson } from "../../interface";
 import Swal from "sweetalert2";
 import getDiscounts from "@/libs/getDiscounts";
 import { Rating } from "@mui/material";
@@ -98,7 +98,7 @@ export default function CartPanel() {
                         "D MMMM YYYY"
                     );
                     return (
-                        <div className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white">
+                        <div className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white dark:bg-midnight-blue">
                             <div className="w-[200px] h-[200px] relative">
                                 <Image
                                     src={`/img/${item.picture}`}
@@ -107,7 +107,7 @@ export default function CartPanel() {
                                     className="object-cover rounded-sm"
                                 />
                             </div>
-                            <div className="ml-1 p-2 text-black">
+                            <div className="ml-1 p-2 text-black dark:text-white-grayish">
                                 <h1 className="text-2xl font-bold">{item.name}</h1>
                                 <h2 className="text-xl">
                                     {item.roomName} room
@@ -137,7 +137,7 @@ export default function CartPanel() {
                             <div className="ml-auto">
                                 <Image
                                     src={"/img/delete.png"}
-                                    className="cursor-pointer m-1"
+                                    className="cursor-pointer m-1 bg-red-error rounded-lg"
                                     width={40}
                                     height={40}
                                     alt="delete"
@@ -171,7 +171,7 @@ export default function CartPanel() {
                 })}
             </div>
             <div className="w-[35%] ">
-                <div className="h-full text-black ml-[10%] border-solid border-2 border-gray-400 rounded-md bg-white">
+                <div className="h-full text-black dark:text-white-grayish ml-[10%] border-solid border-2 border-gray-400 rounded-md bg-white dark:bg-midnight-blue">
                     <div className="p-4 mx-8">
                         <div className="text-xl font-bold text-center mt-3 mb-5">
                             Your Cart
@@ -256,7 +256,7 @@ export default function CartPanel() {
                                 <div className="flex">
                                     <input
                                         type="text"
-                                        className="border border-gray-400 px-4 py-2 w-full bg-white rounded-lg"
+                                        className="border border-gray-400 px-4 py-2 w-full bg-white dark:bg-midnight-dark rounded-lg"
                                         placeholder="Discount Code"
                                         value={inputCode}
                                         onChange={(e) =>
