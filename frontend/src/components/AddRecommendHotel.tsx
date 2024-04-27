@@ -39,7 +39,7 @@ export default function AddRecommendedHotel({ hotelJson }: { hotelJson: any }) {
     console.log(globalSelect);
     return (
         <div className="justify-center item-center">
-            <div className="container mx-[auto] my-8 p-4 rounded-lg shadow-md block">
+            <div className="container mx-[auto] my-8 p-4 rounded-lg shadow-md bg-paper-yellow dark:bg-midnight-dark block">
                 <div className="block ml-[20%]">
                     <input
                         type="text"
@@ -47,7 +47,7 @@ export default function AddRecommendedHotel({ hotelJson }: { hotelJson: any }) {
                         name="search"
                         placeholder="Enter name or city of the hotel..."
                         onChange={(e) => setSearch(e.target.value)}
-                        className="input input-bordered w-[70%] text-l p-2 m-[2%] bg-white border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                        className="input input-bordered w-[70%] text-lg text-black dark:text-white-grayish p-2 m-[2%] bg-paper-more-yellow dark:bg-midnight-blue border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                     />
                     <button className="bg-blue-500 text-xl text-white p-2 rounded">
                         Update All

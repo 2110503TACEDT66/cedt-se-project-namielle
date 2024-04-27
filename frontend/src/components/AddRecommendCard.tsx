@@ -126,12 +126,12 @@ export default function AddRecommendCard({ hotel, hotelName, imgSrc, hotelCity, 
     // const randPrice = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
 
     return (
-        <main className='w-[30%] h-[200px] bg-white rounded-lg border border-black my-10 flex' style={{ boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', transition: '0.3s' }}>
+        <main className='w-[30%] h-[200px] bg-white dark:bg-midnight-blue rounded-lg border border-black my-10 flex' style={{ boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', transition: '0.3s' }}>
             <div className="w-[60%] relative rounded-t-lg" style={{ overflow: 'hidden' }}>
                 <Image src={imgSrc} alt={hotelName} fill={true} className="object-cover" />
             </div>
             <div className="block w-full text-black">
-                <div className="w-full font-bold px-[4%] pt-[2%] " style={{ fontSize: '20px' }}>
+                <div className="w-full font-bold px-[4%] pt-[2%] dark:text-white-grayish" style={{ fontSize: '20px' }}>
                     {hotelName}
                 </div>
                 <div className="w-full px-[4%] pt-[2%] " style={{ color: '#777' }}>
@@ -140,9 +140,9 @@ export default function AddRecommendCard({ hotel, hotelName, imgSrc, hotelCity, 
                 <div className="w-full px-[4%] pt-[2%] " style={{ color: '#777' }}>
                     Tel. {hotelTel}
                 </div>
-                <div className="inline flex items-center mt-[10%] ml-[8%]">
+                <div className="flex items-center mt-[10%] ml-[8%]">
                     <select value={Priority} name="mySelect" id={hotelName}
-                        className="w-[50px] h-[30px] bg-white border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent mr-[4%]"
+                        className="w-[50px] h-[30px] dark:text-white-grayish bg-white dark:bg-midnight border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent mr-[4%]"
                         onMouseEnter={() => { check(); currentSelect() }}
                         onChange={(e) => {
                             setPriority(e.target.selectedIndex);

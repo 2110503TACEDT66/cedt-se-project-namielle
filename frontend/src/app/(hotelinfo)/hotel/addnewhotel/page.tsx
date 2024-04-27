@@ -86,7 +86,7 @@ export default function AddNewHotel() {
                             Name
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:border-blue-500"
                             id="name"
                             name="name"
                             type="text"
@@ -99,7 +99,7 @@ export default function AddNewHotel() {
                             Address
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:border-blue-500"
                             id="address"
                             name="address"
                             type="text"
@@ -112,7 +112,7 @@ export default function AddNewHotel() {
                             Telephone
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:border-blue-500"
                             id="telephone"
                             name="telephone"
                             type="text"
@@ -125,7 +125,7 @@ export default function AddNewHotel() {
                             Price
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:border-blue-500"
                             id="price"
                             name="price"
                             type="text"
@@ -138,7 +138,7 @@ export default function AddNewHotel() {
                             Capacity
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:border-blue-500"
                             id="capacity"
                             name="capacity"
                             type="number"
@@ -152,7 +152,7 @@ export default function AddNewHotel() {
                             City
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:border-blue-500"
                             id="city"
                             name="city"
                             type="text"
@@ -165,7 +165,7 @@ export default function AddNewHotel() {
                             Image URL
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:border-blue-500"
                             id="file"
                             name="file"
                             type="text"

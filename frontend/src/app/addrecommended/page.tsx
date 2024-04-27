@@ -8,9 +8,9 @@ export default function AddRecommended() {
     return (
         <ContextProvider>
             <div>
-                <div className="flex justify-center items-center text-3xl pt-10">
+                <h1 className="text-center text-3xl font-black pt-10 text-purple-dark dark:text-white-grayish">
                     Make a Recommendation for a Hotel
-                </div>
+                </h1>
                 <AddRecommendedHotel hotelJson={hotels} />
             </div>  
         </ContextProvider>
