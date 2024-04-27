@@ -21,7 +21,7 @@ export default function discounts() {
             <h1 className="text-orange-500 font-sans font-black text-8xl mb-8 center">Today Deal !!!</h1>
             {(discounts && discounts.capacity)?
                 <DiscountCatalog discountJson={discounts} />:
-                "so sad\n No code for day"
+                <p className="text-purple-dark dark:text-white-grayish text-3xl font-semibold">So sad No code for day</p>
             }
         </main>
     )

@@ -44,7 +44,7 @@ export default function EditDiscount() {
                         placeholder="Enter name"
                         type="text"
                         id="name"
-                        className="border border-slate-500 mb-6 p-2 font-sans w-full h-12"
+                        className="border border-slate-500 mb-6 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
                         onChange={(e) => { name.current = e.target.value }}
                     />
                 </div>
@@ -56,7 +56,7 @@ export default function EditDiscount() {
                         placeholder="Enter info"
                         type="text"
                         id="info"
-                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12"
+                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
                         onChange={(e) => { info.current = e.target.value }}
                     />
                 </div>
@@ -68,7 +68,7 @@ export default function EditDiscount() {
                         placeholder="Enter code"
                         type="text"
                         id="code"
-                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12"
+                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
                         onChange={(e) => { code.current = e.target.value }}
                     />
                 </div>
@@ -80,7 +80,7 @@ export default function EditDiscount() {
                         placeholder="Enter percentage"
                         type="number"
                         id="percentage"
-                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12"
+                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
                         onChange={(e) => { percentage.current = e.target.value }}
                     />
                 </div>
@@ -92,7 +92,7 @@ export default function EditDiscount() {
                         placeholder="Enter image link"
                         type="text"
                         id="image"
-                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12"
+                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
                         onChange={(e) => { image.current = e.target.value }}
                     />
                 </div>

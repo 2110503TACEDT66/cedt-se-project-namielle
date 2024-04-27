@@ -154,7 +154,7 @@ export default function mybooking() {
 
     return (
         <div>
-            <div className="flex justify-center items-center text-3xl pt-10">
+            <div className="flex justify-center items-center text-3xl pt-10 text-purple-dark dark:text-white-grayish">
                 {userData?.data.role === "admin" ? (
                     <>
                         All Booking
@@ -163,7 +163,7 @@ export default function mybooking() {
                             alt="hotel-logo"
                             width={40}
                             height={40}
-                            className="ml-2"
+                            className="ml-2 dark:bg-white dark:rounded-md"
                         />
                     </>
                 ) : (
@@ -193,7 +193,7 @@ export default function mybooking() {
                             return (
                                 <div
                                     key={booking._id}
-                                    className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white"
+                                    className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white dark:bg-midnight-blue"
                                 >
                                     <div className="w-[200px] h-[200px] relative">
                                         <Image
@@ -203,7 +203,7 @@ export default function mybooking() {
                                             className="object-cover rounded-sm"
                                         />
                                     </div>
-                                    <div className="ml-1 p-2 text-black">
+                                    <div className="ml-1 p-2 text-black dark:text-white-grayish">
                                         <h1 className="text-2xl font-bold">
                                             {booking.hotel.name}
                                         </h1>
