@@ -234,7 +234,7 @@ export default function mybooking() {
                                     </div>
                                     <div className="ml-auto flex flex-row h-[80%]">
                                         <button
-                                            className="bg-blue-500 w-[50%] text-white rounded-lg p-1 m-1 hover:bg-blue-700 text-white rounded-lg transition duration-300 transform hover:scale-105"
+                                            className="bg-blue-500 w-[50%] text-white rounded-lg p-1 m-1 hover:bg-blue-700 transition duration-300 transform hover:scale-105"
                                             onClick={() =>
                                                 handleEditClick(booking)
                                             }
@@ -243,7 +243,7 @@ export default function mybooking() {
                                         </button>
 
                                         <button
-                                            className="bg-red-500 w-[50%] text-white rounded-lg p-1 m-1 hover:bg-red-700 text-white rounded-lg transition duration-300 transform hover:scale-105"
+                                            className="bg-red-500 w-[50%] text-white rounded-lg p-1 m-1 hover:bg-red-700 transition duration-300 transform hover:scale-105"
                                             onClick={() => {
                                                 Swal.fire({
                                                     title: "Are you sure?",
