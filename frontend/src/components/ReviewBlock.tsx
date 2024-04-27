@@ -46,9 +46,9 @@ export default function ReviewBlock({ user, rating, comment, createdAt, id, isHi
 
     return (
         <div className="relative mx-auto mt-1 mb-5 p-5 pb-2 h-[auto] w-[95%] border border-solid border-slate-500 rounded-2xl">
-            <p className="font-semibold">{user} </p>
+            <p className="font-semibold text-purple-dark dark:text-white-grayish">{user} </p>
             <Rating value={rating} readOnly></Rating>
-            <p className="pb-3">{comment}</p>
+            <p className="pb-3 text-purple-dark dark:text-white-grayish">{comment}</p>
             <p className="text-orange-500 text-xs ">this comment is created at: {createdAt}</p>
 
 
@@ -57,8 +57,8 @@ export default function ReviewBlock({ user, rating, comment, createdAt, id, isHi
                     <button
                         onClick={handleClick}
                         className={isHiddenClient ?
-                            "absolute right-16 top-[35%] w-[200px] h-[50px] text-2xl text-slate-900 font-bold font-sans bg-green-500 hover:bg-slate-800 hover:text-green-500 rounded-2xl"
-                            : "absolute right-16 top-[35%] w-[200px] h-[50px] text-2xl text-slate-900 font-bold font-sans bg-red-500 hover:bg-slate-800 hover:text-red-500 rounded-2xl"
+                            "absolute right-16 top-[35%] w-[200px] h-[50px] text-2xl text-slate-900 font-bold font-sans bg-green-500 hover:bg-slate-800 hover:text-green-500 dark:hover:bg-midnight rounded-2xl"
+                            : "absolute right-16 top-[35%] w-[200px] h-[50px] text-2xl text-slate-900 font-bold font-sans bg-red-500 hover:bg-slate-800 hover:text-red-500 dark:hover:bg-midnight rounded-2xl"
                         }>
                         {isHiddenClient ? "Unhide" : "Hide"}
                     </button>
