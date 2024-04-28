@@ -126,7 +126,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                     <Link key={hotelItem.name} href={`/hotel/${hotelItem.id}`}>
                         <HotelCard
                             hotelName={hotelItem.name}
-                            imgSrc={`/img/${hotelItem.file}`}
+                            imgSrc={`${hotelItem.file}`}
                             hotelCity={hotelItem.city}
                             hotelAddress={hotelItem.address}
                             hotelTel={hotelItem.tel}

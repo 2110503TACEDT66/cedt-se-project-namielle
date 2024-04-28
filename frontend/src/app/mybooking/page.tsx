@@ -161,7 +161,7 @@ export default function mybooking() {
                     : <span>My Booking</span>
                 }
                 <Image
-                    src="/img/hotel-logo.png"
+                    src="hotel-logo.png"
                     alt="hotel-logo"
                     width={40}
                     height={40}
@@ -186,7 +186,7 @@ export default function mybooking() {
                                 >
                                     <div className="w-[200px] h-[200px] relative">
                                         <Image
-                                            src={`/img/${booking.hotel.file}`}
+                                            src={`${booking.hotel.file}`}
                                             alt={booking.hotel.name}
                                             fill={true}
                                             className="object-cover rounded-sm"
