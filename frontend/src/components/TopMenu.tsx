@@ -56,11 +56,11 @@ export default function TopMenu() {
                             {
                                 userData?.data.role === 'admin' ?
                                     <>
-                                        <TopMenuItem title='Create Discount' pageRef='/editdiscount' />
+                                        {/* <TopMenuItem title='Create Discount' pageRef='/editdiscount' /> */}
                                         <TopMenuItem title='All Booking' pageRef='/mybooking' />
-                                        <TopMenuItem title='Add new hotel' pageRef='/hotel/addnewhotel' />
+                                        {/* <TopMenuItem title='Add new hotel' pageRef='/hotel/addnewhotel' />
                                         <TopMenuItem title='Add new roomtype' pageRef='/hotel/addnewroomtype' />
-                                        <TopMenuItem title='Recommended Management' pageRef='/addrecommended' />
+                                        <TopMenuItem title='Recommended Management' pageRef='/addrecommended' /> */}
                                     </>
                                     : <TopMenuItem title='My Booking' pageRef='/mybooking' />
                             }
