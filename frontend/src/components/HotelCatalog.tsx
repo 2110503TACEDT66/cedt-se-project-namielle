@@ -10,6 +10,11 @@ function valuetext(value: number) {
     return `THB ${value}`;
 }
 
+const formatter = new Intl.NumberFormat("th-TH", {
+    style: "currency",
+    currencyDisplay: "code",
+    currency: "THB",
+});
 
 export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
     const [hotelData, setHotelData] = useState<any>();
@@ -82,7 +87,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                 <div className="flex flex-row justify-center mt-2">
                     <div className="m-1 w-[25%]">
                         <div className="flex flex-row justify-between">
-                            <span className="text-sm font-semibold text-gray-sweet dark:text-white-grayish">PRICE: {formatter.format(value1[0]).replace('฿', 'THB ')} - {formatter.format(value1[1]).replace('฿', 'THB ')}</span>
+                            <span className="text-sm font-semibold text-gray-sweet dark:text-white-grayish">PRICE: {formatter.format(value1[0])} - {formatter.format(value1[1])}</span>
                         </div>
                         <div className="input input-bordered text-sm p-2 mr-[2%] w-[100%] h-[65%] border-solid border border-`gray-400 rounded-md bg-paper-more-yellow dark:bg-midnight-blue">
                             <div className="ml-3 mr-3">
@@ -104,27 +109,25 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                             
                         </div>
                     </div>
-                    <div className="m-1 w-[8%]">
+                    <div className="m-1 w-[10%]">
                         <h2 className="text-sm font-semibold text-gray-sweet dark:text-white-grayish">Min</h2>
                         <input
                             type="number"
                             id="search"
                             name="search"
-                            placeholder={`${value1[0]}`}
-                            value={value1[0]}
+                            placeholder={`${formatter.format(value1[0])}`}
                             min={0}
                             onChange={(e) => setValue1([Number(e.target.value), value1[1]])}
                             className="input input-bordered text-sm p-2 mr-[2%] w-[100%] h-[65%] border-solid border border-gray-400 rounded-md bg-paper-more-yellow dark:bg-midnight-blue dark:text-gray-200"
                         />
                     </div>
-                    <div className="m-1 w-[8%]">
+                    <div className="m-1 w-[10%]">
                         <h2 className="text-sm font-semibold text-gray-sweet dark:text-white-grayish">Max</h2>
                         <input
                             type="number"
                             id="search"
                             name="search"
-                            placeholder={`${value1[1]}`}
-                            value={value1[1]}
+                            placeholder={`${formatter.format(value1[1])}`}
                             min={0}
                             onChange={(e) => setValue1([value1[0], Number(e.target.value)])}
                             className="input input-bordered text-sm p-2 mr-[2%] w-[100%] h-[65%] border-solid border border-gray-400 rounded-md bg-paper-more-yellow dark:bg-midnight-blue dark:text-gray-200"
@@ -149,7 +152,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                     {hotelData?.data.filter((hotelItem: any) => {
                             return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase()) || hotelItem.city.toLowerCase().includes(search.toLowerCase())
                         }).filter((hotelItem: any) => {
-                            if (hotelItem.roomType.length === 0 && persons == 0 || value1[1] == 0) return hotelItem;
+                            if ((hotelItem.roomType.length === 0 && persons == 0 && value1[1] != 0)) return hotelItem;
                             else {
                                 for (let i = 0; i < hotelItem.roomType.length; i++) {
                                     if (hotelItem.roomType[i].personLimit >= persons && hotelItem.roomType[i].price >= value1[0] && hotelItem.roomType[i].price <= value1[1]) {
@@ -161,7 +164,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                         }).length != 0 ? `You found ${hotelData?.data.filter((hotelItem: any) => {
                             return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase()) || hotelItem.city.toLowerCase().includes(search.toLowerCase())
                         }).filter((hotelItem: any) => {
-                            if (hotelItem.roomType.length === 0 && persons == 0 || value1[1] == 0) return hotelItem;
+                            if ((hotelItem.roomType.length === 0 && persons == 0 && value1[1] != 0)) return hotelItem;
                             else {
                                 for (let i = 0; i < hotelItem.roomType.length; i++) {
                                     if (hotelItem.roomType[i].personLimit >= persons && hotelItem.roomType[i].price >= value1[0] && hotelItem.roomType[i].price <= value1[1]) {
@@ -176,7 +179,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                 {hotelData?.data.filter((hotelItem: any) => {
                             return (search.toLowerCase() === '') ? hotelItem : hotelItem.name.toLowerCase().includes(search.toLowerCase()) || hotelItem.city.toLowerCase().includes(search.toLowerCase())
                         }).filter((hotelItem: any) => {
-                            if (hotelItem.roomType.length === 0 && persons == 0 || value1[1] == 0) return hotelItem;
+                            if ((hotelItem.roomType.length === 0 && persons == 0 && value1[1] != 0)) return hotelItem;
                             else {
                                 for (let i = 0; i < hotelItem.roomType.length; i++) {
                                     if (hotelItem.roomType[i].personLimit >= persons && hotelItem.roomType[i].price >= value1[0] && hotelItem.roomType[i].price <= value1[1]) {
