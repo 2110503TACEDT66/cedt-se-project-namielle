@@ -19,11 +19,6 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
     const [value1, setValue1] = React.useState<number[]>([0, 0]);
     const minDistance = 0;
 
-    const formatter = new Intl.NumberFormat("th-TH", {
-        style: "currency",
-        currency: "THB",
-    });
-
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -194,7 +189,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                     <Link key={hotelItem.name} href={`/hotel/${hotelItem.id}`}>
                         <HotelCard
                             hotelName={hotelItem.name}
-                            imgSrc={`/img/${hotelItem.file}`}
+                            imgSrc={`${hotelItem.file}`}
                             hotelCity={hotelItem.city}
                             hotelAddress={hotelItem.address}
                             hotelTel={hotelItem.tel}

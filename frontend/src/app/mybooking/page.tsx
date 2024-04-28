@@ -186,7 +186,7 @@ export default function mybooking() {
                                 >
                                     <div className="w-[200px] h-[200px] relative">
                                         <Image
-                                            src={`/img/${booking.hotel.file}`}
+                                            src={`${booking.hotel.file}`}
                                             alt={booking.hotel.name}
                                             fill={true}
                                             className="object-cover rounded-sm"

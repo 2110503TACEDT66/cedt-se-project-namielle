@@ -99,7 +99,7 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
         <main className="h-auto w-full">
             <div className="bg-white dark:bg-midnight-blue h-[500px] w-[90%] mt-5 mx-auto border border-solid border-slate-800 rounded-t-2xl flex">
                 <div className="relative h-[100%] w-[35%]">
-                    <Image src={`/img/${hotelDetail.file}`} alt="bannerImage1" fill={true} priority className="block object-cover rounded-tl-2xl"></Image>
+                    <Image src={`${hotelDetail.file}`} alt="bannerImage1" fill={true} priority className="block object-cover rounded-tl-2xl"></Image>
                 </div>
 
                 <div className="p-10 text-purple-dark dark:text-white-grayish">

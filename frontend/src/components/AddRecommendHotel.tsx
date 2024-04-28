@@ -62,7 +62,7 @@ export default function AddRecommendedHotel({ hotelJson }: { hotelJson: any }) {
                         <AddRecommendCard
                             hotel={hotelItem}
                             hotelName={hotelItem.name}
-                            imgSrc={`/img/${hotelItem.file}`}
+                            imgSrc={`${hotelItem.file}`}
                             hotelCity={hotelItem.city}
                             hotelAddress={hotelItem.address}
                             hotelTel={hotelItem.tel}

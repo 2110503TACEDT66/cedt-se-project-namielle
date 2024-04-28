@@ -84,6 +84,7 @@ export default function CartPanel() {
 
     const formatter = new Intl.NumberFormat("th-TH", {
         style: "currency",
+        currencyDisplay: "code",
         currency: "THB",
     });
 
@@ -130,7 +131,7 @@ export default function CartPanel() {
                                     Address: {item.address}
                                 </h3>
                                 <h3 className="text-2xl pt-3 text-orange-500">
-                                    {formatter.format(item.price).replace('฿', 'THB ')}
+                                    {formatter.format(item.price)}
                                     .-
                                 </h3>
                             </div>
@@ -196,7 +197,7 @@ export default function CartPanel() {
                                                 <h3 className="text-md">
                                                     {formatter.format(
                                                         item.price
-                                                    ).replace('฿', 'THB ')}
+                                                    )}
                                                     .-
                                                 </h3>
                                             </td>
@@ -215,7 +216,7 @@ export default function CartPanel() {
                                     </td>
                                     <td className="border border-gray-400 px-4 py-2 text-right">
                                         <h3 className="text-sm">
-                                            {formatter.format(totalPrice).replace('฿', 'THB ')}.-
+                                            {formatter.format(totalPrice)}.-
                                         </h3>
                                     </td>
                                 </tr>
@@ -226,7 +227,7 @@ export default function CartPanel() {
                                     <td className="border border-gray-400 px-4 py-2 text-right">
                                         <h3 className="text-sm text-orange-sweet">
                                             -{" "}
-                                            {formatter.format(discountedPrice).replace('฿', 'THB ')}
+                                            {formatter.format(discountedPrice)}
                                             .-
                                         </h3>
                                     </td>
@@ -241,7 +242,7 @@ export default function CartPanel() {
                                         <h3 className="text-sm">
                                             {formatter.format(
                                                 totalPrice - discountedPrice
-                                            ).replace('฿', 'THB ')}
+                                            )}
                                             .-
                                         </h3>
                                     </td>

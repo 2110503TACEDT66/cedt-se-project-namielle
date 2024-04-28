@@ -85,7 +85,7 @@ export default function RecommendBanner() {
                                         rankImage={`/img/rank/rank${index + 1}.png`}
                                         rating={AvgReview}
                                         count={hotel.review.length}
-                                        imgSrc={`/img/${hotel.file}`}
+                                        imgSrc={`${hotel.file}`}
                                     />
                                 </Link>
                             )
