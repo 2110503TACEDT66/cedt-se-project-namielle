@@ -10,6 +10,7 @@ export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, 
 
     const formatter = new Intl.NumberFormat("th-TH", {
         style: "currency",
+        currencyDisplay: "code",
         currency: "THB",
     });
 
@@ -44,7 +45,7 @@ export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, 
                                     <tr className="border-b border-gray-200 hover:bg-gray-50 dark:hover:bg-midnight-dark">
                                         <td className="px-2 py-1">{room.name}</td>
                                         <td className="px-2 py-1">{room.personLimit}</td>
-                                        <td className="px-2 py-1">{formatter.format(room.price)}</td>
+                                        <td className="px-2 py-1">{formatter.format(room.price)}.-</td>
                                         <td className="px-2 py-1">{room.roomLimit}</td>
                                     </tr>
                                 )

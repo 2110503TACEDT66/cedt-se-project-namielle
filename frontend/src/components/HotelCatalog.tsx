@@ -19,11 +19,6 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
     const [value1, setValue1] = React.useState<number[]>([0, 0]);
     const minDistance = 100;
 
-    const formatter = new Intl.NumberFormat("th-TH", {
-        style: "currency",
-        currency: "THB",
-    });
-
     useEffect(() => {
         const fetchUserData = async () => {
             try {
