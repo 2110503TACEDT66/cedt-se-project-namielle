@@ -36,75 +36,74 @@ export default function EditDiscount() {
         <div className="flex justify-center items-center h-full">
             <form className="w-[50%] flex flex-col" onSubmit={handleSubmit}>
                 <label className="text-orange-500 font-sans font-black text-8xl mb-8 center">Create Discount</label>
-
+    
                 <div className="flex flex-col items-start w-full mb-4">
-                    <label htmlFor="name" className="text-slate-900 font-sans mb-2">Name </label>
+                    <label htmlFor="name" className="text-purple-dark dark:text-white-grayish font-sans mb-2">Name </label>
                     <input
                         required
                         placeholder="Enter name"
                         type="text"
                         id="name"
-                        className="border border-slate-500 mb-6 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
+                        className="border border-slate-500 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
                         onChange={(e) => { name.current = e.target.value }}
                     />
                 </div>
-
+    
                 <div className="flex flex-col items-start w-full mb-4">
-                    <label htmlFor="info" className="text-slate-900 font-sans mb-2">Info </label>
+                    <label htmlFor="info" className="text-purple-dark dark:text-white-grayish font-sans mb-2">Info </label>
                     <input
                         required
                         placeholder="Enter info"
                         type="text"
                         id="info"
-                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
+                        className="border border-slate-500 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
                         onChange={(e) => { info.current = e.target.value }}
                     />
                 </div>
-
+    
                 <div className="flex flex-col items-start w-full mb-4">
-                    <label htmlFor="code" className="text-slate-900 font-sans mb-2">Code </label>
+                    <label htmlFor="code" className="text-purple-dark dark:text-white-grayish font-sans mb-2">Code </label>
                     <input
                         required
                         placeholder="Enter code"
                         type="text"
                         id="code"
-                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
+                        className="border border-slate-500 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
                         onChange={(e) => { code.current = e.target.value }}
                     />
                 </div>
-
+    
                 <div className="flex flex-col items-start w-full mb-4">
-                    <label htmlFor="percentage" className="text-slate-900 font-sans mb-2">Percentage </label>
+                    <label htmlFor="percentage" className="text-purple-dark dark:text-white-grayish font-sans mb-2">Percentage </label>
                     <input
                         required
                         placeholder="Enter percentage"
                         type="number"
                         id="percentage"
-                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
+                        className="border border-slate-500 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
                         onChange={(e) => { percentage.current = e.target.value }}
                     />
                 </div>
                 
                 <div className="flex flex-col items-start w-full mb-4">
-                    <label htmlFor="image" className="text-slate-900 font-sans mb-2">Image link </label>
+                    <label htmlFor="image" className="text-purple-dark dark:text-white-grayish font-sans mb-2">Image link </label>
                     <input
                         required
                         placeholder="Enter image link"
                         type="text"
                         id="image"
-                        className="border border-slate-500 mb-2 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
+                        className="border border-slate-500 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
                         onChange={(e) => { image.current = e.target.value }}
                     />
                 </div>
-
-                <div className="w-full flex justify-center">
-                    <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
-                    >Create</button>
-                    {
-                        errMsg && <p className="text-red-700 text-sm mt-5 w-[45%]">{errMsg}</p>
-                    }
+    
+                <div className="w-full flex justify-center mb-4">
+                    <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+                        Create
+                    </button>
+                    {errMsg && <p className="text-red-700 text-sm mt-5 w-[45%]">{errMsg}</p>}
                 </div>
             </form>
         </div>
-    )
+    );
 }
