@@ -32,7 +32,7 @@ export default function AddRecommendCard({ hotel, hotelName, imgSrc, hotelCity, 
         }, 500);
     };
 
-    console.log(globalSelect);
+    // console.log(globalSelect);
 
     function enablePriority(e: number) {
         setTimeout(function () {
