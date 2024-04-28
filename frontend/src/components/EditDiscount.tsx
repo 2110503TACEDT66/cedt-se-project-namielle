@@ -35,8 +35,8 @@ export default function EditDiscount() {
     return (
         <div className="flex justify-center items-center h-full">
             <form className="w-[50%] flex flex-col" onSubmit={handleSubmit}>
-                <label className="text-orange-500 font-sans font-black text-8xl mb-8 center">Create Discount</label>
-    
+                <label className="text-violet-500 font-sans font-black text-8xl mb-8 center">Create Discount</label>
+
                 <div className="flex flex-col items-start w-full mb-4">
                     <label htmlFor="name" className="text-purple-dark dark:text-white-grayish font-sans mb-2">Name </label>
                     <input
@@ -96,12 +96,18 @@ export default function EditDiscount() {
                         onChange={(e) => { image.current = e.target.value }}
                     />
                 </div>
-    
-                <div className="w-full flex justify-center mb-4">
-                    <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
-                        Create
-                    </button>
-                    {errMsg && <p className="text-red-700 text-sm mt-5 w-[45%]">{errMsg}</p>}
+
+                <div className="w-full flex justify-center">
+                    <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105"
+                    style={{
+                        color: 'white',
+                        background: 'linear-gradient(to right, #B892FF, #8A1DFF)',
+                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+                      }}
+                    >Create</button>
+                    {
+                        errMsg && <p className="text-red-700 text-sm mt-5 w-[45%]">{errMsg}</p>
+                    }
                 </div>
             </form>
         </div>

@@ -34,7 +34,7 @@ export default function DiscountCatalog({ discountJson }: { discountJson: any })
                         discountName={discountItem.name}
                         discountInfo={discountItem.info}
                         discountCode={discountItem.code}
-                        discountImage={discountItem.Image}
+                        discountImage={discountItem.image}
                     />
                     </div>
                 ))
