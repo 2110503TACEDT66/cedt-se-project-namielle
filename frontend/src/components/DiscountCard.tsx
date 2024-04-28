@@ -65,7 +65,7 @@ export default function DiscountCard({
         <CardTemplate2 contentName={discountName}>
             <div className="w-full h-[70%] relative rounded-t-lg">
                 <Image
-                    src={"https://images.unsplash.com/photo-1713782522146-3ac703ab3bce?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+                    src={`/img/discount/${discountImage}`}
                     fill={true}
                     className="object-cover rounded-sm"
                     alt="discount image"
@@ -106,7 +106,12 @@ export default function DiscountCard({
                     <button
                         type="submit"
                         className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 "
-                        style={{ margin: "10px" }}
+                        style={{
+                            color: 'white',
+                            background: 'linear-gradient(to right, #B892FF, #8A1DFF)',
+                            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                            margin: "10px"
+                          }}
                     >
                         Delete
                     </button>

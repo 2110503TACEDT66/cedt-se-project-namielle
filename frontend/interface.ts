@@ -115,6 +115,7 @@ export interface discountJson {
         info: string,
         code: string,
         percentage: number,
+        image:string,
         _id: string,
         __v: number,
     }[],
