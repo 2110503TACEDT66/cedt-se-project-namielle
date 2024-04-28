@@ -48,9 +48,6 @@ export default function RecommendCard({ hotelName, hotelCity, hotelPrice, rankIm
                     <div className="text-bold">({rating.toFixed(1)})</div>
                 </div>
                 <div className="opacity-50 pl-1">{count} reviews</div>
-                <div className="absolute bottom-0 right-0 p-1 text-2xl text-orange-500">
-                    {formatter.format(hotelPrice).replace('฿', 'THB ')}.-
-                </div>
             </div>
         </div>
     )
