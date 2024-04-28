@@ -109,7 +109,7 @@ export default function AddNewHotel() {
                     </div>
                     <div className="mb-6">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="telephone">
-                            Telephone
+                            Telephone (e.g. 091-868-3450)
                         </label>
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:border-blue-500"
@@ -117,6 +117,7 @@ export default function AddNewHotel() {
                             name="telephone"
                             type="text"
                             placeholder="Telephone"
+                            pattern='^0\d{2}-\d{3}-\d{4}$'
                             onChange={(e) => { telephone.current = e.target.value }}
                             required />
                     </div>
@@ -128,7 +129,7 @@ export default function AddNewHotel() {
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:border-blue-500"
                             id="price"
                             name="price"
-                            type="text"
+                            type="number"
                             placeholder="Price"
                             onChange={(e) => { price.current = parseInt(e.target.value) }}
                             required />
