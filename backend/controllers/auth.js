@@ -52,7 +52,7 @@ exports.login = async (req, res, next) => {
         if (!user) {
             return res
                 .status(400)
-                .json({ success: false, error: "Invalid credentials" });
+                .json({ success: false, error: "cannot find user" });
         }
 
         //Check if password matches
