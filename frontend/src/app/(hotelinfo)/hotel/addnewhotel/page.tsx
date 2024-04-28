@@ -133,19 +133,7 @@ export default function AddNewHotel() {
                             onChange={(e) => { telephone.current = e.target.value }}
                             required />
                     </div>
-                    <div className="mb-6">
-                        <label className="block text-white text-sm font-bold mb-2" htmlFor="price">
-                            Price
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-dark leading-tight focus:outline-none focus:border-blue-500"
-                            id="price"
-                            name="price"
-                            type="number"
-                            placeholder="Price"
-                            onChange={(e) => { price.current = parseInt(e.target.value) }}
-                            required />
-                    </div>
+                    
                     <div className="mb-6">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="capacity">
                             Capacity
