@@ -161,7 +161,7 @@ export default function mybooking() {
                     : <span>My Booking</span>
                 }
                 <Image
-                    src="hotel-logo.png"
+                    src="/img/hotel-logo.png"
                     alt="hotel-logo"
                     width={40}
                     height={40}
