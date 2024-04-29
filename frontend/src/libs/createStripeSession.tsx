@@ -16,8 +16,8 @@ export default async function createStripeSession(
                 "Content-Type": "application/json",
                 authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({ 
-                cartItems:cartItems,
+            body: JSON.stringify({
+                cartItems: cartItems,
                 user: uid,
                 discountCode: discountCode
             }),

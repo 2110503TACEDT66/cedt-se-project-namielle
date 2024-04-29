@@ -1,15 +1,18 @@
 import AddRecommendedHotel from "@/components/AddRecommendHotel";
 import getHotels from "@/libs/getHotels";
+import { ContextProvider } from "@/components/ContextProvider";
 
 
 export default function AddRecommended() {
     const hotels = getHotels();
     return (
-        <div>
-            <div className="flex justify-center items-center text-3xl pt-10">
-                Make a Recommendation for a Hotel
-            </div>
-            <AddRecommendedHotel hotelJson={hotels} />
-        </div>
+        <ContextProvider>
+            <div>
+                <h1 className="text-center text-3xl font-black pt-10 text-purple-dark dark:text-white-grayish">
+                    Make a Recommendation for a Hotel
+                </h1>
+                <AddRecommendedHotel hotelJson={hotels} />
+            </div>  
+        </ContextProvider>
     )
 }

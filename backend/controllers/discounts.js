@@ -1,4 +1,4 @@
-const Discount = require("../models/Discount")
+const Discount = require("../models/Discount");
 
 exports.getDiscounts = async (req, res, next) => {
     let query;
@@ -62,19 +62,10 @@ exports.getDiscounts = async (req, res, next) => {
             success: true,
             capacity: total,
             data: discounts,
-            
         });
     } catch (err) {
         res.status(400).json({ success: false });
     }
-    // try {
-    //     const discounts = await Discount.find();
-    // res.status(200).json({ success: true, data: discounts });
-    // } catch (err) {
-    //     res.status(404).json({ success: false });
-    // }
-    
-
 };
 
 exports.getDiscount = async (req, res, next) => {
@@ -82,16 +73,15 @@ exports.getDiscount = async (req, res, next) => {
     const discounts = await Discount.findById(req.params.id);
 
     try {
-        const discount = await Discount.findById(req.params.id)
+        const discount = await Discount.findById(req.params.id);
         if (!discount) {
             return res.status(400).json({ success: false });
         }
-        res.status(200).json({ success: true, data: discount});
+        res.status(200).json({ success: true, data: discount });
     } catch (err) {
         res.status(400).json({ success: false });
     }
 };
-
 
 exports.createDiscount = async (req, res, next) => {
     var data = req.body;
@@ -112,10 +102,14 @@ exports.createDiscount = async (req, res, next) => {
 
 exports.updateDiscount = async (req, res, next) => {
     try {
-        const discount = await Discount.findByIdAndUpdate(req.params.id, req.body, {
-            new: true,
-            runValidators: true,
-        });
+        const discount = await Discount.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
         if (!discount) {
             return res.status(400).json({ success: false });
         }
@@ -131,22 +125,19 @@ exports.deleteDiscount = async (req, res, next) => {
         if (!discount) {
             return res.status(404).json({
                 success: false,
-                message: `Bootcamp not found with id of ${req.params.id}`,
+                message: `discount not found with id of ${req.params.id}`,
             });
         }
         await discount.deleteOne();
-        if (discount?.file) {
+        /*if (discount?.file) {
             await fs.unlink("./uploads/" + discount.file, (err) => {
                 if (err) {
                     res.status(400).json({ success: false });
                 }
             });
-        }
-
+        }*/
         res.status(200).json({ success: true, data: {} });
     } catch (err) {
         res.status(400).json({ success: false });
     }
 };
-
-

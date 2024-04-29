@@ -59,16 +59,16 @@ export default function AddNewHotel() {
             router.push("/hotel");
             Swal.fire({
                 icon: 'success',
-                title: 'Sucessfully added hotel',
-                text: 'Hotel has been added successfully',
+                title: 'Add Hotel Successful',
+                text: 'Your Hotel has been successfully created',
                 confirmButtonText: 'OK'
             });
         } catch (error) {
             console.error('Error adding hotel:', error);
             Swal.fire({
                 icon: 'error',
-                title: 'Failed to add hotel',
-                text: 'Hotel has not been added successfully',
+                title: 'Add Hotel Failed',
+                text: 'Your hotel has failed to be added',
                 confirmButtonText: 'OK'
             });
         }
@@ -76,105 +76,118 @@ export default function AddNewHotel() {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <div className="w-full max-w-lg p-8 bg-black rounded-lg shadow-xl">
+            <div className="w-full max-w-lg p-8 rounded-lg shadow-2xl" style={{ backgroundColor: "black" }}>
                 <div className="flex justify-center mb-8">
-                    <div className="text-3xl text-white font-semibold">Add New Hotel</div>
+                    <h1 className="text-3xl font-bold" style={{
+                        background: "linear-gradient(to right, #B892FF, #8A1DFF)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent"
+                    }}>
+                        Add New Hotel
+                    </h1>
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="name">
                             Name
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
+                            className="w-full h-12 px-3 py-2 text-white bg-gray-900 border-2 border-purple-500 rounded
+                             focus:outline-none focus:border-purple-700 hover:border-purple-700 hover:bg-gray-800 hover:scale-105 
+                             transition-transform duration-300"
                             id="name"
                             name="name"
                             type="text"
                             placeholder="Hotel Name"
                             onChange={(e) => { name.current = e.target.value }}
-                            required/>
+                            required />
                     </div>
-                    <div className="mb-6">
+                    <div>
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="address">
                             Address
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
+                            className="w-full h-12 px-3 py-2 text-white bg-gray-900 border-2 border-purple-500 rounded
+                             focus:outline-none focus:border-purple-700 hover:border-purple-700 hover:bg-gray-800 hover:scale-105
+                              transition-transform duration-300"
                             id="address"
                             name="address"
                             type="text"
                             placeholder="Address"
                             onChange={(e) => { address.current = e.target.value }}
-                            required/>
+                            required />
                     </div>
-                    <div className="mb-6">
+                    <div>
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="telephone">
-                            Telephone
+                            Telephone (e.g. 091-868-3450)
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
+                            className="w-full h-12 px-3 py-2 text-white bg-gray-900 border-2 border-purple-500 
+                            rounded focus:outline-none focus:border-purple-700 hover:border-purple-700 hover:bg-gray-800
+                             hover:scale-105 transition-transform duration-300"
                             id="telephone"
                             name="telephone"
                             type="text"
                             placeholder="Telephone"
+                            pattern='^0\d{2}-\d{3}-\d{4}$'
                             onChange={(e) => { telephone.current = e.target.value }}
-                            required/>
+                            required />
                     </div>
-                    <div className="mb-6">
-                        <label className="block text-white text-sm font-bold mb-2" htmlFor="price">
-                            Price
-                        </label>
-                        <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
-                            id="price"
-                            name="price"
-                            type="text"
-                            placeholder="Price"
-                            onChange={(e) => { price.current = parseInt(e.target.value) }}
-                            required/>
-                    </div>
+                    
                     <div className="mb-6">
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="capacity">
                             Capacity
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
+                            className="w-full h-12 px-3 py-2 text-white bg-gray-900 border-2 border-purple-500
+                             rounded focus:outline-none focus:border-purple-700 hover:border-purple-700 hover:bg-gray-800 
+                             hover:scale-105 transition-transform duration-300"
                             id="capacity"
                             name="capacity"
                             type="number"
                             min="0"
                             placeholder="Capacity"
                             onChange={(e) => { capacity.current = parseInt(e.target.value) }}
-                            required/>
+                            required />
                     </div>
-                    <div className="mb-6">
+                    <div>
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="city">
                             City
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
+                            className="w-full h-12 px-3 py-2 text-white bg-gray-900 border-2 border-purple-500 rounded 
+                            focus:outline-none focus:border-purple-700 hover:border-purple-700 hover:bg-gray-800 
+                            hover:scale-105 transition-transform duration-300"
                             id="city"
                             name="city"
                             type="text"
                             placeholder="City"
                             onChange={(e) => { city.current = e.target.value }}
-                            required/>
+                            required />
                     </div>
-                    <div className="mb-6">
+                    <div>
                         <label className="block text-white text-sm font-bold mb-2" htmlFor="file">
-                            Image URL
+                            Image
                         </label>
                         <input
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:border-blue-500"
+                            className="w-full h-12 px-3 py-2 text-white bg-gray-900 border-2 border-purple-500 rounded 
+                            focus:outline-none focus:border-purple-700 hover:border-purple-700 hover:bg-gray-800 
+                            hover:scale-105 transition-transform duration-300"
                             id="file"
                             name="file"
                             type="text"
-                            placeholder="Image URL"
+                            placeholder="Image.png"
                             onChange={(e) => { file.current = e.target.value }}
-                            required/>
+                            required />
                     </div>
                     <div className="flex justify-center">
-                        <button className="bg-orange-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline" type="submit">
+                        <button className="w-1/2 py-2 px-6 text-lg rounded focus:outline-none focus:shadow-outline 
+                        transition duration-300 ease-in-out transform hover:scale-105" type="submit"
+                                style={{
+                                    color: 'white',
+                                    background: 'linear-gradient(to right, #B892FF, #8A1DFF)',
+                                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+                                }}>
                             Add Hotel
                         </button>
                     </div>
@@ -182,4 +195,8 @@ export default function AddNewHotel() {
             </div>
         </div>
     );
-}
+    
+    
+
+
+}    

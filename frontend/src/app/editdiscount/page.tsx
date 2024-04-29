@@ -5,7 +5,7 @@ export default function editdiscounts() {
     const discounts = getDiscounts()
     return (
         <main className="text-center p-5">
-            <EditDiscount/>
+            <EditDiscount />
         </main>
     )
 }

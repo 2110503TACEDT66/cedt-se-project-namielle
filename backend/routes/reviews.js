@@ -21,7 +21,6 @@ router
     .get(getReview)
     .put(protect, authorize("admin", "user"), updateReview)
     .delete(protect, authorize("admin", "user"), deleteReview);
-router
-    .put('/:id/hide', protect, authorize('admin'), hideReview);
+router.put("/:id/hide", protect, authorize("admin"), hideReview);
 
 module.exports = router;

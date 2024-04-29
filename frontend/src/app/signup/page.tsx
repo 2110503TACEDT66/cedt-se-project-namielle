@@ -1,8 +1,6 @@
 import Register from "@/components/Register";
 import UserAccessBlock from "@/components/UserAccessBlock";
 
-
-
 export default function signUpPage() {
 
     return (

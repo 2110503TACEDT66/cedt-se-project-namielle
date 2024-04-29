@@ -20,8 +20,11 @@ export default function reservation() {
     const picture = urlParams.get("file") || ""
     const roomType = urlParams.get("roomType") || ""
     const roomName = urlParams.get("roomName") || ""
+    const address = urlParams.get("address") || ""
+    const rating = urlParams.get("rating") || "0"
+    const count = urlParams.get("count") || "0"
 
-    const {data: session} = useSession();
+    const { data: session } = useSession();
     const dispatch = useDispatch<AppDispatch>()
     const [checkInDate, setCheckInDate] = useState<Dayjs>(dayjs())
     const [checkOutDate, setCheckOutDate] = useState<Dayjs>(dayjs().add(1, "day"))
@@ -35,15 +38,19 @@ export default function reservation() {
                 checkOutDate: dayjs(checkOutDate).format("YYYY-MM-DD"),
                 hid: hid,
                 price: checkOutDate.diff(checkInDate, "day") * parseInt(price),
-                user: session.user._id,
                 name: name,
                 picture: picture,
                 roomType: roomType,
-                roomName: roomName
+                roomName: roomName,
+                address: address,
+                review: {
+                    rating: parseInt(rating),
+                    count: parseInt(count)
+                },
             }
             dispatch(addToCart(booking))
             router.push("/hotel");
-            
+
         }
     }
 

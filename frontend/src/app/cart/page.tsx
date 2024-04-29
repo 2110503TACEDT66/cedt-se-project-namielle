@@ -8,15 +8,15 @@ export default async function Cart() {
 
     return (
         <div>
-            <div className="flex justify-center items-center text-3xl pt-10">
-                <Image src="/img/shopping-cart.png" alt="shopping-cart" width={40} height={40} className="mr-2" />
+            <div className="flex justify-center items-center text-3xl pt-10 dark:text-white-grayish">
+                <Image src="/img/shopping-cart.png" alt="shopping-cart" width={40} height={40} className="mr-2 dark:bg-white-grayish rounded-md" />
                 Your Cart
             </div>
 
             {session ?
-                <div className="flex flex-row m-20 h-auto min-h-lvh bg-paper min">
+                <div className="flex flex-row mt-12 h-[70vh]">
                     <CartPanel />
-                </div> : <div className="flex justify-center h-auto bg-paper m-10">No item in cart </div>
+                </div> : <div className="flex justify-center h-auto m-10 dark:text-white-grayish">No item in cart </div>
             }
         </div>
     )

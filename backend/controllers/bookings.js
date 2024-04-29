@@ -74,7 +74,6 @@ exports.getBooking = async (req, res, next) => {
 //@route POST /api/v1/hotels/:hotelId/bookings/
 //@access Private
 exports.addBooking = async (req, res, next) => {
-
     try {
         console.log(req.user);
         req.body.hotel = req.params.hotelId;
@@ -112,7 +111,9 @@ exports.addBooking = async (req, res, next) => {
         //Decreased roomLimit
         const roomType = await RoomType.findById(booking.roomType);
         let totalRoomLimit = roomType.roomLimit - 1;
-        await RoomType.findByIdAndUpdate(booking.roomType, { roomLimit : totalRoomLimit});
+        await RoomType.findByIdAndUpdate(booking.roomType, {
+            roomLimit: totalRoomLimit,
+        });
 
         res.status(200).json({
             success: true,
@@ -172,7 +173,6 @@ exports.updateBooking = async (req, res, next) => {
 //@route DELETE /api/v1/bookings/:id
 //@access Private
 exports.deleteBooking = async (req, res, next) => {
-    
     try {
         const booking = await Booking.findById(req.params.id);
 
@@ -196,8 +196,10 @@ exports.deleteBooking = async (req, res, next) => {
         //Increased roomLimit
         const roomType = await RoomType.findById(booking.roomType);
         let totalRoomLimit = roomType.roomLimit + 1;
-        await RoomType.findByIdAndUpdate(booking.roomType, { roomLimit : totalRoomLimit});
-        
+        await RoomType.findByIdAndUpdate(booking.roomType, {
+            roomLimit: totalRoomLimit,
+        });
+
         await booking.deleteOne();
 
         res.status(200).json({

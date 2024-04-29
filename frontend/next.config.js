@@ -2,6 +2,8 @@
 const nextConfig = {
     images: {
         domains: ["drive.google.com"],
+        domains: ["unsplash.com"],
+        domains: ["images.unsplash.com"]
     },
     async headers() {
         return [

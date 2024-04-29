@@ -51,18 +51,18 @@ export default function Register() {
             {
                 !showOTP ?
                     <form className="mt-[2%] mx-[5%] h-auto w-[50%] flex flex-col" onSubmit={onSubmit}>
-                        <label className="text-orange-500 font-sans font-black text-8xl mb-8">Create your account</label>
+                        <label className="text-purple-dark dark:text-white-grayish font-sans font-black text-8xl mb-8">Create your account</label>
 
                         <div className="h-12 w-[80%] mb-6 border border-slate-500 font-sans divide-x divide-slate-500">
-                            <input required placeholder="First Name" type="text" className="h-[100%] w-[50%] p-2 text-white"
+                            <input required placeholder="First Name" type="text" className="h-[100%] w-[50%] p-2 dark:bg-midnight-blue text-black dark:text-white-grayish"
                                 onChange={(e) => { firstname.current = e.target.value }} />
-                            <input required placeholder="Last Name" type="text" className="h-full w-[50%] p-2 text-white"
+                            <input required placeholder="Last Name" type="text" className="h-full w-[50%] p-2 dark:bg-midnight-blue text-black dark:text-white-grayish"
                                 onChange={(e) => { lastname.current = e.target.value }} />
                         </div>
 
-                        <input required className=" border border-slate-500 mb-6 p-2 font-sans w-[80%] h-12 text-white" placeholder="Tel" type="text"
+                        <input required className=" border border-slate-500 mb-6 p-2 font-sans w-[80%] h-12 dark:bg-midnight-blue text-black dark:text-white-grayish" placeholder="Tel" type="text"
                             onChange={(e) => { tel.current = e.target.value }} />
-                        <input required className=" border border-slate-500 mb-6 p-2 font-sans w-[80%] h-12 text-white" placeholder="Email" type="text"
+                        <input required className=" border border-slate-500 mb-6 p-2 font-sans w-[80%] h-12 dark:bg-midnight-blue text-black dark:text-white-grayish" placeholder="Email" type="text"
                             onChange={
                                 (e) => {
                                     email.current = e.target.value
@@ -70,15 +70,15 @@ export default function Register() {
                             } />
 
                         <div className="h-12 w-[80%] mb-10 border border-slate-500 font-sans divide-x divide-slate-500">
-                            <input required placeholder="Password" type="password" className="h-[100%] w-[50%] p-2 text-white"
+                            <input required placeholder="Password" type="password" className="h-[100%] w-[50%] p-2 dark:bg-midnight-blue text-black dark:text-white-grayish"
                                 onChange={(e) => { password.current = e.target.value }} />
-                            <input required placeholder="Confirm Password" type="password" className="h-full w-[50%] p-2 text-white"
+                            <input required placeholder="Confirm Password" type="password" className="h-full w-[50%] p-2 dark:bg-midnight-blue text-black dark:text-white-grayish"
                                 onChange={(e) => { confirmpassword.current = e.target.value }} />
                         </div>
 
                         <div className="w-[80%] h-auto flex items-center">
 
-                            <button type="submit" className="w-[45%] h-[100%] my-5 mx-[20px] text-xl text-slate-900 font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-400 rounded-2xl"
+                            <button type="submit" className="w-[45%] h-[100%] my-5 mx-[20px] text-xl text-purple-dark dark:text-white-grayish font-bold font-sans bg-pink-sweet hover:bg-purple-dark dark:hover:bg-white-grayish hover:text-pink-sweet rounded-2xl duration-150"
                             >Sign Up</button>
 
                             {
