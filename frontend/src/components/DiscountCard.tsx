@@ -65,7 +65,7 @@ export default function DiscountCard({
         <CardTemplate2 contentName={discountName}>
             <div className="w-full h-[70%] relative rounded-t-lg">
                 <Image
-                    src={`/img/discount/${discountImage}`}
+                    src={discountImage}
                     fill={true}
                     className="object-cover rounded-sm"
                     alt="discount image"
