@@ -52,12 +52,12 @@ export default function RecommendBanner() {
     }, [sortedArray]);
 
     return (
-        <div className="flex flex-row items-center gap-[5%] h-[35vh] bg-stone-400 ">
+        <div className="flex flex-row items-center gap-[5%] h-[35vh] bg-paper-more-yellow dark:bg-midnight-dark rounded-xl">
             <div className="w-fit px-5 flex flex-col">
-                <p className="font-semibold font-serif text-3xl text-orange-300 leading-loose">
+                <p className="font-semibold font-serif text-center text-5xl text-purple-namielle leading-loose">
                     Recommended
                 </p>
-                <span className="text-white bold text-lg">For you</span>
+                <span className="text-pink-namielle font-bold text-3xl text-center">For you</span>
             </div>
             <div className="w-full h-[90%]">
                 <div className="w-full h-[100%] relative flex items-center">

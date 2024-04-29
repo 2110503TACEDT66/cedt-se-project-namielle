@@ -25,7 +25,7 @@ export default function RecommendCard({ hotelName, hotelCity, hotelPrice, rankIm
             <div className="w-[100%] h-[60%] relative rounded-xl">
                 <Image src={imgSrc} alt={hotelName} fill={true} className="object-cover rounded-t-md"/>
             </div>
-            <div className="w-full h-[40%] bg-white p-1">
+            <div className="w-full h-[40%] bg-white dark:bg-midnight-blue pl-3 pt-2 rounded-b-md dark:text-white-grayish">
                 <div className="font-bold text-lg pl-1">
                     {hotelName}
                 </div>
@@ -35,6 +35,7 @@ export default function RecommendCard({ hotelName, hotelCity, hotelPrice, rankIm
                         width={20}
                         height={20}
                         alt="location image"
+                        className="dark:invert w-[20px] h-[20px]"
                     ></Image>
                     {hotelCity}
                 </div>
