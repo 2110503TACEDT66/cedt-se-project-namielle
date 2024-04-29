@@ -36,6 +36,32 @@ app.use("/api/v1/otp", otp);
 app.use("/api/v1/stripe", stripe);
 app.use("/api/v1/roomTypes", roomTypeRoutes);
 
+//swagger documentation
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
+const swaggerOptions = {
+    swaggerDefinition: {
+        openapi: "3.0.0",
+        info: {
+            title: 'Hotel Booking API',
+            description: 'Hotel Booking API Information',
+            version: '1.0.0',
+            
+        },
+        servers: [
+            {
+                url: "http://localhost:5000/api/v1",
+            },
+        ],
+    },
+    apis: ["./routes/*.js"]
+
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 const PORT = process.env.PORT || 5000;
 const server = app.listen(
     PORT,

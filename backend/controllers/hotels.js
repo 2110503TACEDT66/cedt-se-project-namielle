@@ -3,6 +3,8 @@ const Booking = require("../models/Booking");
 const RoomType = require("../models/RoomType");
 const fs = require("fs");
 
+
+
 //@desc Get all hotels
 //@route GET /api/v1/hotels
 //@access Public
