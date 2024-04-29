@@ -32,7 +32,7 @@ const router = express.Router();
 * @swagger
 * /otp/sent-otp:
 *   post:
-*     summary: Create a new user
+*     summary: Send an otp to user email
 *     tags: [OTP]
 *     requestBody:
 *       required: true

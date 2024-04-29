@@ -52,8 +52,6 @@ const { upload } = require("../middleware/upload");
  * @swagger
  * /discounts:
  *  get:
- *    security:
- *      - BearerAuth: []
  *    summary: Get all discounts
  *    tags: [Discounts]
  *    responses:
@@ -115,8 +113,6 @@ router
  * @swagger
  * /discounts/{id}:
  *   get:
- *     security:
- *       - bearerAuth: []
  *     summary: Get a discount
  *     tags: [Discounts]
  *     parameters:

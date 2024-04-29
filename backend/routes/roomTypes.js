@@ -88,7 +88,7 @@ router
 
 /** 
  * @swagger
- * /roomTypess/{id}:
+ * /roomTypes/{id}:
  *   get:
  *     security:
  *       - bearerAuth: []

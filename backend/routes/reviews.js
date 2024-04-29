@@ -61,13 +61,35 @@ const {
  *      description: Server error
  */
 
+/** 
+ * @swagger
+ * /hotels/{id}/review:
+ *  get:
+ *   summary: Get all reviews from hotel
+ *   tags: [Reviews]
+ *   parameters:
+ *     - in: path
+ *       name: id
+ *       required: true
+ *       description: ID of the hotel
+ *   responses:
+ *     200:
+ *       description: Successfullt get all reviews
+ *     401:
+ *       description: Not authorized
+ *     404:
+ *      description: No reviews found
+ *     500:
+ *      description: Server error
+ */
+
 /**  
  * @swagger
  * /review:
  *   post:
  *     security:
  *       - bearerAuth: []
- *     summary: Add a booking
+ *     summary: Add a review
  *     tags: [Reviews]
  *     requestBody:
  *       required: true
@@ -77,7 +99,7 @@ const {
  *             $ref: '#/components/schemas/Review'
  *     responses:
  *       201:
- *         description: The booking was successfully created
+ *         description: The review was successfully created
  *       401:
  *         description: Not authorized
  *       500:
@@ -99,24 +121,22 @@ router
  * @swagger
  * /review/{id}:
  *   get:
- *     security:
- *       - bearerAuth: []
- *     summary: Get a booking
+ *     summary: Get a review
  *     tags: [Reviews]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID of the booking to return
+ *         description: ID of the review to return
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: A booking to return
+ *         description: A review to return
  *       401:
  *         description: Not authorized
  *       404:
- *         description: Booking not found
+ *         description: review not found
  *       500:
  *         description: Server error
 */
@@ -127,13 +147,13 @@ router
  *   put:
  *     security:
  *       - bearerAuth: []
- *     summary: Update a booking
+ *     summary: Update a review
  *     tags: [Reviews]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID of the booking to update
+ *         description: ID of the review to update
  *         schema:
  *           type: string
  *     requestBody:
@@ -145,11 +165,11 @@ router
  *                - $ref: '#/components/schemas/Review'
  *     responses:
  *       200:
- *         description: booking updated
+ *         description: review updated
  *       401:
  *         description: Not authorized
  *       404:
- *         description: Booking not found
+ *         description: review not found
  *       500:
  *         description: Server error
 */
@@ -160,22 +180,22 @@ router
  *   delete:
  *     security:
  *       - bearerAuth: []
- *     summary: Delete a booking
+ *     summary: Delete a review
  *     tags: [Reviews]
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: ID of the booking to delete
+ *         description: ID of the review to delete
  *         schema:
  *           type: string
  *     responses:
  *       200:
- *         description: booking deleted
+ *         description: review deleted
  *       401:
  *         description: Not authorized
  *       404:
- *         description: Booking not found
+ *         description: review not found
  *       500:
  *         description: Server error
 */
@@ -184,6 +204,34 @@ router
     .get(getReview)
     .put(protect, authorize("admin", "user"), updateReview)
     .delete(protect, authorize("admin", "user"), deleteReview);
+
+
+/**
+ * @swagger
+ * /review/{id}/hide:
+ *   put:
+ *     security:
+ *      - bearerAuth: []
+ *     summary: Hide a review
+ *     tags: [Reviews]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        description: ID of the review to hide
+ *     schema:
+ *       type: string
+ *     responses:
+ *      200: 
+ *        description: review hidden
+ *      401:
+ *        description: Not authorized
+ *      404:
+ *        description: review not found
+ *      500:
+ *        description: Server error
+ * 
+ */
 router.put("/:id/hide", protect, authorize("admin"), hideReview);
 
 module.exports = router;

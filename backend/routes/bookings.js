@@ -66,6 +66,30 @@ const { protect, authorize } = require("../middleware/auth");
  *      description: Server error
  */
 
+/** 
+ * @swagger
+ * /hotels/{id}/bookings:
+ *  get:
+ *   security:
+ *    - bearerAuth: []
+ *   summary: Get all bookings from hotel
+ *   tags: [Bookings]
+ *   parameters:
+ *     - in: path
+ *       name: id
+ *       required: true
+ *       description: ID of the hotel
+ *   responses:
+ *     200:
+ *       description: Successfullt get all bookings
+ *     401:
+ *       description: Not authorized
+ *     404:
+ *      description: No bookings found
+ *     500:
+ *      description: Server error
+ */
+
 /**  
  * @swagger
  * /bookings:
