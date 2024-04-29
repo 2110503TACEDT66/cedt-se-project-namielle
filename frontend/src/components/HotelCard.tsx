@@ -2,9 +2,10 @@ import Image from "next/image";
 import CardTemplate from "./CardTemplate";
 import getHotels from "@/libs/getHotels";
 import getHotel from "@/libs/getHotel";
+import { Rating } from "@mui/material";
 
-export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, hotelTel, roomType, persons, minPrice, maxPrice}: 
-    { hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string, roomType: any, persons: number, minPrice: number, maxPrice: number}) {
+export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, hotelTel, roomType, persons, rating, review, minPrice, maxPrice}: 
+    { hotelName: string, imgSrc: string, hotelCity: string, hotelAddress: string, hotelTel: string, roomType: any, persons: number, rating: number, review: number, minPrice: number, maxPrice: number}) {
 
     // const randPrice = Math.floor(Math.random() * (10000 - 100 + 1)) + 100;
 
@@ -19,17 +20,27 @@ export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, 
             <div className="w-1/3 relative rounded-t-lg">
                 <Image src={imgSrc} alt={hotelName} fill={true} className="object-cover" />
             </div>
-            <div className="block w-full text-black dark:text-white-grayish">
-                <div className="w-[full] font-bold px-[3%] pt-[3%] text-2xl">
+            <div className="block w-full text-black dark:text-white-grayish pl-[1%]">
+                <div className="w-[full] font-bold pt-[1%] text-2xl">
                     {hotelName}
                 </div>
-                <div className="w-full px-[3%] pt-1">
+                <div className="flex gap-1">
+                    <Rating
+                        name="read-only"
+                        value={rating}
+                        precision={0.1}
+                        readOnly
+                    />
+                    <div className="text-bold">({rating.toFixed(1)})</div>
+                    <div className="opacity-50">{review} reviews</div>
+                </div>
+                <div className="w-full pt-1">
                     Address: {hotelAddress}, {hotelCity}
                 </div>
-                <div className="w-full px-[3%] pt-1">
+                <div className="w-full pt-1">
                     Tel. {hotelTel}
                 </div>
-                <div className="w-[80%] px-[3%] pt-[1%] rounded-lg text-sm">
+                <div className="w-[80%] pt-[1%] rounded-lg text-sm">
                     <table className="w-auto table-auto">
                         <thead>
                             <tr className="bg-gray-200 text-gray-700 font-bold">
