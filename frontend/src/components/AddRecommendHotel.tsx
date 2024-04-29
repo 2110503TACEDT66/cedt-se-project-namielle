@@ -1,16 +1,14 @@
 'use client'
 
 import AddRecommendCard from "./AddRecommendCard";
-import HotelCard from "./HotelCard";
+import { useSession } from 'next-auth/react';
 import { useState, useEffect, useRef } from "react";
 import getHotels from "@/libs/getHotels";
-
-
 
 export default function AddRecommendedHotel({ hotelJson }: { hotelJson: any }) {
     const [hotelData, setHotelData] = useState<any>();
     const [search, setSearch] = useState('');
-    const [change, setChange] = useState({});
+    const { data: session } = useSession();
     const globalSelect = useRef<number[]>([]);
 
     useEffect(() => {
@@ -23,7 +21,6 @@ export default function AddRecommendedHotel({ hotelJson }: { hotelJson: any }) {
                         globalSelect.current.push(hotelItem.priority);
                         console.log(hotelItem.priority);
                     }
-
                 })
                 console.log(globalSelect);
             } catch (err) {
@@ -33,7 +30,7 @@ export default function AddRecommendedHotel({ hotelJson }: { hotelJson: any }) {
 
         fetchUserData();
     }, [])
-
+   
     // console.log(search);
     // console.log(hotelData);
     console.log(globalSelect);
