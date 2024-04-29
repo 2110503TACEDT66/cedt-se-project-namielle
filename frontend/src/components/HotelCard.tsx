@@ -30,28 +30,30 @@ export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, 
                     Tel. {hotelTel}
                 </div>
                 <div className="w-[80%] px-[3%] pt-[1%] rounded-lg text-sm">
-                    <table className="w-auto table-auto">
-                        <thead>
-                            <tr className="bg-gray-200 text-gray-700 font-bold">
-                                <th className="px-2 py-1">ROOM</th>
-                                <th className="px-2 py-1">Persons</th>
-                                <th className="px-2 py-1">Price</th>
-                                <th className="px-2 py-1">Available Rooms</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {roomType.map((room: any) => (
-                                 ((room.personLimit >= persons && room.roomLimit > 0 && room.price >= minPrice && room.price <= maxPrice) || (minPrice == 0 && maxPrice == 0 && room.personLimit >= persons)) && (
-                                    <tr className="border-b border-gray-200 hover:bg-gray-50 dark:hover:bg-midnight-dark">
-                                        <td className="px-2 py-1">{room.name}</td>
-                                        <td className="px-2 py-1">{room.personLimit}</td>
-                                        <td className="px-2 py-1">{formatter.format(room.price)}.-</td>
-                                        <td className="px-2 py-1">{room.roomLimit}</td>
-                                    </tr>
-                                )
-                            ))}
-                        </tbody>
-                    </table>
+                    <div className="w-fit h-40 overflow-y-auto">
+                        <table className="w-auto table-auto">
+                            <thead>
+                                <tr className="bg-gray-200 text-gray-700 font-bold">
+                                    <th className="px-2 py-1">ROOM</th>
+                                    <th className="px-2 py-1">Persons</th>
+                                    <th className="px-2 py-1">Price</th>
+                                    <th className="px-2 py-1">Available Rooms</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {roomType.map((room: any) => (
+                                    ((room.personLimit >= persons && room.roomLimit > 0 && room.price >= minPrice && room.price <= maxPrice) || (minPrice == 0 && maxPrice == 0 && room.personLimit >= persons)) && (
+                                        <tr className="border-b border-gray-200 hover:bg-gray-50 dark:hover:bg-midnight-dark">
+                                            <td className="px-2 py-1">{room.name}</td>
+                                            <td className="px-2 py-1">{room.personLimit}</td>
+                                            <td className="px-2 py-1">{formatter.format(room.price)}.-</td>
+                                            <td className="px-2 py-1">{room.roomLimit}</td>
+                                        </tr>
+                                    )
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 {/* <div className="w-full px-[4%] pt-[2%] text-2xl r-0 b-0">
