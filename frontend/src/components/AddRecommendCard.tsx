@@ -12,7 +12,6 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
 }) {
     const { data: session } = useSession();
     const [Priority, setPriority] = useState<number>(hotelPriority);
-    const priorityContext = createContext(Priority);
     const [updateHotel, setUpdateHotel] = useState<any | null>(null);
     const [prevSelectedValue, setPrevSelectedValue] = useState("0");
 
@@ -73,9 +72,8 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
             // localStorage.setItem('globalSelect', JSON.stringify(globalSelect)); try to save data
             check();
             cur = Priority;
-        }
-       },500)
-    }
+        },500)
+       }
 
     function check() {
         let one = false, two = false, three = false;
