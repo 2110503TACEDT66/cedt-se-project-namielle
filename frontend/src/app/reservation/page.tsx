@@ -63,7 +63,7 @@ export default function reservation() {
         <div className="flex justify-center items-center m-10">
             <div className="bg-white shadow-lg rounded-lg p-8 max-w-xl">
                 <div className="flex justify-center items-center">
-                    <Image src={`/img/${picture}`} width={400} height={200} alt={`{name}`} className="rounded-lg text-center m-1 pb-2" />
+                    <Image src={`${picture}`} width={400} height={200} alt={`{name}`} className="rounded-lg text-center m-1 pb-2" />
                 </div>
 
                 <div className="text-center mb-6">

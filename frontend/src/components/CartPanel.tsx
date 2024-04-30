@@ -102,7 +102,7 @@ export default function CartPanel() {
                         <div className="flex flex-row border-solid border-2 border-gray-400 rounded-md mb-3 bg-white dark:bg-midnight-blue">
                             <div className="w-[200px] h-[200px] relative">
                                 <Image
-                                    src={`/img/${item.picture}`}
+                                    src={`${item.picture}`}
                                     alt={item.name}
                                     fill={true}
                                     className="object-cover rounded-sm"
