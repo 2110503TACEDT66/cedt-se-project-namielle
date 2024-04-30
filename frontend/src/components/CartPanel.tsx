@@ -275,7 +275,7 @@ export default function CartPanel() {
                             </form>
                         </div>
                         <div className="flex flex-row justify-center mt-5">
-                            {bookingCount > 3 ? (
+                            {(bookingCount > 3 && session?.user.role != 'admin') ? (
                                 <button
                                     className="bg-slate-400 hover:bg-slate-600 text-white font-semibold py-3 w-full rounded-lg transition duration-300 transform hover:scale-105"
                                     onClick={() => {

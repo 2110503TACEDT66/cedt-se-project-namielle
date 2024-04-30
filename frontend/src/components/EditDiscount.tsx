@@ -79,6 +79,8 @@ export default function EditDiscount() {
                         required
                         placeholder="Enter percentage"
                         type="number"
+                        min={0}
+                        max={100}
                         id="percentage"
                         className="border border-slate-500 p-2 font-sans w-full h-12 dark:bg-midnight-blue dark:text-white-grayish"
                         onChange={(e) => { percentage.current = e.target.value }}

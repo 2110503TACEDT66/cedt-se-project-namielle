@@ -189,7 +189,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                             }
                             
                 }).map((hotelItem: any) => (
-                    <Link key={hotelItem.name} href={`/hotel/${hotelItem.id}`}>
+                    <Link key={hotelItem.name} href={`/hotel/${hotelItem.id}`} id={hotelItem.name}>
                         <HotelCard
                             hotelName={hotelItem.name}
                             imgSrc={`${hotelItem.file}`}

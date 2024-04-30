@@ -20,12 +20,29 @@ describe('discount', () => {
         cy.visit('http://localhost:3000/editdiscount')
         cy.wait(2000)
         cy.get('input#name').type('Test 50% discount')
+        cy.get('.bg-orange-500').click({force: true})
+        cy.wait(1000)
+
         cy.get('input#info').type('test create 50% discount')
+        cy.get('.bg-orange-500').click({force: true})
+        cy.wait(1000)
+
         cy.get('input#code').type('fiftysniffyriggywicking')
-        cy.get('input#percentage').type(50)
+        cy.get('.bg-orange-500').click({force: true})
+        cy.wait(1000)
+
+        cy.get('input#percentage').type(150)
+        cy.get('.bg-orange-500').click({force: true})
+        cy.wait(1000)
+
+        cy.get('input#percentage').clear().type(50)
+        cy.get('.bg-orange-500').click({force: true})
+        cy.wait(1000)
+
         cy.get('input#image').type('50percent.png')
         cy.get('.bg-orange-500').click({force: true})
         cy.wait(1000)
+
         cy.get('.swal2-confirm').click({force: true})
         cy.wait(1000)
     })
