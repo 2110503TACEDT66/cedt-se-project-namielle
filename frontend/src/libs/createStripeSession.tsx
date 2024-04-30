@@ -29,7 +29,7 @@ export default async function createStripeSession(
         throw new Error(error.message);
     }
     const responseJson = await response.json();
-    console.log(responseJson);
-    console.log(uid);
+    // console.log(responseJson);
+    // console.log(uid);
     return responseJson;
 }

@@ -22,13 +22,13 @@ import Swal from "sweetalert2";
 export default function mybooking() {
     const params = useSearchParams();
     const successfulCheckout = params.get("success");
-    console.log(successfulCheckout);
+    // console.log(successfulCheckout);
     const dispatch = useDispatch<AppDispatch>();
     const { data: session } = useSession();
 
     if (successfulCheckout == "true") {
         dispatch(removeAllFromCart());
-        console.log("Cart is cleared");
+        // console.log("Cart is cleared");
     }
 
     // console.log(session);
@@ -95,7 +95,7 @@ export default function mybooking() {
                     result.data[i].review.rating = AvgReview.toFixed(1);
                     result.data[i].review.count = review.count;
                 }
-                console.log(result);
+                // console.log(result);
                 setBookings(result);
             } catch (error) {
                 console.error(error);

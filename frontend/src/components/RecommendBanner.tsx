@@ -48,7 +48,7 @@ export default function RecommendBanner() {
 
     // Now it's safe to log sortedArray
     useEffect(() => {
-        console.log(sortedArray);
+        // console.log(sortedArray);
     }, [sortedArray]);
 
     return (

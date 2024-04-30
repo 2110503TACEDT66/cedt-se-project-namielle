@@ -20,10 +20,10 @@ export default function AddRecommendedHotel({ hotelJson }: { hotelJson: any }) {
                 result.data.map((hotelItem: any) => {
                     if (hotelItem.priority != 0 && globalSelect.current.includes(hotelItem.priority) == false) {
                         globalSelect.current.push(hotelItem.priority);
-                        console.log(hotelItem.priority);
+                        // console.log(hotelItem.priority);
                     }
                 })
-                console.log(globalSelect);
+                // console.log(globalSelect);
             } catch (err) {
                 console.error(err);
             }
