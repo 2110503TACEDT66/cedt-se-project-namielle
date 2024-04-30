@@ -197,7 +197,7 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                         AvgReview = sum / hotelItem.review.length
                     }
                     return(
-                    <Link key={hotelItem.name} href={`/hotel/${hotelItem.id}`}>
+                    <Link key={hotelItem.name} href={`/hotel/${hotelItem.id}`} id={hotelItem.name}>
                         <HotelCard
                             hotelName={hotelItem.name}
                             imgSrc={`${hotelItem.file}`}

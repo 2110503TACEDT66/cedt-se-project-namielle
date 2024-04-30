@@ -39,7 +39,7 @@ describe('discount', () => {
         cy.get('.bg-orange-500').click({force: true})
         cy.wait(1000)
 
-        cy.get('input#image').type('50percent.png')
+        cy.get('input#image').type('/img/discount/50percent.png')
         cy.get('.bg-orange-500').click({force: true})
         cy.wait(1000)
 
@@ -49,7 +49,7 @@ describe('discount', () => {
 
     it('remove discount', () => {
         cy.visit('http://localhost:3000/discount')
-        cy.wait(2000)
+        cy.wait(4000)
         cy.get('#fiftysniffyriggywicking').click({force: true})
         cy.wait(3000)
         cy.get('.swal2-confirm').click({force: true})
