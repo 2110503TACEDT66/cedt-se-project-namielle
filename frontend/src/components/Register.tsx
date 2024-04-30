@@ -19,25 +19,38 @@ export default function Register() {
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (password.current !== confirmpassword.current) {
-            setErrMsg("the password doesn't not match.");
+        
+        
+        if(tel.current.length != 10){
+            setErrMsg("the phone number is not valid");
             return;
         }
-        if (password.current.length < 6) {
-            setErrMsg("the password need to have atleast 6 characters");
-            return;
-        }
+
         if (!EmailValidator.validate(email.current)) {
             // console.log(email.current);
             // console.log(EmailValidator.validate(email.current))
             setErrMsg("the email is not valid");
             return;
         }
+        
         const usedEmail = await getValidEmail(email.current);
         if (usedEmail) {
             setErrMsg("the email is already used");
             return;
         }
+
+        if (password.current.length < 6) {
+            setErrMsg("the password need to have atleast 6 characters");
+            return;
+        }
+        
+        if (password.current !== confirmpassword.current) {
+            setErrMsg("the password doesn't not match.");
+            return;
+        }
+        
+
+        
 
 
         setErrMsg("");
@@ -61,7 +74,7 @@ export default function Register() {
                         </div>
 
                         <input required className=" border border-slate-500 mb-6 p-2 font-sans w-[80%] h-12 dark:bg-midnight-blue text-black dark:text-white-grayish" placeholder="Tel" type="text"
-                            onChange={(e) => { tel.current = e.target.value }} />
+                            onChange={(e) => { tel.current = e.target.value }}/>
                         <input required className=" border border-slate-500 mb-6 p-2 font-sans w-[80%] h-12 dark:bg-midnight-blue text-black dark:text-white-grayish" placeholder="Email" type="text"
                             onChange={
                                 (e) => {

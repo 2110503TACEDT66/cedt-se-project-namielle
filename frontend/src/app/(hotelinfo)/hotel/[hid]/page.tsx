@@ -155,22 +155,52 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
 
                 </div>
                 <div className="leading-none w-[20%] flex justify-center items-center">
+                    
                     {price == null || remainRoom == 0 ?
+                        <>
+                        {    session ? 
                         <button className="block p-1 text-2xl text-white dark:text-white-grayish font-bold font-sans bg-gray-500 hover:bg-slate-800 hover:text-slate-800 dark:hover:bg-white-grayish dark:hover:text-white-grayish rounded-md" onClick={() => {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: 'Please select room type and check availability',
-                            })
-                        }}>
-                            RESERVE
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Please select room type and check availability',
+                                })
+                            }}>
+                                RESERVE
                         </button>
+                            :
+                            <button className="block p-1 text-2xl text-white dark:text-white-grayish font-bold font-sans bg-gray-500 hover:bg-slate-800 hover:text-slate-800 dark:hover:bg-white-grayish dark:hover:text-white-grayish rounded-md" onClick={() => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Please login to reserve room',
+                                })
+                            }}>
+                                RESERVE
+                        </button>
+                            }
+                        </>   
                         :
-                        <Link href={`/reservation?price=${price}&hid=${params.hid}&name=${hotelDetail.name}&file=${hotelDetail.file}&roomType=${roomType}&roomName=${roomName}&address=${hotelDetail.address}&rating=${AvgReview}&count=${review?.count}`} className="flex justify-center items-center">
-                            <button className="block p-1 text-2xl text-white font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-500 dark:hover:bg-midnight rounded-md">
+                        <>
+                        {   session ?
+                            <Link href={`/reservation?price=${price}&hid=${params.hid}&name=${hotelDetail.name}&file=${hotelDetail.file}&roomType=${roomType}&roomName=${roomName}&address=${hotelDetail.address}&rating=${AvgReview}&count=${review?.count}`} className="flex justify-center items-center">
+                                <button className="block p-1 text-2xl text-white font-bold font-sans bg-orange-500 hover:bg-slate-800 hover:text-orange-500 dark:hover:bg-midnight rounded-md">
+                                    RESERVE
+                                </button>
+                            </Link>
+                            :
+                            <button className="block p-1 text-2xl text-white dark:text-white-grayish font-bold font-sans bg-gray-500 hover:bg-slate-800 hover:text-slate-800 dark:hover:bg-white-grayish dark:hover:text-white-grayish rounded-md" onClick={() => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Please login to reserve room',
+                                })
+                            }}>
                                 RESERVE
                             </button>
-                        </Link>
+                        }
+                        </>
+                        
                     }
                 </div>
             </div>
