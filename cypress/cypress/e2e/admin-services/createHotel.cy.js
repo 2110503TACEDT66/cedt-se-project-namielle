@@ -12,14 +12,14 @@ describe('createHotel', () => {
 
     it('createHotel page', () => {
         cy.visit('http://localhost:3000/');
-        cy.wait(2000);
+        cy.wait(3000);
         cy.get('div.flex > .mx-5').click({force: true});
         cy.get('.my-2 > :nth-child(3)').click({force: true});
     });
 
     it('add hotel', () => {
         cy.visit('http://localhost:3000/hotel/addnewhotel')
-        cy.wait(2000)
+        cy.wait(5000)
         cy.get('button').click({force: true})
         cy.wait(1000)
         cy.get('input#name').type('00 Testing Hotel')
@@ -50,7 +50,7 @@ describe('createHotel', () => {
 
     it('add new Roomtype', () => { 
         cy.visit('http://localhost:3000/hotel/addnewroomtype')
-        cy.wait(2000)
+        cy.wait(5000)
         cy.get('button[type=submit]').click({force: true})
         cy.wait(1000)
         cy.get('div.flex > .mx-5').click({force: true})
