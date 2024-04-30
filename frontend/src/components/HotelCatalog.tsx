@@ -187,9 +187,17 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                                     }
                                 }
                             }
-                            
-                }).map((hotelItem: any) => (
-                    <Link key={hotelItem.name} href={`/hotel/${hotelItem.id}`} id={hotelItem.name}>
+                }).map((hotelItem: any) => {
+                    let AvgReview = 0;
+                    if (hotelItem.review.length) {
+                        let sum: number = 0;
+                        hotelItem.review.forEach((item: any) => {
+                            sum += item.stars
+                        })
+                        AvgReview = sum / hotelItem.review.length
+                    }
+                    return(
+                    <Link key={hotelItem.name} href={`/hotel/${hotelItem.id}`}>
                         <HotelCard
                             hotelName={hotelItem.name}
                             imgSrc={`${hotelItem.file}`}
@@ -198,11 +206,13 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                             hotelTel={hotelItem.tel}
                             roomType={hotelItem.roomType}
                             persons={persons}
+                            rating={AvgReview}
+                            review={hotelItem.review.length}
                             minPrice={value1[0]}
                             maxPrice={value1[1]}
                         />
-                    </Link>
-                ))}
+                    </Link>)
+                })}
             </div>
         </div>
     );
