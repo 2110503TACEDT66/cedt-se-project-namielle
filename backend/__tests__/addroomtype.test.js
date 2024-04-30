@@ -1,10 +1,10 @@
 const { addRoomType } = require('../fake_controllers/roomTypes');
 
-const RoomType = require("../models/RoomType");
+const RoomType = require("../fake_models/RoomType");
 
 
 // Mock the RoomType model
-jest.mock("../models/RoomType");
+jest.mock("../fake_models/RoomType");
 
 
 describe('addRoomType Controller Test', () => {

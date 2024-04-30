@@ -1,8 +1,8 @@
 
 const { createHotel } = require("../fake_controllers/hotels");
-const Hotel = require("../models/Hotel");
+const Hotel = require("../fake_models/Hotel");
 
-jest.mock("../models/Hotel");
+jest.mock("../fake_models/Hotel");
 
 describe("Create Hotel Tests", () => {
     let mockReq, mockRes, mockNext;

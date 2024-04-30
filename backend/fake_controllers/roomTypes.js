@@ -1,4 +1,4 @@
-const RoomType = require("../models/RoomType");
+const RoomType = require("../fake_models/RoomType");
 
 //@desc Create new room type
 //@route POST /api/v1/roomTypes

@@ -1,4 +1,4 @@
-const Hotel = require("../models/Hotel");
+const Hotel = require("../fake_models/Hotel");
 
 //@desc Create new hotels
 //@route POST /api/v1/hotels/:id
@@ -29,6 +29,6 @@ exports.createHotel = async (req, res, next) => {
             data: data,
         });
     } catch (err) {
-        res.status(400).json({ success: false, message: err.message });
+       
     }
 };
