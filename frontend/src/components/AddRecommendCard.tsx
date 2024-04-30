@@ -139,7 +139,7 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
                     Tel. {hotelTel}
                 </div>
                 <div className="flex items-center mt-[10%] ml-[8%]">
-                    <select value={Priority} name="mySelect" id={hotelName}
+                    <select value={Priority} name={hotelName} id={hotelName}
                         className="w-[50px] h-[30px] dark:text-white-grayish bg-white dark:bg-midnight border border-black rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent mr-[4%]"
                         onMouseEnter={() => { check(); currentSelect() }}
                         onChange={(e) => {
