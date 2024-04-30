@@ -14,8 +14,8 @@ services:
       - 3000:3000
     environment:
       - NEXTAUTH_URL=http://localhost:3000
-      - NEXTAUTH_SECRET=Ey7nTKnggBc0bRN8WUjyShw2qzOZ6KW4fUyqcKBePxY=
-      - NEXT_PUBLIC_API_URL=http://localhost:5000
+      - NEXTAUTH_SECRET='Ey7nTKnggBc0bRN8WUjyShw2qzOZ6KW4fUyqcKBePxY='
+      - NEXT_PUBLIC_API_URL=https://cedt-se-project-namielle-backend.vercel.app
       - STRIPE_PUBLIC_KEY='pk_test_51P41CKD7m7MeQAMy74Cvm7Up3wkvuBE53QspEcz6Okq4NW1lRsOdiEiBixPwqCtAljB8Ih9m3A3NhUCZ3LpH6GEL000EFHGT8G'
   # db:
   #   image: mongo:4.0-xenial
