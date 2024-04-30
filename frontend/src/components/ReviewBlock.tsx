@@ -55,6 +55,7 @@ export default function ReviewBlock({ user, rating, comment, createdAt, id, isHi
             {
                 userData?.data.role === 'admin' ?
                     <button
+                        id={id}
                         onClick={handleClick}
                         className={isHiddenClient ?
                             "absolute right-16 top-[35%] w-[200px] h-[50px] text-2xl text-slate-900 font-bold font-sans bg-green-500 hover:bg-slate-800 hover:text-green-500 dark:hover:bg-midnight rounded-2xl"

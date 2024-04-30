@@ -187,7 +187,6 @@ export default function HotelCatalog({ hotelJson }: { hotelJson: any }) {
                                     }
                                 }
                             }
-                            
                 }).map((hotelItem: any) => {
                     let AvgReview = 0;
                     if (hotelItem.review.length) {

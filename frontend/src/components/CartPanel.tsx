@@ -13,6 +13,7 @@ import { CartItem, discountJson } from "../../interface";
 import Swal from "sweetalert2";
 import getDiscounts from "@/libs/getDiscounts";
 import { Rating } from "@mui/material";
+import getUserProfile from "@/libs/getUserProfile";
 const dayjs = require("dayjs");
 
 export default function CartPanel() {
@@ -20,12 +21,12 @@ export default function CartPanel() {
         (state) => state.cartSlice.CartBookingItems
     );
     const dispatch = useDispatch<AppDispatch>();
-    const { data: session } = useSession();
+    const {data: session} = useSession();
+    const [user, setUser] = useState<any>();
     const [bookingCount, setBookingCount] = useState<number>(0);
     const [discountCode, setDiscountCode] = useState<discountJson>();
     const [inputCode, setInputCode] = useState<string>("");
     const [discountedPrice, setDiscountedPrice] = useState<number>(0);
-
     useEffect(() => {
         const fetchBookings = async () => {
             try {
@@ -39,6 +40,19 @@ export default function CartPanel() {
         };
         fetchBookings();
     });
+
+    useEffect(() => {
+        const fetchUserdata = async () => {
+            try{
+                const result = await getUserProfile(session?.user.token as string);
+                setUser(result);
+                console.log(result);   
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        fetchUserdata();
+    }, []);
 
     useEffect(() => {
         const fetchDiscount = async () => {
@@ -275,7 +289,7 @@ export default function CartPanel() {
                             </form>
                         </div>
                         <div className="flex flex-row justify-center mt-5">
-                            {bookingCount > 3 ? (
+                            {(bookingCount > 3 && user?.data.role != 'admin') ? (
                                 <button
                                     className="bg-slate-400 hover:bg-slate-600 text-white font-semibold py-3 w-full rounded-lg transition duration-300 transform hover:scale-105"
                                     onClick={() => {
