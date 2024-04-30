@@ -12,6 +12,8 @@ services:
     build: ./frontend
     ports:
       - 3000:3000
+    depends_on:
+      - backend
     environment:
       - NEXTAUTH_URL=http://localhost:3000
       - NEXTAUTH_SECRET='Ey7nTKnggBc0bRN8WUjyShw2qzOZ6KW4fUyqcKBePxY='
