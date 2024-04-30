@@ -30,8 +30,8 @@ export default function HotelCard({ hotelName, imgSrc, hotelCity, hotelAddress, 
                     Tel. {hotelTel}
                 </div>
                 <div className="w-[80%] px-[3%] pt-[1%] rounded-lg text-sm">
-                    <div className="w-fit h-40 overflow-y-auto">
-                        <table className="w-auto table-auto">
+                    <div className="w-[100%] h-40 overflow-y-auto">
+                        <table className="w-[100%] table-auto">
                             <thead>
                                 <tr className="bg-gray-200 text-gray-700 font-bold">
                                     <th className="px-2 py-1">ROOM</th>

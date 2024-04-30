@@ -4,6 +4,7 @@ import AddRecommendCard from "./AddRecommendCard";
 import { useSession } from 'next-auth/react';
 import { useState, useEffect, useRef } from "react";
 import getHotels from "@/libs/getHotels";
+import Swal from "sweetalert2";
 
 export default function AddRecommendedHotel({ hotelJson }: { hotelJson: any }) {
     const [hotelData, setHotelData] = useState<any>();
@@ -46,7 +47,12 @@ export default function AddRecommendedHotel({ hotelJson }: { hotelJson: any }) {
                         onChange={(e) => setSearch(e.target.value)}
                         className="input input-bordered w-[70%] text-lg text-black dark:text-white-grayish p-2 m-[2%] bg-paper-more-yellow dark:bg-midnight-blue border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
                     />
-                    <button className="bg-blue-500 text-xl text-white p-2 rounded">
+                    <button className="bg-blue-500 text-xl text-white p-2 rounded" onClick={()=>{
+                        Swal.fire({
+                            title: "Updated!",
+                            icon: "success",
+                        });
+                    }}>
                         Update All
                     </button>
                 </div>

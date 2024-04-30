@@ -22,10 +22,10 @@ export default function StripeCheckout({
         const stripe = await loadStripe(`${process.env.STRIPE_PUBLIC_KEY}`);
         const userData = await getUserProfile(session?.user.token as string);
 
-        if (cartItems.length > 3) {
-            alert("You can only book 3 rooms at a time");
-            return; // Exit the function early if the booking limit is exceeded
-        }
+        // if (cartItems.length > 3) {
+        //     alert("You can only book 3 rooms at a time");
+        //     return; // Exit the function early if the booking limit is exceeded
+        // }
 
         if (!session) {
             return;
