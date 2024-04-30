@@ -42,7 +42,7 @@ export default function AddNewHotel() {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log('submitting form');
+        // console.log('submitting form');
         try {
             if (!session) return;
             

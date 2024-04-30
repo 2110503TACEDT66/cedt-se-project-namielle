@@ -147,7 +147,7 @@ export default function AddRecommendCard({hotel, hotelName, imgSrc, hotelCity, h
                             setPriority(e.target.selectedIndex); 
                         }}
                         onLoad={(e) => {
-                            console.log("a");
+                            // console.log("a");
                         }}
                         onClick={fetchUpdateHotels}
                         >

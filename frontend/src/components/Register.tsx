@@ -28,8 +28,8 @@ export default function Register() {
             return;
         }
         if (!EmailValidator.validate(email.current)) {
-            console.log(email.current);
-            console.log(EmailValidator.validate(email.current))
+            // console.log(email.current);
+            // console.log(EmailValidator.validate(email.current))
             setErrMsg("the email is not valid");
             return;
         }

@@ -46,7 +46,7 @@ export default function CartPanel() {
             try{
                 const result = await getUserProfile(session?.user.token as string);
                 setUser(result);
-                console.log(result);   
+                // console.log(result);   
             } catch (e) {
                 console.log(e);
             }
@@ -67,7 +67,7 @@ export default function CartPanel() {
     }, []);
     let totalPrice = 0;
     cartItems.map((item) => {
-        console.log(item);
+        // console.log(item);
         totalPrice += item.price;
     });
 
