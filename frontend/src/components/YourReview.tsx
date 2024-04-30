@@ -21,11 +21,11 @@ export default function YourReview({ hotel }: { hotel: string }) {
 
 
     return (
-        <form className="mx-auto mt-1 mb-5 h-[auto] p-5 w-[95%] border border-solid border-slate-500 rounded-2xl" onSubmit={handleSumbit}>
+        <form className="mx-auto mt-1 mb-5 h-[auto] p-5 w-[95%] border border-solid border-slate-500 rounded-2xl dark:bg-midnight-blue" onSubmit={handleSumbit}>
             <Rating aria-required value={rating} onChange={(e, v) => { setRating(v) }}></Rating>
-            <button className="float-right w-[100px] h-[40px] text-md text-white font-sans font-semibold bg-orange-500 hover:bg-slate-800 hover:text-orange-500 rounded-md"
+            <button className="float-right h-[40px] px-3 text-md text-white font-sans font-semibold bg-orange-500 hover:bg-slate-800 hover:text-orange-500 dark:hover:bg-midnight rounded-md"
                 onClick={() => {}}>Post Review</button>
-            <textarea required className="h-[100px] w-full px-5 py-2 mt-2" onChange={(e) => { text.current = e.target.value }}></textarea>
+            <textarea required className="h-[100px] w-full px-5 py-2 mt-2 dark:text-white-grayish dark:bg-midnight rounded-2xl" onChange={(e) => { text.current = e.target.value }}></textarea>
         </form>
 
     )
