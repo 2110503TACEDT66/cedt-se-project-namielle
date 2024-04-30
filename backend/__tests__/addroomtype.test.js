@@ -56,9 +56,9 @@ describe('addRoomType Controller Test', () => {
     });
 
 
-    it('should handle missing or invalid fields', async () => {
-        const invalidReq = { body: { name: "", personLimit: -1, price: -1, roomLimit: -1, hotel: "" } };
-
+    it(' blank fields name', async () => {
+        const invalidReq = { body: { name: "", personLimit: 1, price: 1, roomLimit: 1, hotel: "0A Hotel" } };
+        RoomType.create.mockResolvedValue(mockReq.body);
         await addRoomType(invalidReq, mockRes, mockNext);
         
         expect(mockRes.status).toHaveBeenCalledWith(400);
@@ -70,6 +70,76 @@ describe('addRoomType Controller Test', () => {
 
     });
 
+    it(' negative fields personLimit', async () => {
+        const invalidReq = { body: { name: "Delux room", personLimit: -1, price: 1, roomLimit: 1, hotel: "0A Hotel" } };
+        RoomType.create.mockResolvedValue(mockReq.body);
+        await addRoomType(invalidReq, mockRes, mockNext);
+        
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith({
+            success: false,
+            message: "Please provide all the required fields with valid values, including 'hotel'"
 
+        });
+
+    });
+
+    it(' negative fields price', async () => {
+        const invalidReq = { body: { name: "Delux room", personLimit: 1, price: -1, roomLimit: 1, hotel: "0A Hotel" } };
+        RoomType.create.mockResolvedValue(mockReq.body);
+        await addRoomType(invalidReq, mockRes, mockNext);
+        
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith({
+            success: false,
+            message: "Please provide all the required fields with valid values, including 'hotel'"
+
+        });
+
+    });
+
+    it(' negative fields roomLimit', async () => {
+        const invalidReq = { body: { name: "Delux room", personLimit: 1, price: 1, roomLimit: -1, hotel: "0A Hotel" } };
+        RoomType.create.mockResolvedValue(mockReq.body);
+        await addRoomType(invalidReq, mockRes, mockNext);
+        
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith({
+            success: false,
+            message: "Please provide all the required fields with valid values, including 'hotel'"
+
+        });
+
+    });
+
+    it(' blank fields hotel', async () => {
+        const invalidReq = { body: { name: "Delux room", personLimit: 1, price: 1, roomLimit: 1, hotel: "" } };
+        RoomType.create.mockResolvedValue(mockReq.body);
+        await addRoomType(invalidReq, mockRes, mockNext);
+        
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith({
+            success: false,
+            message: "Please provide all the required fields with valid values, including 'hotel'"
+
+        });
+
+    });
+    
+    
+    
+    it(' blank and negative fields ', async () => {
+        const invalidReq = { body: { name: "", personLimit: -1, price: -1, roomLimit: -1, hotel: "" } };
+        RoomType.create.mockResolvedValue(mockReq.body);
+        await addRoomType(invalidReq, mockRes, mockNext);
+        
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith({
+            success: false,
+            message: "Please provide all the required fields with valid values, including 'hotel'"
+
+        });
+
+    });
     
 });
