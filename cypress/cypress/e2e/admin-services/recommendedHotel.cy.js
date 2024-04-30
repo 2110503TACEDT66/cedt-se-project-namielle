@@ -2,7 +2,7 @@ describe('recommendedHotel', () => {
 
     beforeEach('log in', () => {
         cy.visit('http://localhost:3000/signin')
-        cy.wait(3000)
+        cy.wait(4000)
         cy.get('input#email').type('admin@email.com')
         cy.get('input#password').type('123456')
         cy.get('button[type=submit]').click({force: true})
@@ -11,7 +11,7 @@ describe('recommendedHotel', () => {
 
     it('click recommendedHotel page', () => {
         cy.visit('http://localhost:3000/')
-        cy.wait(2000)
+        cy.wait(7000)
         cy.get('div.flex > .mx-5').click({force: true})
         cy.get('.my-2 > :nth-child(5)').click({force: true})
         cy.wait(1000)
@@ -19,7 +19,7 @@ describe('recommendedHotel', () => {
 
     it('manual recommendedHotel', () => {
         cy.visit('http://localhost:3000/addrecommended')
-        cy.wait(3000)
+        cy.wait(7000)
 
         cy.get('select[name="Pattaya Hotel"]').select('3').focus().trigger('click')
         cy.get('select[name="Mahasarkham Hotel"]').select('1').focus().trigger('click')
@@ -37,7 +37,7 @@ describe('recommendedHotel', () => {
 
     it('auto recommendedHotel', () => {
         cy.visit('http://localhost:3000/addrecommended')
-        cy.wait(3000)
+        cy.wait(7000)
 
         cy.get('select[name="Pattaya Hotel"]').select('0').focus().trigger('click')
         cy.get('select[name="Mahasarkham Hotel"]').select('0').focus().trigger('click')

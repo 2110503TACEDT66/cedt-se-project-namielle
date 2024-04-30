@@ -15,6 +15,7 @@ const config = {
     globals: {
         fetch: global.fetch,
     },
+    coverageReporters: ["cobertura", "lcov", "text"],
     moduleNameMapper: {
         "^jose": require.resolve("jose"),
         "^@panva/hkdf": require.resolve("@panva/hkdf"),

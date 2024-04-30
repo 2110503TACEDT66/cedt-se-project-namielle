@@ -1,5 +1,5 @@
 
-const { createHotel } = require("../controllers/hotels");
+const { createHotel } = require("../fake_controllers/hotels");
 const Hotel = require("../models/Hotel");
 
 jest.mock("../models/Hotel");
@@ -175,6 +175,19 @@ describe("Create Hotel Tests", () => {
         expect(mockRes.json).toHaveBeenCalledWith({
             success: false,
             message: "Invalid data" 
+        });
+    });
+
+    it('should handle errors when creating a hospital', async () => {
+        const error = new Error("Invalid data");
+        Hotel.create.mockRejectedValue(error);
+
+        await createHotel(mockReq, mockRes, mockNext);
+        
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith({
+            success: false,
+            message: error.message
         });
     });
 });

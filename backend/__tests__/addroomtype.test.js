@@ -1,4 +1,4 @@
-const { addRoomType } = require('../controllers/roomTypes');
+const { addRoomType } = require('../fake_controllers/roomTypes');
 
 const RoomType = require("../models/RoomType");
 
