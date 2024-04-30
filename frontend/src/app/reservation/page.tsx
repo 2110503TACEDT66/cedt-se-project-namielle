@@ -59,6 +59,12 @@ export default function reservation() {
         totalPrice = 0
     }
 
+    const formatter = new Intl.NumberFormat("th-TH", {
+        style: "currency",
+        currencyDisplay: "code",
+        currency: "THB",
+    });
+
     return (
         <div className="flex justify-center items-center m-10">
             <div className="bg-white shadow-lg rounded-lg p-8 max-w-xl">
@@ -85,7 +91,7 @@ export default function reservation() {
                 </div>
                 <div className="text-center">
 
-                    <h1 className={`text-4xl font-bold ${totalPrice >= 0 ? 'text-green-600' : 'text-red-600'} mb-4`}>{totalPrice >= 0 ? `฿ ${totalPrice}` : "Incorrect Date"}</h1>
+                    <h1 className={`text-4xl font-bold ${totalPrice >= 0 ? 'text-green-600' : 'text-red-600'} mb-4`}>{totalPrice >= 0 ? `${formatter.format(totalPrice)}.-` : "Incorrect Date"}</h1>
 
                     <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105" onClick={MakeReservation}>
                         Add to Cart

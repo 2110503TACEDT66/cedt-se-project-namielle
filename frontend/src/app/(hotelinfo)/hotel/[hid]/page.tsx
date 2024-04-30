@@ -94,6 +94,11 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
         }
     };
 
+    const formatter = new Intl.NumberFormat("th-TH", {
+        style: "currency",
+        currencyDisplay: "code",
+        currency: "THB",
+    });
 
     return (
         <main className="h-auto w-full">
@@ -129,7 +134,7 @@ export default function Detailpage({ params }: { params: { hid: string } }) {
                             ? <h1 className="block font-bold text-green-800 dark:text-green-success text-xl">Please Select Room</h1>
                             :
                             <>
-                                <h1 className="block font-bold text-green-800 dark:text-green-success text-2xl">฿ {price}</h1>
+                                <h1 className="block font-bold text-green-800 dark:text-green-success text-2xl">{formatter.format(price)}.-</h1>
                                 <h1 className="block text-green-800 dark:text-green-success text-xl "> /day</h1>
                             </>
                     }
