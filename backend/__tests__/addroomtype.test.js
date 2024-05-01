@@ -57,7 +57,7 @@ describe('addRoomType Controller Test', () => {
 
 
     it(' blank fields name', async () => {
-        const invalidReq = { body: { name: "", personLimit: 1, price: 1, roomLimit: 1, hotel: "0A Hotel" } };
+        const invalidReq = { body: { name: "", personLimit: 1, price: 1, roomLimit: 1, hotel: "0A Hotel" } }; 
         RoomType.create.mockResolvedValue(mockReq.body);
         await addRoomType(invalidReq, mockRes, mockNext);
         

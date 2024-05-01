@@ -9,24 +9,24 @@ describe("Create Hotel Tests", () => {
 
     beforeEach(() => {
         mockReq = {
-            body: {}
-        };
-        mockRes = {
-            status: jest.fn(() => mockRes),
-            json: jest.fn()
-        };
-        mockNext = jest.fn();
-    });
-
-    it("should create a hotel with valid inputs", async () => {
-        mockReq.body = {
-            name: "cu hotel",
+            body: {
+                name: "cu hotel",
             city: "pathumwan",
             tel: "099-987-9879",
             address: "Bangkok",
             file: "cuhotel.png",
             capacity: 8
+            }
         };
+        mockRes = {
+            status: jest.fn(() => mockRes),
+            json: jest.fn(),
+        };
+        mockNext = jest.fn();
+    });
+   
+
+    it("should create a hotel with valid inputs", async () => {
         Hotel.create.mockResolvedValue(mockReq.body);
 
         await createHotel(mockReq, mockRes, mockNext);
@@ -35,6 +35,19 @@ describe("Create Hotel Tests", () => {
         expect(mockRes.json).toHaveBeenCalledWith({
             success: true,
             data: mockReq.body
+        });
+    });
+
+    it('should handle errors when creating a hotel', async () => {
+        const error = new Error("Failed to create hotel");
+        Hotel.create.mockRejectedValue(error);
+
+        await createHotel(mockReq, mockRes, mockNext);
+        
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith({
+            success: false,
+            message: error.message
         });
     });
 
@@ -178,16 +191,5 @@ describe("Create Hotel Tests", () => {
         });
     });
 
-    it('should handle errors when creating a hospital', async () => {
-        const error = new Error("Invalid data");
-        Hotel.create.mockRejectedValue(error);
-
-        await createHotel(mockReq, mockRes, mockNext);
-        
-        expect(mockRes.status).toHaveBeenCalledWith(400);
-        expect(mockRes.json).toHaveBeenCalledWith({
-            success: false,
-            message: error.message
-        });
-    });
+    
 });
