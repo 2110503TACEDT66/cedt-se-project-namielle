@@ -71,6 +71,27 @@ describe("Create Hotel Tests", () => {
         });
     });
 
+    it("should fail to create a hotel when name field is false type", async () => {
+        mockReq.body = {
+            name: 1,
+            city: "pathumwan",
+            tel: "099-987-9879",
+            address: "Bangkok",
+            file: "cuhotel.png",
+            capacity: 8
+        };
+        const error = new Error("Failed to create hotel");
+        Hotel.create.mockRejectedValue(error);
+
+        await createHotel(mockReq, mockRes, mockNext);
+        
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith({
+            success: false,
+            message: error.message
+        });
+    });
+
     it("should fail to create a hotel when city field is blank", async () => {
         mockReq.body = {
             name: "cu hotel",
@@ -88,6 +109,27 @@ describe("Create Hotel Tests", () => {
         expect(mockRes.json).toHaveBeenCalledWith({
             success: false,
             message: "Invalid data" 
+        });
+    });
+
+    it("should fail to create a hotel when city field is false type", async () => {
+        mockReq.body = {
+            name: "cu hotel",
+            city: 1,
+            tel: "099-987-9879",
+            address: "Bangkok",
+            file: "cuhotel.png",
+            capacity: 8
+        };
+        const error = new Error("Failed to create hotel");
+        Hotel.create.mockRejectedValue(error);
+
+        await createHotel(mockReq, mockRes, mockNext);
+        
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith({
+            success: false,
+            message: error.message
         });
     });
 
@@ -111,6 +153,27 @@ describe("Create Hotel Tests", () => {
         });
     });
 
+    it("should fail to create a hotel when city field is false type", async () => {
+        mockReq.body = {
+            name: "cu hotel",
+            city: "pathumwan",
+            tel: 69,
+            address: "Bangkok",
+            file: "cuhotel.png",
+            capacity: 8
+        };
+        const error = new Error("Failed to create hotel");
+        Hotel.create.mockRejectedValue(error);
+
+        await createHotel(mockReq, mockRes, mockNext);
+        
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith({
+            success: false,
+            message: error.message
+        });
+    });
+
     it("should fail to create a hotel when address field is blank", async () => {
         mockReq.body = {
             name: "cu hotel",
@@ -131,6 +194,27 @@ describe("Create Hotel Tests", () => {
         });
     });
 
+    it("should fail to create a hotel when address field is false type", async () => {
+        mockReq.body = {
+            name: "cu hotel",
+            city: "pathumwan",
+            tel: "099-987-9879",
+            address: 0.05,
+            file: "cuhotel.png",
+            capacity: 8
+        };
+        const error = new Error("Failed to create hotel");
+        Hotel.create.mockRejectedValue(error);
+
+        await createHotel(mockReq, mockRes, mockNext);
+        
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith({
+            success: false,
+            message: error.message
+        });
+    });
+
     it("should fail to create a hotel when file field is blank", async () => {
         mockReq.body = {
             name: "cu hotel",
@@ -148,6 +232,27 @@ describe("Create Hotel Tests", () => {
         expect(mockRes.json).toHaveBeenCalledWith({
             success: false,
             message: "Invalid data" 
+        });
+    });
+
+    it("should fail to create a hotel when address field is false type", async () => {
+        mockReq.body = {
+            name: "cu hotel",
+            city: "pathumwan",
+            tel: "099-987-9879",
+            address: "Bangkok",
+            file: 6,
+            capacity: 8
+        };
+        const error = new Error("Failed to create hotel");
+        Hotel.create.mockRejectedValue(error);
+
+        await createHotel(mockReq, mockRes, mockNext);
+        
+        expect(mockRes.status).toHaveBeenCalledWith(400);
+        expect(mockRes.json).toHaveBeenCalledWith({
+            success: false,
+            message: error.message
         });
     });
 
@@ -190,6 +295,8 @@ describe("Create Hotel Tests", () => {
             message: "Invalid data" 
         });
     });
+
+    
 
     
 });
